@@ -1,22 +1,60 @@
-const fetchFromGitlab = async (url: string, token: string) => {
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Private-Token": token,
-        "Content-Type": "application/json",
-      },
-    });
+async function fetchFromGitLabAPI(url: string) {
+  const gitLabAPI = await getGitLabApiKey();
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${gitLabAPI}` },
+  });
 
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("There has been a problem with your fetch operation:", error);
-    return null;
+  if (!response.ok) {
+    throw new Error(`GitLab API error: ${response.statusText}`);
   }
+
+  return await response.json();
+}
+
+const getGitLabApiKey = async (): Promise<string | undefined> => {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(
+      { action: "getGitLabApiKey" },
+      function (response) {
+        if (response && response.gitlabToken) {
+          resolve(response.gitlabToken);
+        } else {
+          console.log("No GitLab API key found");
+          resolve(undefined);
+        }
+      }
+    );
+  });
+};
+
+const getGitLabWebURL = async (): Promise<string | undefined> => {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({ action: "getGitLab" }, function (response) {
+      if (response && response.gitlab) {
+        resolve(response.gitlab);
+      } else {
+        console.log("No GitLab Web URL found");
+        resolve(undefined);
+      }
+    });
+  });
+};
+
+// Send a message to the background script to retrieve the API key
+const getOpenAIApiKey = async (): Promise<string | undefined> => {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(
+      { action: "getOpenAIApiKey" },
+      function (response) {
+        if (response && response.openAIKey) {
+          resolve(response.openAIKey);
+        } else {
+          console.log("No OpenAI API key found");
+          resolve(undefined);
+        }
+      }
+    );
+  });
 };
 
 const getStorage = (
@@ -40,6 +78,20 @@ const setStorage = (obj: PlainObjectType, callback?: () => any) => {
 
     callback?.();
   }
+};
+
+const calculateTicketAge = (date: string): number => {
+  const parsedDate = new Date(date);
+
+  if (isNaN(parsedDate.getTime())) {
+    throw new Error("Invalid date format");
+  }
+
+  const ageInDays = Math.floor(
+    (new Date().getTime() - parsedDate.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  return ageInDays;
 };
 
 const getDomainFromURL = (url: string): string => {
@@ -105,9 +157,13 @@ const toggleDisabledGitLabSites = (
 export {
   getStorage,
   setStorage,
+  getGitLabWebURL,
+  getGitLabApiKey,
+  getOpenAIApiKey,
   getDomainFromURL,
   chunkArray,
-  fetchFromGitlab,
+  calculateTicketAge,
+  fetchFromGitLabAPI,
   isGitLabIssuesPage,
   checkDisabledGitLabSites,
   toggleDisabledGitLabSites,

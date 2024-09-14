@@ -8,6 +8,7 @@ type IssueType = {
   id: number;
   iid: number;
   project_id: number;
+  type: string;
   title: string;
   description: string;
   state: string;
@@ -34,6 +35,11 @@ type IssueType = {
   due_date: string;
   web_url: string;
   closed_at: string;
+  closed_by: string;
+  task_status?: string;
+  issue_type?: string;
+  severity?: string;
+  links?: any;
 };
 
 type ProjectType = {

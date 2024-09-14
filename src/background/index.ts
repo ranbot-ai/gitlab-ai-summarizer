@@ -29,5 +29,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse({ gitlabToken: result.gitlabToken });
     });
     return true; // This keeps the message channel open for the async response
+  } else if (request.action === "getGitLab") {
+    // Retrieve the gitlab Web URL from Chrome storage
+    chrome.storage.sync.get("gitlab", (result) => {
+      sendResponse({ gitlab: result.gitlab });
+    });
+    return true; // This keeps the message channel open for the async response
   }
 });
