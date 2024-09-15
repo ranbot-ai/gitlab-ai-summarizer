@@ -44,8 +44,9 @@ issueDetails.style.width = "100%";
 issueDetails.style.backgroundColor = "rgb(255 255 255 / 80%)";
 issueDetails.style.padding = "10px";
 issueDetails.style.marginTop = "10px";
+issueDetails.style.paddingBottom = "30px";
 issueDetails.style.borderRadius = "10px";
-issueDetails.style.maxHeight = "90vh";
+issueDetails.style.maxHeight = "85vh";
 issueDetails.style.overflowY = "scroll";
 
 let headerRanbotLogo = document.createElement("img");
@@ -55,20 +56,22 @@ headerRanbotLogo.style.float = "left";
 
 let headerCloseIcon = document.createElement("span");
 headerCloseIcon.style.position = "absolute";
+headerCloseIcon.style.height = "30px";
+headerCloseIcon.style.width = "30px";
+headerCloseIcon.style.display = "inline-block";
+headerCloseIcon.style.cursor = "point";
 headerCloseIcon.style.top = "10px";
 headerCloseIcon.style.right = "15px";
-headerCloseIcon.style.textTransform = "uppercase";
-headerCloseIcon.style.textDecoration = "underline";
-headerCloseIcon.innerText = " X ";
+headerCloseIcon.innerHTML = `<svg width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#335475" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#335475CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="12" r="10" stroke="#335475" stroke-width="1.5"></circle> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#335475" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>`;
 
 let headerCopyIcon = document.createElement("span");
+headerCopyIcon.style.position = "absolute";
 headerCopyIcon.style.height = "30px";
 headerCopyIcon.style.width = "30px";
 headerCopyIcon.style.display = "inline-block";
 headerCopyIcon.style.cursor = "point";
-headerCopyIcon.style.position = "absolute";
 headerCopyIcon.style.top = "20px";
-headerCopyIcon.style.right = "50px";
+headerCopyIcon.style.right = "60px";
 headerCopyIcon.innerHTML = `<svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="style=linear"> <g id="copy"> <path id="rec" d="M17.8333 18C20.1345 18 22 16.0972 22 13.75V5.25C22 2.90279 20.1345 1 17.8333 1H11.1667C8.86548 1 7 2.90279 7 5.25" stroke="#00ecfd" stroke-width="1.5" stroke-linecap="round"></path> <path id="rec_2" d="M2 10.25C2 7.90279 3.86548 6 6.16667 6H12.8333C15.1345 6 17 7.90279 17 10.25V18.75C17 21.0972 15.1345 23 12.8333 23H6.16667C3.86548 23 2 21.0972 2 18.75V10.25Z" stroke="#00ecfd" stroke-width="1.5"></path> </g> </g> </g></svg>`;
 
 let progressInfo = document.createElement("span");
@@ -76,6 +79,12 @@ progressInfo.style.fontSize = "1.2rem";
 progressInfo.style.lineHeight = "50px";
 progressInfo.style.marginLeft = "10px";
 progressInfo.innerText = "";
+
+let versionNumber = document.createElement("div");
+versionNumber.style.fontSize = "1rem";
+versionNumber.style.lineHeight = "25px";
+versionNumber.style.textAlign = "center";
+versionNumber.innerText = `v0.0.2`;
 
 const closeEvent = () => {
   aiSummarizer.style.position = "fixed";
@@ -116,7 +125,7 @@ const setupBlockStyle = (htmlSection: any) => {
 const aiSummarizerEvent = async () => {
   aiSummarizer.style.top = "20px";
   aiSummarizer.style.width = "400px";
-  aiSummarizer.style.backgroundColor = "rgb(128 128 128 / 80%)";
+  aiSummarizer.style.backgroundColor = "rgb(81 81 81 / 80%)";
   aiSummarizer.style.padding = "10px";
   aiSummarizer.style.borderRadius = "10px";
   aiSummarizer.style.color = "white";

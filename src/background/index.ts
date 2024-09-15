@@ -1,5 +1,5 @@
+/* eslint-disable import/first */
 export {};
-// import { version as manifestVersion } from "../manifest.json";
 
 // chrome.storage.onChanged.addListener((changes, namespace) => {
 //   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
@@ -22,18 +22,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.storage.sync.get("openAIKey", (result) => {
       sendResponse({ openAIKey: result.openAIKey });
     });
-    return true; // This keeps the message channel open for the async response
   } else if (request.action === "getGitLabApiKey") {
     // Retrieve the gitlab API key from Chrome storage
     chrome.storage.sync.get("gitlabToken", (result) => {
       sendResponse({ gitlabToken: result.gitlabToken });
     });
-    return true; // This keeps the message channel open for the async response
   } else if (request.action === "getGitLab") {
     // Retrieve the gitlab Web URL from Chrome storage
     chrome.storage.sync.get("gitlab", (result) => {
       sendResponse({ gitlab: result.gitlab });
     });
-    return true; // This keeps the message channel open for the async response
   }
+  return true; // This keeps the message channel open for the async response
 });
