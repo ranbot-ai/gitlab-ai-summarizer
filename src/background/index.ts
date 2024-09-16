@@ -11,7 +11,7 @@ export {};
 // });
 
 // chrome.storage.local.remove(
-//   ["pinBookmarks", "backgroundUrl", "gitlab", "enabledGitlab"],
+//   ["gitlab"],
 //   () => {}
 // );
 
@@ -31,6 +31,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // Retrieve the gitlab Web URL from Chrome storage
     chrome.storage.sync.get("gitlab", (result) => {
       sendResponse({ gitlab: result.gitlab });
+    });
+  } else if (request.action === "getThemeColor") {
+    chrome.storage.sync.get("themeColor", (result) => {
+      sendResponse({ themeColor: result.themeColor || "#000000" });
     });
   }
   return true; // This keeps the message channel open for the async response

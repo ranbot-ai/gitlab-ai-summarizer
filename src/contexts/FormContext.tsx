@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useState, useEffect, useContext, ReactNode, ChangeEvent, useCallback } from 'react';
+import { createContext, useState, useEffect, useContext, ReactNode, ChangeEvent, useCallback } from 'react';
 import { getStorage, setStorage } from '../utils';
 import { toast } from 'bulma-toast'
 import debounce from "lodash/debounce"
@@ -9,7 +9,10 @@ interface FormData {
   gitlab: string;
   gitlabToken: string;
   gitlabAPIVersion: string;
+  aiProvider: string;
   openAIKey: string;
+  ollamaURL: string;
+  themeColor: string;
 }
 
 interface FormContextType {
@@ -28,7 +31,10 @@ const FormProvider = ({ children }: { children: ReactNode }) => {
     gitlab: '',
     gitlabToken: '',
     gitlabAPIVersion: 'api/v4',
+    aiProvider: 'ollama',
     openAIKey: '',
+    ollamaURL: 'http://localhost:11434',
+    themeColor: '#000000'
   });
 
   useEffect(() => {

@@ -40,7 +40,7 @@ const getGitLabWebURL = async (): Promise<string | undefined> => {
   });
 };
 
-// Send a message to the background script to retrieve the API key
+// Send a message to the background script to retrieve the OpenAI API key
 const getOpenAIApiKey = async (): Promise<string | undefined> => {
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage(
@@ -50,6 +50,23 @@ const getOpenAIApiKey = async (): Promise<string | undefined> => {
           resolve(response.openAIKey);
         } else {
           console.log("No OpenAI API key found");
+          resolve(undefined);
+        }
+      }
+    );
+  });
+};
+
+// Send a message to the background script to retrieve the Theme Color
+const getThemeColor = async (): Promise<string | undefined> => {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(
+      { action: "getThemeColor" },
+      function (response) {
+        if (response && response.themeColor) {
+          resolve(response.themeColor);
+        } else {
+          console.log("No Theme Color found");
           resolve(undefined);
         }
       }
@@ -160,6 +177,7 @@ export {
   getGitLabWebURL,
   getGitLabApiKey,
   getOpenAIApiKey,
+  getThemeColor,
   getDomainFromURL,
   chunkArray,
   calculateTicketAge,

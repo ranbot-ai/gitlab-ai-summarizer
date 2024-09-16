@@ -3,6 +3,7 @@ import {
   calculateTicketAge,
   getGitLabApiKey,
   getOpenAIApiKey,
+  getThemeColor,
   isGitLabIssuesPage,
 } from "../utils";
 import {
@@ -19,6 +20,7 @@ export {};
 
 const personalGitLabApiKey = await getGitLabApiKey();
 const personalOpenAIApiKey = await getOpenAIApiKey();
+const themeColor = await getThemeColor();
 let startGitLabAPI: boolean = false;
 
 const defaultTitle = "GitLab AI Summarizer";
@@ -125,7 +127,7 @@ const setupBlockStyle = (htmlSection: any) => {
 const aiSummarizerEvent = async () => {
   aiSummarizer.style.top = "20px";
   aiSummarizer.style.width = "400px";
-  aiSummarizer.style.backgroundColor = "rgb(81 81 81 / 80%)";
+  aiSummarizer.style.backgroundColor = `${themeColor}`;
   aiSummarizer.style.padding = "10px";
   aiSummarizer.style.borderRadius = "10px";
   aiSummarizer.style.color = "white";
@@ -154,61 +156,73 @@ const aiSummarizerEvent = async () => {
 
   if (startGitLabAPI) {
     const { projectPath, issueId } = extractProjectPathAndIssueId(document.URL);
-    const projectId = await getProjectIdFromPath(document.URL);
-    const issueData = await fetchIssueDetails(projectId, issueId);
-
-    const ticketAge = calculateTicketAge(issueData.created_at);
-    const lastUpdateDate = issueData.updated_at;
-    const lastUpdateAge = calculateTicketAge(lastUpdateDate);
-    const latestCommentUrl = await fetchLatestCommentURL(
-      projectPath,
-      projectId,
-      issueId
-    );
-    const createdAt = new Date(issueData.created_at).toLocaleDateString();
-    const lastUpdatedAt = new Date(lastUpdateDate).toLocaleString();
-
-    // Display the issue age details
-    let age = document.createElement("p");
-    age.innerHTML = `<b>Age:</b> ${ticketAge} days. <em>${createdAt}</em>`;
-    setupBlockStyle(age);
-    issueDetails.appendChild(age);
-
-    let lastUpdated = document.createElement("p");
-    if (latestCommentUrl === undefined) {
-      lastUpdated.innerHTML = `<b>Last Updated:</b> ${lastUpdateAge} days ago. <em>${lastUpdatedAt}</em>`;
+    if (projectPath === undefined && issueId === undefined) {
+      progressInfo.innerText = `This is not a GitLab URL.`;
+      progressInfo.style.fontSize = "1.2rem";
+    } else if (projectPath === undefined) {
+      progressInfo.innerText = `Project '${projectPath}' not found.`;
+      progressInfo.style.fontSize = "1.1rem";
+    } else if (issueId === undefined) {
+      progressInfo.innerText = `This is not a GitLab issue/task URL.`;
+      progressInfo.style.fontSize = "1rem";
     } else {
-      lastUpdated.innerHTML = `<b>Last Updated:</b> <a href="${latestCommentUrl}" target="_blank">${lastUpdateAge} days ago</a>. <em>${lastUpdatedAt}</em>`;
+      const projectId = await getProjectIdFromPath(document.URL);
+      const issueData = await fetchIssueDetails(projectId, issueId);
+
+      const ticketAge = calculateTicketAge(issueData.created_at);
+      const lastUpdateDate = issueData.updated_at;
+      const lastUpdateAge = calculateTicketAge(lastUpdateDate);
+      const latestCommentUrl = await fetchLatestCommentURL(
+        projectPath,
+        projectId,
+        issueId
+      );
+      const createdAt = new Date(issueData.created_at).toLocaleDateString();
+      const lastUpdatedAt = new Date(lastUpdateDate).toLocaleString();
+
+      // Display the issue age details
+      let age = document.createElement("p");
+      age.innerHTML = `<b>Age:</b> ${ticketAge} days. <em>${createdAt}</em>`;
+      setupBlockStyle(age);
+      issueDetails.appendChild(age);
+
+      let lastUpdated = document.createElement("p");
+      if (latestCommentUrl === undefined) {
+        lastUpdated.innerHTML = `<b>Last Updated:</b> ${lastUpdateAge} days ago. <em>${lastUpdatedAt}</em>`;
+      } else {
+        lastUpdated.innerHTML = `<b>Last Updated:</b> <a href="${latestCommentUrl}" target="_blank">${lastUpdateAge} days ago</a>. <em>${lastUpdatedAt}</em>`;
+      }
+      setupBlockStyle(lastUpdated);
+      issueDetails.appendChild(lastUpdated);
+
+      let comments = document.createElement("p");
+      comments.innerHTML = `<b>Comments:</b> ${issueData.user_notes_count}`;
+      setupBlockStyle(comments);
+      issueDetails.appendChild(comments);
+
+      // Fetch the last commit details and display the branch name
+      const lastMergeDetails = await fetchLastMergeDetails(projectId, issueId);
+      let lastBranch = document.createElement("p");
+      setupBlockStyle(lastBranch);
+      if (lastMergeDetails) {
+        lastBranch.innerHTML = `<b>Branch:</b> <a href="${lastMergeDetails.web_url}" target="_blank">${lastMergeDetails.target_branch}</a>`;
+      } else {
+        lastBranch.innerHTML = "<b>Last Commit:</b> N/A";
+      }
+      issueDetails.appendChild(lastBranch);
+      aiSummarizer.appendChild(issueDetails);
+
+      // Fetch the issue discussions
+      const discussions = await fetchIssueDiscussions(projectId, issueId);
+
+      // Call the LLM with the fetched GitLab data
+      await fetchLLMResponse(issueDetails, issueData, discussions);
+
+      headerCopyIcon.addEventListener("click", copyIconEvent, false);
+      header.appendChild(headerCopyIcon);
+
+      progressInfo.innerText = `GitLab AI Summarizer`;
     }
-    setupBlockStyle(lastUpdated);
-    issueDetails.appendChild(lastUpdated);
-
-    let comments = document.createElement("p");
-    comments.innerHTML = `<b>Comments:</b> ${issueData.user_notes_count}`;
-    setupBlockStyle(comments);
-    issueDetails.appendChild(comments);
-
-    // Fetch the last commit details and display the branch name
-    const lastMergeDetails = await fetchLastMergeDetails(projectId, issueId);
-    let lastBranch = document.createElement("p");
-    setupBlockStyle(lastBranch);
-    if (lastMergeDetails) {
-      lastBranch.innerHTML = `<b>Branch:</b> <a href="${lastMergeDetails.web_url}" target="_blank">${lastMergeDetails.target_branch}</a>`;
-    } else {
-      lastBranch.innerHTML = "<b>Last Commit:</b> N/A";
-    }
-    issueDetails.appendChild(lastBranch);
-    aiSummarizer.appendChild(issueDetails);
-
-    // Fetch the issue discussions
-    const discussions = await fetchIssueDiscussions(projectId, issueId);
-
-    // Call the LLM with the fetched GitLab data
-    await fetchLLMResponse(issueDetails, issueData, discussions);
-    progressInfo.innerText = `GitLab AI Summarizer`;
-
-    headerCopyIcon.addEventListener("click", copyIconEvent, false);
-    header.appendChild(headerCopyIcon);
   }
 };
 
