@@ -11,67 +11,58 @@ async function fetchFromGitLabAPI(url: string) {
   return await response.json();
 }
 
-const getGitLabApiKey = async (): Promise<string | undefined> => {
+// Utility function to send a message to the background script and retrieve the result
+const getFromBackground = async (
+  action: string,
+  key: string
+): Promise<string | undefined> => {
   return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage(
-      { action: "getGitLabApiKey" },
-      function (response) {
-        if (response && response.gitlabToken) {
-          resolve(response.gitlabToken);
-        } else {
-          console.log("No GitLab API key found");
-          resolve(undefined);
-        }
-      }
-    );
-  });
-};
-
-const getGitLabWebURL = async (): Promise<string | undefined> => {
-  return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage({ action: "getGitLab" }, function (response) {
-      if (response && response.gitlab) {
-        resolve(response.gitlab);
+    chrome.runtime.sendMessage({ action }, function (response) {
+      if (response && response[key]) {
+        resolve(response[key]);
       } else {
-        console.log("No GitLab Web URL found");
+        console.log(`No ${key} found`);
         resolve(undefined);
       }
     });
   });
 };
 
-// Send a message to the background script to retrieve the OpenAI API key
-const getOpenAIApiKey = async (): Promise<string | undefined> => {
-  return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage(
-      { action: "getOpenAIApiKey" },
-      function (response) {
-        if (response && response.openAIKey) {
-          resolve(response.openAIKey);
-        } else {
-          console.log("No OpenAI API key found");
-          resolve(undefined);
-        }
-      }
-    );
-  });
+// Retrieve GitLab API key
+const getGitLabApiKey = async (): Promise<string | undefined> => {
+  return getFromBackground("getGitLabApiKey", "gitlabToken");
 };
 
-// Send a message to the background script to retrieve the Theme Color
+// Retrieve GitLab Web URL
+const getGitLabWebURL = async (): Promise<string | undefined> => {
+  return getFromBackground("getGitLab", "gitlab");
+};
+
+// Retrieve OpenAI API key
+const getOpenAIApiKey = async (): Promise<string | undefined> => {
+  return getFromBackground("getOpenAIApiKey", "openAIKey");
+};
+
+// Retrieve Theme Color
 const getThemeColor = async (): Promise<string | undefined> => {
-  return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage(
-      { action: "getThemeColor" },
-      function (response) {
-        if (response && response.themeColor) {
-          resolve(response.themeColor);
-        } else {
-          console.log("No Theme Color found");
-          resolve(undefined);
-        }
-      }
-    );
-  });
+  return getFromBackground("getThemeColor", "themeColor");
+};
+
+// Retrieve AI Provider
+const getAiProvider = async (): Promise<string | undefined> => {
+  return getFromBackground("getAiProvider", "aiProvider");
+};
+
+const getOpenAIModel = async (): Promise<string | undefined> => {
+  return getFromBackground("getOpenAIModel", "openaiModel");
+};
+
+const getOllamaModel = async (): Promise<string | undefined> => {
+  return getFromBackground("getOllamaModel", "ollamaModel");
+};
+
+const getOllamaURL = async (): Promise<string | undefined> => {
+  return getFromBackground("getOllamaURL", "ollamaURL");
 };
 
 const getStorage = (
@@ -178,6 +169,10 @@ export {
   getGitLabApiKey,
   getOpenAIApiKey,
   getThemeColor,
+  getAiProvider,
+  getOpenAIModel,
+  getOllamaModel,
+  getOllamaURL,
   getDomainFromURL,
   chunkArray,
   calculateTicketAge,

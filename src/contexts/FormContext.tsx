@@ -11,7 +11,9 @@ interface FormData {
   gitlabAPIVersion: string;
   aiProvider: string;
   openAIKey: string;
+  openaiModel: string;
   ollamaURL: string;
+  ollamaModel: string;
   themeColor: string;
 }
 
@@ -31,9 +33,11 @@ const FormProvider = ({ children }: { children: ReactNode }) => {
     gitlab: '',
     gitlabToken: '',
     gitlabAPIVersion: 'api/v4',
-    aiProvider: 'ollama',
+    aiProvider: 'openai',
     openAIKey: '',
+    openaiModel: 'gpt-4o',
     ollamaURL: 'http://localhost:11434',
+    ollamaModel: 'llama3.1',
     themeColor: '#000000'
   });
 

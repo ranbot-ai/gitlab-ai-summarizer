@@ -165,13 +165,13 @@ function Settings() {
               <div className="field-body">
                 <div className="field is-expanded">
                   <div className="field has-addons">
-                    <p className="control">
-                      <a className="button is-static">
-                        OpenAI / Ollama
-                      </a>
-                    </p>
                     <div className="select is-expanded">
-                      <select onChange={handleChange} style={{ minWidth: '200px' }} defaultValue={formData.aiProvider}>
+                      <select
+                        name="aiProvider"
+                        onChange={handleChange}
+                        style={{ minWidth: '290px' }}
+                        value={formData.aiProvider}
+                      >
                         <option value={'openai'}>OpenAI</option>
                         <option value={'ollama'}>Ollama</option>
                       </select>
@@ -181,7 +181,7 @@ function Settings() {
               </div>
             </div>
 
-            <div className="field is-horizontal">
+            {formData.aiProvider === 'openai' && <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label has-text-white"> OpenAI Key (Paid) </label>
               </div>
@@ -195,16 +195,45 @@ function Settings() {
                     </p>
                     <p className="control is-expanded">
                       <input
-                        className="input" type="text" autoComplete="off" name="openAIKey" placeholder="OpenAI Access Token"
+                        className="input" type="password" autoComplete="off" name="openAIKey" placeholder="OpenAI Access Token"
                         onChange={handleChange} value={formData.openAIKey}
                       />
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
 
-            <div className="field is-horizontal">
+            {formData.aiProvider === 'openai' && <div className="field is-horizontal">
+              <div className="field-label">
+                <label className="label has-text-white"> AI Model </label>
+              </div>
+              <div className="field-body">
+                <div className="field is-expanded">
+                  <div className="field has-addons">
+                    <div className="select is-expanded">
+                      <select
+                        name="openaiModel"
+                        onChange={handleChange}
+                        style={{ minWidth: '290px' }}
+                        value={formData.openaiModel}
+                      >
+                        <option value={'gpt-4o'}>GPT-4o</option>
+                        <option value={'gpt-4o-mini'}>GPT-4o-mini</option>
+                        <option value={'o1-preview'}>O1 Preview</option>
+                        <option value={'o1-mini'}>O1-mini</option>
+                        <option value={'gpt-4'}>GPT-4</option>
+                        <option value={'gpt-4-turbo'}>GPT-4-turbo</option>
+                        <option value={'gpt-3.5-turbo'}>GPT-3.5-turbo</option>
+                        <option value={'dall-e-3'}>DALL·E 3</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>}
+
+            {formData.aiProvider === 'ollama' && <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label has-text-white"> Ollama URL </label>
               </div>
@@ -225,7 +254,34 @@ function Settings() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
+
+            {formData.aiProvider === 'ollama' && <div className="field is-horizontal">
+              <div className="field-label">
+                <label className="label has-text-white"> AI Model </label>
+              </div>
+              <div className="field-body">
+                <div className="field is-expanded">
+                  <div className="field has-addons">
+                    <div className="select is-expanded">
+                      <select
+                        name="ollamaModel"
+                        onChange={handleChange}
+                        style={{ minWidth: '290px' }}
+                        value={formData.ollamaModel}
+                      >
+                        <option value={'llama3.1'}>Llama 3.1</option>
+                        <option value={'llama3'}>Llama 3</option>
+                        <option value={'gemma2'}>Gemma 2</option>
+                        <option value={'qwen2'}>Qwen 2</option>
+                        <option value={'phi3'}>Phi-3</option>
+                        <option value={'mistral'}>Mistral</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>}
 
             <div className="field is-horizontal">
               <div className="field-label">
@@ -250,8 +306,8 @@ function Settings() {
                     </p>
                     <p className="is-expanded">
                       <input
-                        className="input" type="text" autoComplete="off" name="themeColor" style={{ width: '250px' }}
-                        onChange={handleChange} value={pickedThemeColor}
+                        className="input has-background-grey-lighter has-text-black" type="text" autoComplete="off" name="themeColor" style={{ width: '250px' }}
+                        readOnly onChange={handleChange} value={pickedThemeColor}
                       />
                     </p>
                   </div>

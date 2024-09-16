@@ -15,27 +15,34 @@ export {};
 //   () => {}
 // );
 
+// Utility function to retrieve a value from Chrome storage
+const getFromStorage = (
+  key: string,
+  sendResponse: (response: any) => void,
+  defaultValue: any = null
+) => {
+  chrome.storage.sync.get(key, (result) => {
+    sendResponse({ [key]: result[key] || defaultValue });
+  });
+};
+
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "getOpenAIApiKey") {
-    // Retrieve the OpenAI API key from Chrome storage
-    chrome.storage.sync.get("openAIKey", (result) => {
-      sendResponse({ openAIKey: result.openAIKey });
-    });
-  } else if (request.action === "getGitLabApiKey") {
-    // Retrieve the gitlab API key from Chrome storage
-    chrome.storage.sync.get("gitlabToken", (result) => {
-      sendResponse({ gitlabToken: result.gitlabToken });
-    });
-  } else if (request.action === "getGitLab") {
-    // Retrieve the gitlab Web URL from Chrome storage
-    chrome.storage.sync.get("gitlab", (result) => {
-      sendResponse({ gitlab: result.gitlab });
-    });
-  } else if (request.action === "getThemeColor") {
-    chrome.storage.sync.get("themeColor", (result) => {
-      sendResponse({ themeColor: result.themeColor || "#000000" });
-    });
+  const actionsMap: { [key: string]: { key: string; defaultValue?: any } } = {
+    getOpenAIApiKey: { key: "openAIKey" },
+    getGitLabApiKey: { key: "gitlabToken" },
+    getGitLab: { key: "gitlab" },
+    getThemeColor: { key: "themeColor", defaultValue: "#000000" },
+    getAiProvider: { key: "aiProvider", defaultValue: "openai" },
+    getOpenAIModel: { key: "openaiModel", defaultValue: "gpt-4o" },
+    getOllamaURL: { key: "ollamaURL", defaultValue: "http://localhost:11434" },
+    getOllamaModel: { key: "ollamaModel", defaultValue: "llama3.1" },
+  };
+
+  const action = actionsMap[request.action];
+
+  if (action) {
+    getFromStorage(action.key, sendResponse, action.defaultValue);
+    return true; // This keeps the message channel open for the async response
   }
-  return true; // This keeps the message channel open for the async response
 });

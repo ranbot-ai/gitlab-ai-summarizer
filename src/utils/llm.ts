@@ -1,20 +1,13 @@
-import { getOpenAIApiKey } from ".";
-import { getPrompt } from "./prompts";
-
-export {};
-
 /* eslint-disable @typescript-eslint/no-redeclare */
-const openAIModel = "gpt-4o-mini-2024-07-18";
-// The issue with groq models right now is that they have restricted context window size to only 8K (instead of 128K)
-// const groqModel = 'llama-3.1-8b-instant';
-const groqModel = "llama-3.1-70b-versatile";
-// const groqModel = 'mixtral-8x7b-32768' // 32K context window
-const useGroq = false; // Set this to true to use Groq, false for OpenAI
 
-const chatAPIs = {
-  groq: "https://api.groq.com/openai/v1/chat/completions",
-  openai: "https://api.openai.com/v1/chat/completions",
-};
+import {
+  getAiProvider,
+  getOpenAIApiKey,
+  getOpenAIModel,
+  getOllamaModel,
+  getOllamaURL,
+} from ".";
+import { getPrompt } from "./prompts";
 
 async function fetchLLMResponse(
   issueDetails: any,
@@ -22,15 +15,25 @@ async function fetchLLMResponse(
   discussions: any
 ) {
   const personalOpenAIApiKey = await getOpenAIApiKey();
+  const aiProvider = await getAiProvider();
+  const openAIModel = await getOpenAIModel();
+  const ollamaModel = await getOllamaModel();
+  const ollamaURL = await getOllamaURL();
+
+  const chatAPIs = {
+    ollama: `${ollamaURL}/api/chat`,
+    openai: "https://api.openai.com/v1/chat/completions",
+  };
 
   // Generate messages prompt
   const messages = getPrompt(issueData, discussions);
+  const useOpenAI = aiProvider === "openai";
 
-  const model = useGroq ? groqModel : openAIModel;
-  const apiUrl = useGroq ? chatAPIs.groq : chatAPIs.openai;
+  const model = useOpenAI ? openAIModel : ollamaModel;
+  const apiUrl = useOpenAI ? chatAPIs.openai : chatAPIs.ollama;
 
   let urlSection = document.createElement("p");
-  urlSection.innerHTML = `<em>Asking model: ${model}</em>`;
+  urlSection.innerHTML = `<em>Asking model: ${aiProvider} ${model}</em>`;
   urlSection.style.color = "black";
   urlSection.style.paddingBottom = "0px";
   urlSection.style.marginBottom = "5px";
@@ -85,7 +88,7 @@ async function fetchLLMResponse(
         if (data.length === 0 || data.startsWith(":")) continue;
         if (data === "data: [DONE]") {
           // Update the DOM when the stream is done
-          urlSection.innerHTML = `<em>Generated model: ${model}</em>`;
+          urlSection.innerHTML = `<em>Generated model: ${aiProvider} ${model}</em>`;
           // responseSection.innerHTML += `<br><p style="text-align: center; font-style: italic;">${model} may make errors.</p>`;
           return responseContent.trim(); // End of stream
         }
