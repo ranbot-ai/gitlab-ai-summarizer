@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "short_name": "GitLab AI",
   "name": "GitLab AI Summarizer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Chrome extension that uses OpenAI and GitLab API to summarize a GitLab issue from the issue's URL.",
   "options_page": "index.html",
   "background": {

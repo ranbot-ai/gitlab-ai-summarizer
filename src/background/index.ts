@@ -46,3 +46,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true; // This keeps the message channel open for the async response
   }
 });
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "openSettingPage") {
+    chrome.tabs.create({
+      url: "chrome-extension://" + chrome.runtime.id + "/index.html",
+    });
+  }
+});
