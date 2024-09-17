@@ -8,6 +8,7 @@ import { faGitlab } from "@fortawesome/free-brands-svg-icons";
 import { useFormContext } from "../contexts/FormContext";
 import { setStorage } from "../utils";
 import { useEffect, useState } from "react";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 
 function Settings() {
@@ -29,6 +30,8 @@ function Settings() {
     '#a02e1c'
   ]
   const [pickedThemeColor, setPickedThemeColor] = useState(themeColors[0]);
+  const [showOpenAIPassword, setShowOpenAIPassword] = useState(true);
+  const [showGitlabToken, setShowGitlabToken] = useState(true);
 
   useEffect(() => {
     setPickedThemeColor(formData.themeColor)
@@ -67,6 +70,13 @@ function Settings() {
       setPickedThemeColor(themeColor)
     }
   };
+
+  const switchOpenAIEyeIcon = (show: boolean) => {
+    setShowOpenAIPassword(show)
+  }
+  const switchGitlabTokenEyeIcon = (show: boolean) => {
+    setShowGitlabToken(show)
+  }
 
   return (
     <>
@@ -147,11 +157,40 @@ function Settings() {
                         Access Token
                       </a>
                     </p>
-                    <p className="control is-expanded">
+                    <p className="control is-expanded has-text-left">
                       <input
-                        className="input" type="text" autoComplete="off" name="gitlabToken" placeholder="Personal Access Token (glpat-xxx)"
-                        onChange={handleChange} value={formData.gitlabToken}
+                        className="input"
+                        type={ showGitlabToken ? "password" : "input" }
+                        autoComplete="off"
+                        name="gitlabToken"
+                        placeholder="Personal Access Token (glpat-xxx)"
+                        onChange={handleChange}
+                        value={formData.gitlabToken}
+                        style={{ width: '94%' }}
                       />
+                      {showGitlabToken ?
+                      <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        fontSize="24"
+                        color="white"
+                        style={{
+                          marginTop: '10px',
+                          marginLeft: '10px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => switchGitlabTokenEyeIcon(false)}
+                      />
+                      : <FontAwesomeIcon
+                        icon={faEye}
+                        fontSize="24"
+                        color="white"
+                        style={{
+                          marginTop: '10px',
+                          marginLeft: '10px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => switchGitlabTokenEyeIcon(true)}
+                      />}
                     </p>
                   </div>
                 </div>
@@ -193,11 +232,40 @@ function Settings() {
                         OpenAI Key
                       </a>
                     </p>
-                    <p className="control is-expanded">
+                    <p className="control is-expanded has-text-left">
                       <input
-                        className="input" type="password" autoComplete="off" name="openAIKey" placeholder="OpenAI Access Token"
-                        onChange={handleChange} value={formData.openAIKey}
+                        className="input"
+                        type={ showOpenAIPassword ? "password" : 'input' }
+                        autoComplete="off"
+                        name="openAIKey"
+                        placeholder="OpenAI Access Token"
+                        onChange={handleChange}
+                        value={formData.openAIKey}
+                        style={{ width: '94.5%' }}
                       />
+                      {showOpenAIPassword ?
+                      <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        fontSize="24"
+                        color="white"
+                        style={{
+                          marginTop: '10px',
+                          marginLeft: '10px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => switchOpenAIEyeIcon(false)}
+                      />
+                      : <FontAwesomeIcon
+                        icon={faEye}
+                        fontSize="24"
+                        color="white"
+                        style={{
+                          marginTop: '10px',
+                          marginLeft: '10px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => switchOpenAIEyeIcon(true)}
+                      />}
                     </p>
                   </div>
                 </div>
