@@ -15,8 +15,7 @@ import {
   getProjectIdFromPath,
 } from "../utils/gitlab";
 import { fetchLLMResponse } from "../utils/llm";
-
-export {};
+import { RanBOT } from "../utils/common";
 
 const personalGitLabApiKey = await getGitLabApiKey();
 const personalOpenAIApiKey = await getOpenAIApiKey();
@@ -96,7 +95,8 @@ let versionNumber = document.createElement("div");
 versionNumber.style.fontSize = "1rem";
 versionNumber.style.lineHeight = "25px";
 versionNumber.style.textAlign = "center";
-versionNumber.innerText = `v0.0.2`;
+versionNumber.style.padding = "10px";
+versionNumber.innerText = `RanBOT - v${RanBOT?.version}`;
 
 const closeEvent = () => {
   aiSummarizer.style.position = "fixed";
@@ -113,6 +113,7 @@ const closeEvent = () => {
   headerCopyIcon.innerHTML = "";
   headerCloseIcon.style.display = "none";
   progressInfo.style.display = "none";
+  headerSettingIcon.style.display = "none";
 
   headerRanbotLogo.removeEventListener("click", aiSummarizerEvent, false);
   headerCloseIcon.removeEventListener("click", closeEvent, false);
@@ -241,6 +242,7 @@ const aiSummarizerEvent = async () => {
       header.appendChild(headerSettingIcon);
 
       progressInfo.innerText = `GitLab AI Summarizer`;
+      aiSummarizer.appendChild(versionNumber);
     }
   }
 };
