@@ -10,7 +10,6 @@ import { setStorage } from "../utils";
 import { useEffect, useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-
 function Settings() {
   const { formData, handleChange } = useFormContext();
   const themeColors = [
@@ -212,7 +211,7 @@ function Settings() {
                         value={formData.aiProvider}
                       >
                         <option value={'openai'}>OpenAI</option>
-                        <option value={'ollama'}>Ollama</option>
+                        {/* <option value={'ollama'}>Ollama</option> */}
                       </select>
                     </div>
                   </div>
