@@ -108,7 +108,7 @@ A manifest file is used to define the metadata and permissions for a Chrome exte
   "short_name": "GitLab AI",
   "name": "GitLab AI Summarizer",
   "version": "0.0.1",
-  "description": "A Chrome extension that uses OpenAI and GitLab API to summarize a GitLab issue from the issue's URL.",
+  "description": " uses OpenAI and GitLab API to summarize a GitLab issue from the issue's URL.",
   "options_page": "index.html",
   "background": {
     "service_worker": "background.js"
