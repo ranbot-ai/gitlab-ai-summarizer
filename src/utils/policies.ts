@@ -1,7 +1,4 @@
-export {};
-
-function getAIPolicyAndValues() {
-  const preTaskPolicy = `
+const preTaskPolicy = `
     You are an AI assistant helping professionals in an AI/ML services company.
     Your responses should always reflect our corporate values, AI policy, and culture guidelines.
     Here are the key points to keep in mind:
@@ -24,7 +21,7 @@ function getAIPolicyAndValues() {
     </corporate_guidelines>
   `.trim();
 
-  const postTaskPolicy = `
+const postTaskPolicy = `
     When responding to input, follow these steps:
       1. Carefully read and understand the input.
       2. Before formulating your response, consider how it aligns with our corporate values, AI policy, and culture guidelines.
@@ -41,11 +38,10 @@ function getAIPolicyAndValues() {
       4. Before finalizing your response, review it to confirm it adheres to all aspects of our corporate guidelines.
   `.trim();
 
+export const getAIPolicyAndValues = (): any => {
   return {
     preTaskPolicy,
     postTaskPolicy,
     fullPolicy: `${preTaskPolicy}\n\n${postTaskPolicy}`,
   };
-}
-
-export { getAIPolicyAndValues };
+};
