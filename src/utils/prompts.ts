@@ -16,6 +16,7 @@ function getPrompt(issueData: any, discussions: any) {
     First, determine the issue status:
     - If issue.state === "closed", consider it a closed issue and use past tense in your response.
     - Otherwise, consider it an open issue and use present tense.
+    - All the person names need to be highlighted and links need to be added.
 
     Based on the most current information in the issue and discussions,
     provide the following information in an easy to read HTML format:
@@ -50,7 +51,8 @@ function getPrompt(issueData: any, discussions: any) {
 
     <h4>Actions</h4>
     <ul style="font-weight: normal;margin-bottom: 0px;">
-      <li>List 2-3 of the most impactful next actions. Consider:
+      <li>List 4-5 of the most impactful next actions. Consider:
+      - Who will take over the next steps and what to do
       - Suggest most effective and efficient ways to resolve the issue
       - Mitigating risk with risk management strategies
       - Increasing revenue through value adds

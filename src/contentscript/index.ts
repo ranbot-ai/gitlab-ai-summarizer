@@ -226,13 +226,11 @@ const aiSummarizerEvent = async () => {
 
   if (progressInfo) {
     if (personalOpenAIApiKey === undefined) {
-      progressInfo.innerText =
-        "OpenAI API not found. Please check your API key";
-      progressInfo.style.fontSize = "0.75rem";
+      progressInfo.innerText = "OpenAI key not found.";
+      progressInfo.style.fontSize = "1.0rem";
     } else if (personalGitLabApiKey === undefined) {
-      progressInfo.innerText =
-        "GitLab API not found. Please check your API key";
-      progressInfo.style.fontSize = "0.75rem";
+      progressInfo.innerText = "GitLab access token not found.";
+      progressInfo.style.fontSize = "1.0rem";
     } else {
       progressInfo.innerText = `Start AI Summarizing...`;
       progressInfo.style.fontSize = "1.2rem";
@@ -250,8 +248,15 @@ const aiSummarizerEvent = async () => {
     headerCloseIcon.style.display = "inline-block";
   }
 
+  if (headerSettingIcon) {
+    headerSettingIcon.addEventListener("click", openSettingPageEvent, false);
+
+    headerSettingIcon.style.display = "inline-block";
+  }
+
   if (header) {
     if (progressInfo) header.appendChild(progressInfo);
+    if (headerSettingIcon) header.appendChild(headerSettingIcon);
     if (headerCloseIcon) header.appendChild(headerCloseIcon);
   }
 
@@ -355,14 +360,6 @@ const aiSummarizerEvent = async () => {
       if (header && headerCopyIcon) {
         headerCopyIcon.addEventListener("click", copyIconEvent, false);
         header.appendChild(headerCopyIcon);
-      }
-      if (header && headerSettingIcon) {
-        headerSettingIcon.addEventListener(
-          "click",
-          openSettingPageEvent,
-          false
-        );
-        header.appendChild(headerSettingIcon);
       }
     }
 

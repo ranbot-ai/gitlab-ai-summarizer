@@ -24,7 +24,6 @@ function Settings() {
     '#0b2640',
     '#41419f',
     '#222261',
-    '#ececef',
     '#28272d',
     '#a02e1c'
   ]
@@ -131,7 +130,11 @@ function Settings() {
                     </p>
                     <p className="control is-expanded">
                       <input
-                        className="input" type="text" autoComplete="off" name="gitlabAPIVersion" placeholder="api/v4"
+                        className="input has-background-grey-lighter has-text-black"
+                        type="text"
+                        autoComplete="off"
+                        name="gitlabAPIVersion"
+                        placeholder="api/v4"
                         readOnly
                         onChange={handleChange} value={formData.gitlabAPIVersion}
                       />
@@ -373,8 +376,14 @@ function Settings() {
                     </p>
                     <p className="is-expanded">
                       <input
-                        className="input has-background-grey-lighter has-text-black" type="text" autoComplete="off" name="themeColor" style={{ width: '250px' }}
-                        readOnly onChange={handleChange} value={pickedThemeColor}
+                        className="input has-background-grey-lighter has-text-black"
+                        type="text"
+                        autoComplete="off"
+                        name="themeColor"
+                        style={{ width: '250px' }}
+                        readOnly
+                        onChange={handleChange}
+                        value={pickedThemeColor}
                       />
                     </p>
                   </div>
