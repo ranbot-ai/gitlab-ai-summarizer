@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /// <reference types="chrome"/>
@@ -32,12 +33,12 @@ function Settings() {
   const [showGitlabToken, setShowGitlabToken] = useState(true);
 
   useEffect(() => {
-    setPickedThemeColor(formData.themeColor)
+    setPickedThemeColor(formData.GASThemeColor)
   }, [])
 
   useEffect(() => {
-    setStorage({ themeColor: pickedThemeColor }, () => {
-      formData.themeColor = pickedThemeColor;
+    setStorage({ GASThemeColor: pickedThemeColor }, () => {
+      formData.GASThemeColor = pickedThemeColor;
     });
   }, [pickedThemeColor])
 
@@ -104,8 +105,8 @@ function Settings() {
                     </p>
                     <p className="control is-expanded">
                       <input
-                        className="input" type="text" name="gitlab" placeholder="Your GitLab Web URL"
-                        onChange={handleChange} value={formData.gitlab}
+                        className="input" type="text" name="GASGitLab" placeholder="Your gitLab Web URL"
+                        onChange={handleChange} value={formData.GASGitLab}
                       />
                     </p>
                   </div>
@@ -133,10 +134,10 @@ function Settings() {
                         className="input has-background-grey-lighter has-text-black"
                         type="text"
                         autoComplete="off"
-                        name="gitlabAPIVersion"
+                        name="GASGitLabApiVersion"
                         placeholder="api/v4"
                         readOnly
-                        onChange={handleChange} value={formData.gitlabAPIVersion}
+                        onChange={handleChange} value={formData.GASGitLabApiVersion}
                       />
                     </p>
                   </div>
@@ -164,10 +165,10 @@ function Settings() {
                         className="input"
                         type={ showGitlabToken ? "password" : "input" }
                         autoComplete="off"
-                        name="gitlabToken"
+                        name="GASGitLabAccessToken"
                         placeholder="Personal Access Token (glpat-xxx)"
                         onChange={handleChange}
-                        value={formData.gitlabToken}
+                        value={formData.GASGitLabAccessToken}
                         style={{ width: '94%' }}
                       />
                       {showGitlabToken ?
@@ -208,10 +209,10 @@ function Settings() {
                   <div className="field has-addons">
                     <div className="select is-expanded">
                       <select
-                        name="aiProvider"
+                        name="GASAiProvider"
                         onChange={handleChange}
                         style={{ minWidth: '290px' }}
-                        value={formData.aiProvider}
+                        value={formData.GASAiProvider}
                       >
                         <option value={'openai'}>OpenAI</option>
                         {/* <option value={'ollama'}>Ollama</option> */}
@@ -222,7 +223,7 @@ function Settings() {
               </div>
             </div>
 
-            {formData.aiProvider === 'openai' && <div className="field is-horizontal">
+            {formData.GASAiProvider === 'openai' && <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label has-text-white"> OpenAI Key (Paid) </label>
               </div>
@@ -239,10 +240,10 @@ function Settings() {
                         className="input"
                         type={ showOpenAIPassword ? "password" : 'input' }
                         autoComplete="off"
-                        name="openAIKey"
+                        name="GASOpenAIKey"
                         placeholder="OpenAI Access Token"
                         onChange={handleChange}
-                        value={formData.openAIKey}
+                        value={formData.GASOpenAIKey}
                         style={{ width: '94.5%' }}
                       />
                       {showOpenAIPassword ?
@@ -274,7 +275,7 @@ function Settings() {
               </div>
             </div>}
 
-            {formData.aiProvider === 'openai' && <div className="field is-horizontal">
+            {formData.GASAiProvider === 'openai' && <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label has-text-white"> AI Model </label>
               </div>
@@ -283,10 +284,10 @@ function Settings() {
                   <div className="field has-addons">
                     <div className="select is-expanded">
                       <select
-                        name="openaiModel"
+                        name="GASOpenaiModel"
                         onChange={handleChange}
                         style={{ minWidth: '290px' }}
-                        value={formData.openaiModel}
+                        value={formData.GASOpenaiModel}
                       >
                         <option value={'gpt-4o'}>GPT-4o</option>
                         <option value={'gpt-4o-mini'}>GPT-4o-mini</option>
@@ -303,7 +304,7 @@ function Settings() {
               </div>
             </div>}
 
-            {formData.aiProvider === 'ollama' && <div className="field is-horizontal">
+            {formData.GASAiProvider === 'ollama' && <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label has-text-white"> Ollama URL </label>
               </div>
@@ -317,8 +318,8 @@ function Settings() {
                     </p>
                     <p className="control is-expanded">
                       <input
-                        className="input" type="text" autoComplete="off" name="ollamaURL" placeholder="URL of the Ollama server (e.g. http://localhost:11434)"
-                        onChange={handleChange} value={formData.ollamaURL}
+                        className="input" type="text" autoComplete="off" name="GASOllamaURL" placeholder="URL of the Ollama server (e.g. http://localhost:11434)"
+                        onChange={handleChange} value={formData.GASOllamaURL}
                       />
                     </p>
                   </div>
@@ -326,7 +327,7 @@ function Settings() {
               </div>
             </div>}
 
-            {formData.aiProvider === 'ollama' && <div className="field is-horizontal">
+            {formData.GASAiProvider === 'ollama' && <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label has-text-white"> AI Model </label>
               </div>
@@ -335,10 +336,10 @@ function Settings() {
                   <div className="field has-addons">
                     <div className="select is-expanded">
                       <select
-                        name="ollamaModel"
+                        name="GASOllamaModel"
                         onChange={handleChange}
                         style={{ minWidth: '290px' }}
-                        value={formData.ollamaModel}
+                        value={formData.GASOllamaModel}
                       >
                         <option value={'llama3.1'}>Llama 3.1</option>
                         <option value={'llama3'}>Llama 3</option>
@@ -379,7 +380,7 @@ function Settings() {
                         className="input has-background-grey-lighter has-text-black"
                         type="text"
                         autoComplete="off"
-                        name="themeColor"
+                        name="GASThemeColor"
                         style={{ width: '250px' }}
                         readOnly
                         onChange={handleChange}

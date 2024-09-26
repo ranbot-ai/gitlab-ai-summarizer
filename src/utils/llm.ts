@@ -33,7 +33,7 @@ async function fetchLLMResponse(
   const apiUrl = useOpenAI ? chatAPIs.openai : chatAPIs.ollama;
 
   let urlSection = document.createElement("p");
-  urlSection.innerHTML = `<em>Asking model: ${aiProvider} ${model}</em>`;
+  urlSection.innerHTML = `<em>Asking model: ${aiProvider} (${model})</em>`;
   urlSection.style.color = "black";
   urlSection.style.paddingBottom = "0px";
   urlSection.style.marginBottom = "5px";
@@ -88,7 +88,7 @@ async function fetchLLMResponse(
         if (data.length === 0 || data.startsWith(":")) continue;
         if (data === "data: [DONE]") {
           // Update the DOM when the stream is done
-          urlSection.innerHTML = `<em>Generated model: ${aiProvider} ${model}</em>`;
+          urlSection.innerHTML = `<em>Generated model: ${aiProvider} (${model})</em>`;
           // responseSection.innerHTML += `<br><p style="text-align: center; font-style: italic;">${model} may make errors.</p>`;
           return responseContent.trim(); // End of stream
         }

@@ -40,6 +40,12 @@ aiSummarizer.style.zIndex = "10000";
 aiSummarizer.style.cursor = "pointer";
 aiSummarizer.style.boxShadow =
   "-6px 0 16px 0 rgba(0, 0, 0, 0.08), -3px 0 6px -4px rgba(0, 0, 0, 0.12), -9px 0 28px 8px rgba(0, 0, 0, 0.05)";
+aiSummarizer.style.width = "auto";
+aiSummarizer.style.backgroundColor = "transparent";
+aiSummarizer.style.padding = "10px";
+aiSummarizer.style.borderRadius = "10px";
+aiSummarizer.style.color = "white";
+aiSummarizer.style.fontWeight = "bold";
 
 let header = document.querySelector<HTMLDivElement>(
   "#gitlab-ai-summarizer_header"

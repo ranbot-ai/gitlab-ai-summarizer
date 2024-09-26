@@ -19,6 +19,12 @@ const extPlugins = [
 ]
 
 module.exports = {
+    optimization: {
+        usedExports: true,
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
     entry: {
         index: "./src/index.tsx",
         background: "./src/background/index.ts",

@@ -6,15 +6,15 @@ import { toast } from 'bulma-toast'
 import debounce from "lodash/debounce"
 
 interface FormData {
-  gitlab: string;
-  gitlabToken: string;
-  gitlabAPIVersion: string;
-  aiProvider: string;
-  openAIKey: string;
-  openaiModel: string;
-  ollamaURL: string;
-  ollamaModel: string;
-  themeColor: string;
+  GASGitLab: string;
+  GASGitLabAccessToken: string;
+  GASGitLabApiVersion: string;
+  GASAiProvider: string;
+  GASOpenAIKey: string;
+  GASOpenaiModel: string;
+  GASOllamaURL: string;
+  GASOllamaModel: string;
+  GASThemeColor: string;
 }
 
 interface FormContextType {
@@ -30,15 +30,15 @@ const FormContext = createContext<FormContextType | undefined>(undefined);
 
 const FormProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormData] = useState<FormData>({
-    gitlab: '',
-    gitlabToken: '',
-    gitlabAPIVersion: 'api/v4',
-    aiProvider: 'openai',
-    openAIKey: '',
-    openaiModel: 'gpt-4o',
-    ollamaURL: 'http://localhost:11434',
-    ollamaModel: 'llama3.1',
-    themeColor: '#000000'
+    GASGitLab: '',
+    GASGitLabAccessToken: '',
+    GASGitLabApiVersion: 'api/v4',
+    GASAiProvider: 'openai',
+    GASOpenAIKey: '',
+    GASOpenaiModel: 'gpt-4o',
+    GASOllamaURL: 'http://localhost:11434',
+    GASOllamaModel: 'llama3.1',
+    GASThemeColor: '#000000'
   });
 
   useEffect(() => {

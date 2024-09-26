@@ -160,8 +160,6 @@ async function fetchLatestCommentURL(
   if (!gitLabWebURL) return undefined;
   if (!latestNote?.id) return undefined;
 
-  console.log(JSON.stringify(latestNote));
-
   return `${gitLabWebURL}/${projectPath}/-/issues/${issueId}#note_${latestNote.id}`;
 }
 

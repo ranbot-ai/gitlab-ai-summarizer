@@ -29,14 +29,17 @@ const getFromStorage = (
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const actionsMap: { [key: string]: { key: string; defaultValue?: any } } = {
-    getOpenAIApiKey: { key: "openAIKey" },
-    getGitLabApiKey: { key: "gitlabToken" },
-    getGitLab: { key: "gitlab" },
-    getThemeColor: { key: "themeColor", defaultValue: "#000000" },
-    getAiProvider: { key: "aiProvider", defaultValue: "openai" },
-    getOpenAIModel: { key: "openaiModel", defaultValue: "gpt-4o" },
-    getOllamaURL: { key: "ollamaURL", defaultValue: "http://localhost:11434" },
-    getOllamaModel: { key: "ollamaModel", defaultValue: "llama3.1" },
+    getOpenAIApiKey: { key: "GASOpenAIKey" },
+    getGitLabApiKey: { key: "GASGitLabAccessToken" },
+    getGitLab: { key: "GASGitlab" },
+    getThemeColor: { key: "GASThemeColor", defaultValue: "#000000" },
+    getAiProvider: { key: "GASAiProvider", defaultValue: "openai" },
+    getOpenAIModel: { key: "GASOpenaiModel", defaultValue: "gpt-4o" },
+    getOllamaURL: {
+      key: "GASOllamaURL",
+      defaultValue: "http://localhost:11434",
+    },
+    getOllamaModel: { key: "GASOllamaModel", defaultValue: "llama3.1" },
   };
 
   const action = actionsMap[request.action];

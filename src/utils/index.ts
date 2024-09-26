@@ -30,39 +30,39 @@ const getFromBackground = async (
 
 // Retrieve GitLab API key
 const getGitLabApiKey = async (): Promise<string | undefined> => {
-  return getFromBackground("getGitLabApiKey", "gitlabToken");
+  return getFromBackground("getGitLabApiKey", "GASGitLabAccessToken");
 };
 
 // Retrieve GitLab Web URL
 const getGitLabWebURL = async (): Promise<string | undefined> => {
-  return getFromBackground("getGitLab", "gitlab");
+  return getFromBackground("getGitLab", "GASGitlab");
 };
 
 // Retrieve OpenAI API key
 const getOpenAIApiKey = async (): Promise<string | undefined> => {
-  return getFromBackground("getOpenAIApiKey", "openAIKey");
+  return getFromBackground("getOpenAIApiKey", "GASOpenAIKey");
 };
 
 // Retrieve Theme Color
 const getThemeColor = async (): Promise<string | undefined> => {
-  return getFromBackground("getThemeColor", "themeColor");
+  return getFromBackground("getThemeColor", "GASThemeColor");
 };
 
 // Retrieve AI Provider
 const getAiProvider = async (): Promise<string | undefined> => {
-  return getFromBackground("getAiProvider", "aiProvider");
+  return getFromBackground("getAiProvider", "GASAiProvider");
 };
 
 const getOpenAIModel = async (): Promise<string | undefined> => {
-  return getFromBackground("getOpenAIModel", "openaiModel");
+  return getFromBackground("getOpenAIModel", "GASOpenaiModel");
 };
 
 const getOllamaModel = async (): Promise<string | undefined> => {
-  return getFromBackground("getOllamaModel", "ollamaModel");
+  return getFromBackground("getOllamaModel", "GASOllamaModel");
 };
 
 const getOllamaURL = async (): Promise<string | undefined> => {
-  return getFromBackground("getOllamaURL", "ollamaURL");
+  return getFromBackground("getOllamaURL", "GASOllamaURL");
 };
 
 const getStorage = (
