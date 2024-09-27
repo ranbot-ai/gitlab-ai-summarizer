@@ -53,7 +53,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "openSettingPage") {
     chrome.tabs.create({
-      url: "chrome-extension://" + chrome.runtime.id + "/index.html",
+      url: "chrome-extension://" + chrome.runtime.id + "/settings.html",
     });
   }
 });

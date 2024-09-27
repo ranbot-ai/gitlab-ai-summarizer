@@ -12,8 +12,9 @@ const extPlugins = [
         ],
     }),
     new HTMLWebpackPlugin({
-        template: "./public/index.html",
-        chunks: ["index"]
+        template: "./public/settings.html",
+        filename: "settings.html",
+        chunks: ["settings"]
     }),
     new HTMLWebpackInjector(),
 ]
@@ -26,7 +27,7 @@ module.exports = {
         },
     },
     entry: {
-        index: "./src/index.tsx",
+        settings: "./src/settings.tsx",
         background: "./src/background/index.ts",
         contentscript: "./src/contentscript/index.ts",
     },

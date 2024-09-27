@@ -71,8 +71,8 @@ module.exports = {
             ],
         }),
         new HTMLWebpackPlugin({
-            template: "./public/index.html",
-            chunks: ["index"]
+            template: "./public/settings.html",
+            chunks: ["settings"]
         }),
         new HTMLWebpackInjector(),
     ],
@@ -109,7 +109,7 @@ A manifest file is used to define the metadata and permissions for a Chrome exte
   "name": "GitLab AI Summarizer",
   "version": "0.0.1",
   "description": " uses OpenAI and GitLab API to summarize a GitLab issue from the issue's URL.",
-  "options_page": "index.html",
+  "options_page": "settings.html",
   "background": {
     "service_worker": "background.js"
   },
