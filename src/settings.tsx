@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import App from './App';
+import AppSettings from './AppSettings';
 
 import './assets/styles/index.css';
 import { FormProvider } from './contexts/FormContext';
@@ -12,7 +12,7 @@ if (container) {
   root.render(
     <React.StrictMode>
       <FormProvider>
-        <App />
+        <AppSettings />
       </FormProvider>
     </React.StrictMode>
   );

@@ -5,7 +5,7 @@ import Settings from './components/Settings';
 import { getStorage } from './utils';
 
 
-function App() {
+function AppSettings() {
   const [tab, setTab] = useState('');
   const [backgroundUrl, setBackgroundUrl] = useState('');
 
@@ -32,4 +32,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppSettings;
