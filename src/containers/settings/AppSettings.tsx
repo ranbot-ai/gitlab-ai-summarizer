@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from 'react';
 
-import Settings from './components/Settings';
-import { getStorage } from './utils';
+import Settings from './Settings';
+import { getStorage } from './../../utils';
 
 
 function AppSettings() {

@@ -1,10 +1,12 @@
+/* eslint-disable react/jsx-no-undef */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import AppSettings from './AppSettings';
+import reportWebVitals from './../../reportWebVitals';
 
-import './assets/styles/index.css';
-import { FormProvider } from './contexts/FormContext';
+import './../../assets/styles/index.css';
+import { FormProvider } from '../../contexts/FormContext';
+
+import AppIndex from './AppIndex';
 
 const container = document.getElementById('root')
 if (container) {
@@ -12,7 +14,7 @@ if (container) {
   root.render(
     <React.StrictMode>
       <FormProvider>
-        <AppSettings />
+        <AppIndex />
       </FormProvider>
     </React.StrictMode>
   );

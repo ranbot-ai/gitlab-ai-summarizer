@@ -6,8 +6,8 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGitlab } from "@fortawesome/free-brands-svg-icons";
-import { useFormContext } from "../contexts/FormContext";
-import { setStorage } from "../utils";
+import { useFormContext } from "../../contexts/FormContext";
+import { setStorage } from "../../utils";
 import { useEffect, useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
