@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const actionsMap: { [key: string]: { key: string; defaultValue?: any } } = {
     getOpenAIApiKey: { key: "GASOpenAIKey" },
     getGitLabApiKey: { key: "GASGitLabAccessToken" },
-    getGitLab: { key: "GASGitlab" },
+    getGitLab: { key: "GASGitLab" },
     getThemeColor: { key: "GASThemeColor", defaultValue: "#000000" },
     getAiProvider: { key: "GASAiProvider", defaultValue: "openai" },
     getOpenAIModel: { key: "GASOpenaiModel", defaultValue: "gpt-4o" },

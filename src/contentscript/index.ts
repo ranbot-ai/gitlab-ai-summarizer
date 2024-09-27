@@ -72,6 +72,7 @@ issueDetails.style.paddingBottom = "30px";
 issueDetails.style.borderRadius = "10px";
 issueDetails.style.maxHeight = "85vh";
 issueDetails.style.overflowY = "scroll";
+issueDetails.style.setProperty("--scrollbar-thumb-bg", `${themeColor}`);
 
 let headerRanbotLogo = document.querySelector<HTMLImageElement>(
   "#gitlab-ai-summarizer_header-ranbot-logo"

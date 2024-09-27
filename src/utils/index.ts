@@ -35,7 +35,7 @@ const getGitLabApiKey = async (): Promise<string | undefined> => {
 
 // Retrieve GitLab Web URL
 const getGitLabWebURL = async (): Promise<string | undefined> => {
-  return getFromBackground("getGitLab", "GASGitlab");
+  return getFromBackground("getGitLab", "GASGitLab");
 };
 
 // Retrieve OpenAI API key
