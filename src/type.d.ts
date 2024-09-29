@@ -1,5 +1,10 @@
 declare module "lodash/debounce";
 
+// Define the props interface to include the setScreenName function
+interface ScreebProps {
+  setScreenName: (name: string) => void;
+}
+
 type PlainObjectType = {
   [index: string]: any;
 };

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import reportWebVitals from './../../reportWebVitals';
 import AppSettings from './AppSettings';
 
-import './../../assets/styles/index.css';
+import './../../assets/styles/settings.css';
 import { FormProvider } from './../../contexts/FormContext';
 
 const container = document.getElementById('root')

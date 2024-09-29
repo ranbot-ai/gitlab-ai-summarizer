@@ -5,3 +5,5 @@ export const RanBOT = {
   version: manifest.version,
   author: manifest.author,
 };
+
+Object.assign(window, { RanBOT });

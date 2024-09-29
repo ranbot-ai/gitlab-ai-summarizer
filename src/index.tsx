@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-undef */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import reportWebVitals from './../../reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 
-import './../../assets/styles/index.css';
-import { FormProvider } from '../../contexts/FormContext';
+import { FormProvider } from './contexts/FormContext';
 
-import AppIndex from './AppIndex';
+import './assets/styles/settings.css';
+import AppIndex from './containers/app/AppIndex';
 
 const container = document.getElementById('root')
 if (container) {

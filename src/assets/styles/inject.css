@@ -1,0 +1,46 @@
+#ranbotGitLabAiSummarizer {
+  width: 450px;
+  height: 125%;
+  transform: scale(0.8);
+  transform-origin: 450px 0;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 9999999999999;
+  background-color: white;
+  border-radius: 0px;
+  box-shadow: -6px 0 16px 0 rgba(0, 0, 0, 0.08),
+    -3px 0 6px -4px rgba(0, 0, 0, 0.12),
+    -9px 0 28px 8px rgba(0, 0, 0, 0.05);
+
+  #gitlabAISummarizerHeaderRanbotLogo {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    padding: 10px;
+    display: none;
+  }
+
+  iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    pointer-events: initial !important;
+  }
+
+  &.logoOnly {
+    width: 150px !important;
+    height: 80px !important;
+    top: 45% !important;
+    border-radius: 10px !important;
+    background-color: transparent !important;
+
+    #gitlabAISummarizerHeaderRanbotLogo {
+      display: inline-block !important;
+    }
+
+    iframe {
+      display: none !important;
+    }
+  }
+}
