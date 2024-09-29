@@ -21,6 +21,25 @@
     display: none;
   }
 
+  #gitlabAISummarizerHeaderCloseIcon {
+    width: 50px;
+    height: 90px;
+    display: inline-flex;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 449px;
+    background-color: white;
+    box-shadow: -6px 0 16px 0 rgba(0, 0, 0, 0.08),
+        -3px 0 6px -4px rgba(0, 0, 0, 0.12),
+        -9px 0 28px 8px rgba(0, 0, 0, 0.05);
+    border-bottom-left-radius: 20px;
+
+    svg {
+      margin: auto;
+    }
+  }
+
   iframe {
     width: 100% !important;
     height: 100% !important;
@@ -37,6 +56,10 @@
 
     #gitlabAISummarizerHeaderRanbotLogo {
       display: inline-block !important;
+    }
+
+    #gitlabAISummarizerHeaderCloseIcon {
+      display: none !important;
     }
 
     iframe {
