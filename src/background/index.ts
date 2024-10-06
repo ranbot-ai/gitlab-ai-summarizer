@@ -1,3 +1,5 @@
+import { getGoogleAccessToken } from "../utils";
+
 /* eslint-disable import/first */
 export {};
 
@@ -31,6 +33,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const actionsMap: { [key: string]: { key: string; defaultValue?: any } } = {
     getOpenAIApiKey: { key: "GASOpenAIKey" },
     getGitLabApiKey: { key: "GASGitLabAccessToken" },
+    getGoogleAccessToken: { key: "GASGoogleAccessToken" },
     getGitLab: { key: "GASGitLab" },
     getThemeColor: { key: "GASThemeColor", defaultValue: "#000000" },
     getAiProvider: { key: "GASAiProvider", defaultValue: "openai" },
@@ -53,7 +56,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "openSettingPage") {
     chrome.tabs.create({
-      url: "chrome-extension://" + chrome.runtime.id + "/settings.html",
+      url:
+        "chrome-extension://" +
+        chrome.runtime.id +
+        "/packs/static/settings.html",
     });
   }
 });

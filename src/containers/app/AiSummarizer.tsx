@@ -1,8 +1,8 @@
 import { RanBOT } from "../../utils/common";
 import logo from "../../assets/icons/logo.png";
 
-function AiSummarizer(porps: { gasUserName: string  }) {
-  const { gasUserName } = porps;
+function AiSummarizer(porps: { data: any, err: string | undefined }) {
+  const { data, err } = porps;
 
   return (
     <section className="section" style={{ height: "100%" }}>
@@ -13,10 +13,15 @@ function AiSummarizer(porps: { gasUserName: string  }) {
               <div className="has-text-centered">
                 <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
               </div>
-              <h1 className="title has-text-centered has-text-white mt-5">
-                Hello! {gasUserName}
-                - {document.URL}
-              </h1>
+              {err && <h3>
+                {err}
+              </h3>}
+              {!err && <>
+                <h1 className="title has-text-centered has-text-white mt-5">
+                  Hello! {data.name}
+                </h1>
+                <img src={data.picture} alt={data.name} style={{ borderRadius: "50%" }} />
+              </>}
             </div>
           </div>
         </div>

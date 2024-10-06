@@ -7,7 +7,7 @@ const themeColor = await getThemeColor();
 const defaultTitle = "GitLab AI Summarizer";
 const defaultLogoURL = "https://ranbot.online/assets/img/icon48.png";
 
-const createExtView = (uri: string) => {
+const createExtView = (uri: string): void => {
   let root = document.createElement("div");
   root.id = "ranbotGitLabAiSummarizer";
   root.className = "logoOnly";

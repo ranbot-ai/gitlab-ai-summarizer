@@ -3,6 +3,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../assets/icons/logo.png";
 import { RanBOT } from "../utils/common";
+import { launchGoogleAuthentication } from "../utils";
 
 const SignUp: React.FC<ScreebProps> = ({ setScreenName }) => {
 
@@ -86,7 +87,11 @@ const SignUp: React.FC<ScreebProps> = ({ setScreenName }) => {
 
                 <div className="field">
                   <div className="control">
-                    <button className="button is-light is-fullwidth" id="googleSignIn">
+                    <button
+                      className="button is-light is-fullwidth"
+                      id="googleSignIn"
+                      onClick={() => launchGoogleAuthentication()}
+                    >
                       <span className="icon">
                         <FontAwesomeIcon icon={faGoogle} />
                       </span>

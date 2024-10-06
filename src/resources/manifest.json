@@ -10,7 +10,14 @@
   },
   "author": "Encore Shao",
   "homepage_url": "https://ranbot.online",
-  "permissions": ["storage", "activeTab", "tabs", "scripting"],
+  "permissions": ["storage", "activeTab", "tabs", "scripting", "identity"],
+  "oauth2": {
+    "client_id": "813629896769-hq5035855rdk1pvqlspkcfr7l97l019f.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
   "icons": {
     "16": "static/icons/icon16.png",
     "48": "static/icons/icon48.png",

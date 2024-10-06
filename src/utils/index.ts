@@ -1,3 +1,5 @@
+import { RanBOT } from "./common";
+
 async function fetchFromGitLabAPI(url: string) {
   const gitLabAPI = await getGitLabApiKey();
   const response = await fetch(url, {
@@ -63,6 +65,10 @@ const getOllamaModel = async (): Promise<string | undefined> => {
 
 const getOllamaURL = async (): Promise<string | undefined> => {
   return getFromBackground("getOllamaURL", "GASOllamaURL");
+};
+
+const getGoogleAccessToken = async (): Promise<string | undefined> => {
+  return getFromBackground("getGoogleAccessToken", "GASGoogleAccessToken");
 };
 
 const getStorage = (
@@ -162,6 +168,60 @@ const toggleDisabledGitLabSites = (
   });
 };
 
+const getGoogleAccount = async (token: string) => {
+  try {
+    // Use the token to make API requests
+    const response = await fetch(
+      "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+      {
+        method: "GET",
+        headers: new Headers({ Authorization: "Bearer " + token }),
+      }
+    );
+    return await response.json();
+  } catch (error: any) {
+    throw new Error("Failed to fetch data: " + error.message); // Throw error so caller can handle it
+  }
+};
+
+const launchGoogleAuthentication = async () => {
+  const clientId = RanBOT.googleAppClientId;
+
+  // Define your client ID and redirect URL from the Google Developer Console
+  const redirectUri = `https://${RanBOT.appId}.chromiumapp.org/`;
+  const scopes = RanBOT.googleAppScopes.join(" ");
+  const authUrl = `
+    https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${encodeURIComponent(
+    scopes
+  )}&include_granted_scopes=true&prompt=consent`;
+
+  chrome.identity.launchWebAuthFlow(
+    {
+      url: authUrl,
+      interactive: true, // Setting this to true opens a pop-up for authentication
+    },
+    function (responseUrl) {
+      if (chrome.runtime.lastError || !responseUrl) {
+        console.error("Authentication failed:", chrome.runtime.lastError);
+        return;
+      }
+      const url = new URL(responseUrl);
+      const tokenMatch = url.hash.match(/access_token=([^&]*)/);
+
+      if (tokenMatch) {
+        const accessToken = tokenMatch[1];
+
+        setStorage({ GASGoogleAccessToken: accessToken }, () => {
+          console.log("Access Token:", accessToken);
+        });
+        // Use the access token to make API requests
+      } else {
+        console.error("Access token not found in response");
+      }
+    }
+  );
+};
+
 export {
   getStorage,
   setStorage,
@@ -174,10 +234,13 @@ export {
   getOllamaModel,
   getOllamaURL,
   getDomainFromURL,
+  getGoogleAccessToken,
   chunkArray,
   calculateTicketAge,
   fetchFromGitLabAPI,
   isGitLabIssuesPage,
   checkDisabledGitLabSites,
   toggleDisabledGitLabSites,
+  getGoogleAccount,
+  launchGoogleAuthentication,
 };
