@@ -35,10 +35,14 @@ const createExtView = (uri: string): void => {
 
   headerCloseIcon.addEventListener("mouseover", () => {
     headerCloseIcon.style.backgroundColor = `${themeColor}`;
+    const svgIcon = headerCloseIcon.querySelector("svg");
+    if (svgIcon && svgIcon?.style) svgIcon.style.color = "white";
   });
 
   headerCloseIcon.addEventListener("mouseout", () => {
     headerCloseIcon.style.backgroundColor = `white`;
+    const svgIcon = headerCloseIcon.querySelector("svg");
+    if (svgIcon && svgIcon?.style) svgIcon.style.color = "black";
   });
 
   document.body.appendChild(root);
@@ -103,9 +107,7 @@ const destroyExtView = () => {
   let root = document.querySelector<HTMLDivElement>(
     "#ranbotGitLabAiSummarizer"
   );
-  if (root) {
-    root.remove();
-  }
+  if (root) root.remove();
 };
 
 export default {

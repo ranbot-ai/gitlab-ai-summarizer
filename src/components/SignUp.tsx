@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../assets/icons/logo.png";
 import { RanBOT } from "../utils/common";
 import { launchGoogleAuthentication } from "../utils";
+import { AI_EXT_STATUS } from "../utils/constants";
 
-const SignUp: React.FC<ScreebProps> = ({ setScreenName }) => {
+const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
 
   const openSignInPage = () => {
-    setScreenName('signin')
+    setScreenName(AI_EXT_STATUS.signin)
   }
 
   return (

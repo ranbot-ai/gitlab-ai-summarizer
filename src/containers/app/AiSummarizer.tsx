@@ -1,32 +1,64 @@
-import { RanBOT } from "../../utils/common";
-import logo from "../../assets/icons/logo.png";
+import { useEffect, useState } from "react";
+import { getGoogleAccount } from "../../utils";
 
-function AiSummarizer(porps: { data: any, err: string | undefined }) {
-  const { data, err } = porps;
+function AiSummarizer(porps: {
+  token: string | undefined,
+  setIsCopy: any
+}) {
+  const { token } = porps;
+
+  const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (token !== undefined) {
+      const fetchGoogleAccount = async () => {
+        try {
+          const result = await getGoogleAccount(token);
+
+          if (result.error) {
+            setMessage(result.error.message);
+          } else {
+            setData(result); // Update the state with the fetched data
+          }
+        } catch (err: any) {
+          setMessage(err.message); // Handle error
+        }
+        // finally {
+        // }
+      };
+
+      fetchGoogleAccount()
+    } else {
+      setMessage("The token was not found!");
+    }
+  }, [token]);
 
   return (
-    <section className="section" style={{ height: "100%" }}>
-      <div className="container">
-        <div className="columns is-centered">
-          <div className="column is-one-third">
-            <div className="box p-5 has-background-grey">
-              <div className="has-text-centered">
-                <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
-              </div>
-              {err && <h3>
-                {err}
-              </h3>}
-              {!err && <>
-                <h1 className="title has-text-centered has-text-white mt-5">
-                  Hello! {data.name}
-                </h1>
-                <img src={data.picture} alt={data.name} style={{ borderRadius: "50%" }} />
-              </>}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div
+      className="container m-5 p-3"
+      style={{
+        height: "calc(100vh - 54px)",
+        width: "90%",
+        backgroundColor: 'white'
+      }}
+    >
+      {message && <h3>
+        {message}
+      </h3>}
+      {!message && data && <>
+        <h1 className="title has-text-centered mt-5">
+          Hello! {data.name}
+        </h1>
+        <img
+          src={data.picture}
+          alt={data.name}
+          style={{ borderRadius: "50%" }}
+        />
+
+        {JSON.stringify(data)}
+      </>}
+    </div>
   );
 }
 

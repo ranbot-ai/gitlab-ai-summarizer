@@ -1,20 +1,35 @@
-import { getGoogleAccessToken } from "../utils";
-
 /* eslint-disable import/first */
 export {};
 
-// chrome.storage.onChanged.addListener((changes, namespace) => {
-//   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-//     console.log(
-//       `Storage key "${key}" in namespace "${namespace}" changed.`,
-//       `Old value was "${oldValue}", new value is "${newValue}".`
-//     );
-//   }
-// });
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+    console.log(
+      `Storage key "${key}" in namespace "${namespace}" changed.`,
+      `Old value was "${oldValue}", new value is "${newValue}".`
+    );
 
-// chrome.storage.local.remove(
-//   ["gitlab"],
-//   () => {}
+    // if (key === "GASGoogleAccessToken" && newValue !== undefined) {
+    // Reload ext view
+    // extView.destroyExtView();
+    // extView.displayExtView();
+    // }
+
+    if (namespace === "sync" && changes.options?.newValue) {
+      console.log("newValue", changes.options?.newValue);
+    }
+  }
+});
+
+// chrome.webNavigation.onCompleted.addListener(
+//   function () {
+//     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+//       // Send a message to the content script in the active tab
+//       const currentTab = tabs[0] as { id: any };
+//       if (currentTab)
+//         chrome.tabs.sendMessage(currentTab.id, { message: "myMessage" });
+//     });
+//   },
+//   { url: [{ schemes: ["http", "https"] }] }
 // );
 
 // Utility function to retrieve a value from Chrome storage

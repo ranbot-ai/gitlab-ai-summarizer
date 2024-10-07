@@ -1,7 +1,7 @@
 declare module "lodash/debounce";
 
 // Define the props interface to include the setScreenName function
-interface ScreebProps {
+interface ScreenProps {
   setScreenName: (name: string) => void;
 }
 

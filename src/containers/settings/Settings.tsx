@@ -4,31 +4,20 @@
 /// <reference types="chrome"/>
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
+import { useEffect, useState } from "react";
+
+import { useFormContext } from "../../contexts/FormContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGitlab } from "@fortawesome/free-brands-svg-icons";
-import { useFormContext } from "../../contexts/FormContext";
-import { setStorage } from "../../utils";
-import { useEffect, useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
+import { setStorage } from "../../utils";
+import { THEMECOLORS } from "../../utils/constants";
 
 function Settings() {
   const { formData, handleChange } = useFormContext();
-  const themeColors = [
-    '#000000',
-    '#d99530',
-    '#1f75cb',
-    '#ff362c',
-    '#647e0e',
-    '#155635',
-    '#0e4328',
-    '#0e4d8d',
-    '#0b2640',
-    '#41419f',
-    '#222261',
-    '#28272d',
-    '#a02e1c'
-  ]
-  const [pickedThemeColor, setPickedThemeColor] = useState(themeColors[0]);
+  const [pickedThemeColor, setPickedThemeColor] = useState(THEMECOLORS[0]);
   const [showOpenAIPassword, setShowOpenAIPassword] = useState(true);
   const [showGitlabToken, setShowGitlabToken] = useState(true);
 
@@ -401,7 +390,7 @@ function Settings() {
                   <div className="field has-addons">
                     <div>
                       <div>
-                        {themeColors.map((color, index) => (
+                        {THEMECOLORS.map((color, index) => (
                           <span
                             key={`color-${index}`}
                             className="button"

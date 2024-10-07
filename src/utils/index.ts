@@ -170,7 +170,6 @@ const toggleDisabledGitLabSites = (
 
 const getGoogleAccount = async (token: string) => {
   try {
-    // Use the token to make API requests
     const response = await fetch(
       "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
       {
@@ -214,7 +213,6 @@ const launchGoogleAuthentication = async () => {
         setStorage({ GASGoogleAccessToken: accessToken }, () => {
           console.log("Access Token:", accessToken);
         });
-        // Use the access token to make API requests
       } else {
         console.error("Access token not found in response");
       }
