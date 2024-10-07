@@ -1,9 +1,18 @@
-import { isGitLabIssuesPage } from "../utils";
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import { isGitLabIssuesPage, setStorage } from "../utils";
 import extView from "../utils/extView";
 import "../assets/styles/inject.css";
 
 export {};
 
-if (isGitLabIssuesPage(document.URL)) {
-  extView.displayExtView(document.URL);
+const currentTabUrl = window.document.URL;
+
+console.log(`currentTabUrl: ${currentTabUrl}`);
+
+if (isGitLabIssuesPage(currentTabUrl)) {
+  extView.displayExtView();
+
+  setStorage({ GASCurrentTabUrl: currentTabUrl }, () => {
+    console.log("Current Tab URL:", currentTabUrl);
+  });
 }

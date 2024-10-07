@@ -1,8 +1,16 @@
 import { RanBOT } from "./common";
 
 async function fetchFromGitLabAPI(url: string) {
+  const gitLabWebURL = await getGitLabWebURL();
   const gitLabAPI = await getGitLabApiKey();
-  const response = await fetch(url, {
+  const requestUrl = url.startsWith("http")
+    ? gitLabWebURL
+    : [gitLabWebURL, url].join("");
+
+  if (requestUrl === undefined) {
+    throw new Error(`GitLab API request URL is wrong.`);
+  }
+  const response = await fetch(requestUrl, {
     headers: { Authorization: `Bearer ${gitLabAPI}` },
   });
 
@@ -69,6 +77,10 @@ const getOllamaURL = async (): Promise<string | undefined> => {
 
 const getGoogleAccessToken = async (): Promise<string | undefined> => {
   return getFromBackground("getGoogleAccessToken", "GASGoogleAccessToken");
+};
+
+const getCurrentTabURL = async (): Promise<string | undefined> => {
+  return getFromBackground("getCurrentTabURL", "GASCurrentTabUrl");
 };
 
 const getStorage = (
@@ -233,6 +245,7 @@ export {
   getOllamaURL,
   getDomainFromURL,
   getGoogleAccessToken,
+  getCurrentTabURL,
   chunkArray,
   calculateTicketAge,
   fetchFromGitLabAPI,

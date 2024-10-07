@@ -30,24 +30,24 @@ async function fetchLLMResponse(
   const useOpenAI = aiProvider === "openai";
 
   const model = useOpenAI ? openAIModel : ollamaModel;
-  const apiUrl = useOpenAI ? chatAPIs.openai : chatAPIs.ollama;
+  const aIApiUrl = useOpenAI ? chatAPIs.openai : chatAPIs.ollama;
 
   let urlSection = document.createElement("p");
   urlSection.innerHTML = `<em>Asking model: ${aiProvider} (${model})</em>`;
   urlSection.style.color = "black";
   urlSection.style.paddingBottom = "0px";
   urlSection.style.marginBottom = "5px";
-  issueDetails.appendChild(urlSection);
+  issueDetails.current.appendChild(urlSection);
 
   let responseSection = document.createElement("p");
   responseSection.style.color = "black";
   responseSection.style.paddingBottom = "0px";
   responseSection.style.marginBottom = "5px";
-  issueDetails.appendChild(responseSection);
+  issueDetails.current.appendChild(responseSection);
 
   try {
     // Call the LLM API
-    const response = await fetch(apiUrl, {
+    const response = await fetch(aIApiUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${personalOpenAIApiKey}`,

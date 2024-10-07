@@ -7,13 +7,13 @@ const themeColor = await getThemeColor();
 const defaultTitle = "GitLab AI Summarizer";
 const defaultLogoURL = "https://ranbot.online/assets/img/icon48.png";
 
-const createExtView = (uri: string): void => {
+const createExtView = (): void => {
   let root = document.createElement("div");
   root.id = "ranbotGitLabAiSummarizer";
   root.className = "logoOnly";
 
   const iframe = document.createElement("iframe");
-  iframe.src = chrome.runtime.getURL(`/packs/static/index.html?url=${uri}`);
+  iframe.src = chrome.runtime.getURL(`/packs/static/index.html`);
 
   const headerRanbotLogo = document.createElement("img");
   headerRanbotLogo.id = "gitlabAISummarizerHeaderRanbotLogo";
@@ -51,7 +51,7 @@ const createExtView = (uri: string): void => {
   root.appendChild(headerCloseIcon);
 };
 
-const displayExtView = (entryURL: string) => {
+const displayExtView = () => {
   let root = document.querySelector<HTMLDivElement>(
     "#ranbotGitLabAiSummarizer"
   );
@@ -60,7 +60,7 @@ const displayExtView = (entryURL: string) => {
       root.classList.toggle("logoOnly");
     }
   } else {
-    createExtView(entryURL);
+    createExtView();
   }
 };
 
@@ -97,9 +97,7 @@ const toggleExtView = () => {
   if (root) {
     root.classList.toggle("logoOnly");
   } else {
-    let url = window.location.href.split(/[?#]/)[0];
-
-    createExtView(url);
+    createExtView();
   }
 };
 

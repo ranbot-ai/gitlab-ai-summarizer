@@ -49,7 +49,7 @@ async function fetchIssueDetails(
 }
 
 async function fetchIssueDiscussions(
-  projectId: number,
+  projectId: number | string,
   issueId: number | undefined
 ) {
   let discussions: any = [];
@@ -139,7 +139,7 @@ async function fetchLastMergeDetails(
 
 async function fetchLatestCommentURL(
   projectPath: string | undefined,
-  projectId: number,
+  projectId: number | string,
   issueId: number | undefined
 ) {
   const discussions = await fetchIssueDiscussions(projectId, issueId);

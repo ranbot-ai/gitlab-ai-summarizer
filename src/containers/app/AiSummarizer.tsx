@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { getGoogleAccount } from "../../utils";
+import { getGoogleAccount, launchGoogleAuthentication } from "../../utils";
+import GitLab from "./GitLab";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 function AiSummarizer(porps: {
   token: string | undefined,
@@ -8,7 +11,7 @@ function AiSummarizer(porps: {
   const { token } = porps;
 
   const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (token !== undefined) {
@@ -17,20 +20,18 @@ function AiSummarizer(porps: {
           const result = await getGoogleAccount(token);
 
           if (result.error) {
-            setMessage(result.error.message);
+            setError(result.error.message);
           } else {
             setData(result); // Update the state with the fetched data
           }
         } catch (err: any) {
-          setMessage(err.message); // Handle error
+          setError(err.message); // Handle error
         }
-        // finally {
-        // }
       };
 
       fetchGoogleAccount()
     } else {
-      setMessage("The token was not found!");
+      setError("The token was not found!");
     }
   }, [token]);
 
@@ -38,26 +39,29 @@ function AiSummarizer(porps: {
     <div
       className="container m-5 p-3"
       style={{
-        height: "calc(100vh - 54px)",
+        height: "calc(100vh - 133px)",
         width: "90%",
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        overflowY: 'scroll'
       }}
     >
-      {message && <h3>
-        {message}
-      </h3>}
-      {!message && data && <>
-        <h1 className="title has-text-centered mt-5">
-          Hello! {data.name}
-        </h1>
-        <img
-          src={data.picture}
-          alt={data.name}
-          style={{ borderRadius: "50%" }}
-        />
+      {error && <h3 className="has-text-black" style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>
+        {error}
 
-        {JSON.stringify(data)}
-      </>}
+        <br />
+
+        <button
+          className="button is-light is-fullwidth"
+          id="googleSignIn"
+          onClick={() => launchGoogleAuthentication()}
+        >
+          <span className="icon">
+            <FontAwesomeIcon icon={faGoogle} />
+          </span>
+          <span>Re-authenticate with Google</span>
+        </button>
+      </h3>}
+      {!error && data &&  <GitLab />}
     </div>
   );
 }

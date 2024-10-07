@@ -1,20 +1,9 @@
-import { useEffect, useState } from "react";
 import { getThemeColor } from "../../utils";
 import { RanBOT } from "../../utils/common";
-import { hexToRGB } from "../../utils/tools";
-import { THEMECOLORS } from "../../utils/constants";
+
+const themeColor = await getThemeColor();
 
 const Footer = () => {
-  const [themeColor, setThemeColor] = useState<string | undefined>(THEMECOLORS[0]);
-
-  useEffect(() => {
-    const fetchThemeColor = async () => {
-      setThemeColor(await getThemeColor());
-    };
-
-    fetchThemeColor()
-  }, []);
-
   return (
     <footer
       style={{
@@ -23,10 +12,11 @@ const Footer = () => {
         lineHeight: '25px',
         width: '100%',
         bottom: 0,
+        backgroundColor: themeColor,
       }}
       className="has-text-centered"
     >
-      <div className="p-4" style={{ backgroundColor: hexToRGB(themeColor, 0.8) }}>
+      <div className="p-4">
         <p className="has-text-white">
           <strong className="has-text-white">RanBOT</strong> v{RanBOT?.version}
         </p>
