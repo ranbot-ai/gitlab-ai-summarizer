@@ -7,10 +7,7 @@ import { launchGoogleAuthentication } from "../utils";
 import { AI_EXT_STATUS } from "../utils/constants";
 
 const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
-
-  const openSignInPage = () => {
-    setScreenName(AI_EXT_STATUS.signin)
-  }
+  const openPage = (screenName: string) => { setScreenName(screenName) }
 
   return (
     <section className="section" style={{ height: "100%" }}>
@@ -86,28 +83,29 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                   </div>
                 </div>
 
-                <div className="field">
-                  <div className="control">
-                    <button
-                      className="button is-light is-fullwidth"
-                      id="googleSignIn"
-                      onClick={() => launchGoogleAuthentication()}
-                    >
-                      <span className="icon">
-                        <FontAwesomeIcon icon={faGoogle} />
-                      </span>
-                      <span>Sign In with Google</span>
-                    </button>
-                  </div>
-                </div>
-
                 <p className="has-text-centered">
                   Already have an account
-                  <a onClick={() => openSignInPage() }>
+                  <a onClick={() => openPage(AI_EXT_STATUS.signin) }>
                     {' '} Sign In
                   </a>
                 </p>
               </form>
+
+              <hr />
+
+              <div className="field mb-5">
+                <div className="control">
+                  <button
+                    className="button is-light is-fullwidth"
+                    onClick={() => launchGoogleAuthentication()}
+                  >
+                    <span className="icon">
+                      <FontAwesomeIcon icon={faGoogle} />
+                    </span>
+                    <span>Sign In with Google</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

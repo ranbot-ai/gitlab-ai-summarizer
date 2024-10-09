@@ -1,17 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { getGoogleAccount, launchGoogleAuthentication } from "../../utils";
+import { getGoogleAccount } from "../../utils";
 import GitLab from "./GitLab";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { AI_EXT_STATUS } from "../../utils/constants";
+
 
 function AiSummarizer(porps: {
   token: string | undefined,
-  setIsCopy: any
+  setIsCopy: any,
+  setScreenName: any,
+  setErrorText: any,
+  iisRef: any
 }) {
-  const { token } = porps;
+  const { token, setIsCopy, setScreenName, setErrorText, iisRef } = porps;
 
   const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
-  const [error, setError] = useState('');
+
 
   useEffect(() => {
     if (token !== undefined) {
@@ -20,24 +24,24 @@ function AiSummarizer(porps: {
           const result = await getGoogleAccount(token);
 
           if (result.error) {
-            setError(result.error.message);
+            setErrorText(result.error.message);
           } else {
             setData(result); // Update the state with the fetched data
           }
         } catch (err: any) {
-          setError(err.message); // Handle error
+          setErrorText(err.message); // Handle error
         }
       };
 
       fetchGoogleAccount()
     } else {
-      setError("The token was not found!");
+      setErrorText("The token was not found!");
     }
   }, [token]);
 
   return (
     <div
-      className="container m-5 p-3"
+      className="container m-5 p-5"
       style={{
         height: "calc(100vh - 133px)",
         width: "90%",
@@ -45,23 +49,7 @@ function AiSummarizer(porps: {
         overflowY: 'scroll'
       }}
     >
-      {error && <h3 className="has-text-black" style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>
-        {error}
-
-        <br />
-
-        <button
-          className="button is-light is-fullwidth"
-          id="googleSignIn"
-          onClick={() => launchGoogleAuthentication()}
-        >
-          <span className="icon">
-            <FontAwesomeIcon icon={faGoogle} />
-          </span>
-          <span>Re-authenticate with Google</span>
-        </button>
-      </h3>}
-      {!error && data &&  <GitLab />}
+      {data &&  <GitLab setIsCopy={setIsCopy} iisRef={iisRef} />}
     </div>
   );
 }

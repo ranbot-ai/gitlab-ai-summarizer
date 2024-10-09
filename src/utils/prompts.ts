@@ -11,7 +11,7 @@ const taskDefinition = `
   - If issue.state === "closed", consider it a closed issue and use past tense in your response.
   - Otherwise, consider it an open issue and use present tense.
 
-  All occurrences of person names need to be highlighted and links added.
+  Highlight all occurrences of person names in the text and wrap them with clickable links that open in a new tab (target='_blank').
 
   Based on the most current information in the issue and discussions,
   provide the following information in an easy to read HTML format:
@@ -19,7 +19,7 @@ const taskDefinition = `
   <h4 style="font-weight: bold;margin-bottom: 5px;margin-top: 5px;font-size: 1.2rem;">Summary</h4>
   <p style="font-weight: normal;">Summarize the issue in a detailed paragraph.
   Focus on the key points, including the problem, its impact, and any major developments.
-  Any highlighted keywords should be displayed using the format <strong>keyword</strong>.
+  Any highlighted keywords should be displayed using the format <strong style="color: black;">keyword</strong>.
   If the issue is closed, use past tense; otherwise, use present tense.</p>
 
   <h4 style="font-weight: bold;margin-bottom: 5px;margin-top: 5px;font-size: 1.2rem;">Priorities</h4>
@@ -32,7 +32,7 @@ const taskDefinition = `
   If the issue is closed, use past tense to describe what was done; otherwise, use present tense to describe ongoing work.</p>
 
   <h4 style="font-weight: bold;margin-bottom: 5px;margin-top: 5px;font-size: 1.2rem;">Questions</h4>
-  <ul style="font-weight: normal;margin-bottom: 0px;">
+  <ul style="font-weight: normal;margin-bottom: 0px;list-style: circle;margin-left: 15px;">
     <li>Provide 2-3 of the most important questions that need to be answered.
     Consider the following aspects:
     - Ensuring client focus
@@ -46,7 +46,7 @@ const taskDefinition = `
   </ul>
 
   <h4 style="font-weight: bold;margin-bottom: 5px;margin-top: 5px;font-size: 1.2rem;">Actions</h4>
-  <ul style="font-weight: normal;margin-bottom: 0px;">
+  <ul style="font-weight: normal;margin-bottom: 0px;list-style: circle;margin-left: 15px;">
     <li>List 4-5 of the most impactful next actions. Consider:
     - Who will take over the next steps and what to do
     - Suggest most effective and efficient ways to resolve the issue

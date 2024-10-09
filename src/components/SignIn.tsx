@@ -8,13 +8,7 @@ import { AI_EXT_STATUS } from "../utils/constants";
 
 const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
 
-  const openSignUpPage = () => {
-    setScreenName(AI_EXT_STATUS.signup)
-  }
-
-  const ranbotLogin = () => {
-    setScreenName(AI_EXT_STATUS.summarizer)
-  }
+  const openPage = (screenName: string) => { setScreenName(screenName) }
 
   return (
     <section className="section" style={{ height: "100%" }}>
@@ -32,7 +26,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 Please enter your details to proceed.
               </p>
 
-              <form id="loginForm" onSubmit={() => ranbotLogin() }>
+              <form id="loginForm" onSubmit={() => openPage(AI_EXT_STATUS.summarizer) }>
                 <div className="field">
                   <label className="label">Email</label>
                   <div className="control">
@@ -80,28 +74,29 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                   </div>
                 </div>
 
-                <div className="field">
-                  <div className="control">
-                    <button
-                      className="button is-light is-fullwidth"
-                      id="googleSignIn"
-                      onClick={() => launchGoogleAuthentication() }
-                    >
-                      <span className="icon">
-                        <FontAwesomeIcon icon={faGoogle} />
-                      </span>
-                      <span>Sign In with Google</span>
-                    </button>
-                  </div>
-                </div>
-
                 <p className="has-text-centered">
                   Don't have an account?
-                  <a onClick={() => openSignUpPage() }>
+                  <a onClick={() => openPage(AI_EXT_STATUS.signup) }>
                     {' '} Sign Up
                   </a>
                 </p>
               </form>
+
+              <hr />
+
+              <div className="field mb-5">
+                <div className="control">
+                  <button
+                    className="button is-light is-fullwidth"
+                    onClick={() => launchGoogleAuthentication()}
+                  >
+                    <span className="icon">
+                      <FontAwesomeIcon icon={faGoogle} />
+                    </span>
+                    <span>Sign In with Google</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

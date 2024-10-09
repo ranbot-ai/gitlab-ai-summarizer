@@ -3,24 +3,16 @@ import { RanBOT } from "../../utils/common";
 import logo from "../../assets/icons/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faGears, faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { AI_EXT_STATUS } from "../../utils/constants";
 
 const Header = (props: {
-  setGoogleAccessToken: any,
-  setScreenName: any,
-  isCopy: boolean
+  signOut: any,
+  isCopy: boolean,
+  iisRef: any
 }) => {
-  const { setGoogleAccessToken, setScreenName, isCopy } = props;
+  const { signOut, isCopy, iisRef } = props;
 
   const openChromeSettingPage = (): void => {
     chrome.runtime.sendMessage({ action: "openSettingPage" })
-  }
-
-  const signOut = (): void => {
-    chrome.storage.sync.remove(["GASGoogleAccessToken"], () => {
-      setGoogleAccessToken(undefined);
-      setScreenName(AI_EXT_STATUS.signin);
-    });
   }
 
   return (
@@ -41,6 +33,7 @@ const Header = (props: {
         {isCopy && <a
           style={{ marginTop: '5px' }}
           className="navbar-item is-size-5 is-pulled-left"
+          onClick={() => navigator.clipboard.writeText(iisRef.innerText) }
         >
           <FontAwesomeIcon icon={faCopy} fontSize={'25px'} />
         </a>}

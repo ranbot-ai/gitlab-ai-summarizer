@@ -17,8 +17,8 @@ const openAIApiKey = await getOpenAIApiKey();
 const themeColor = await getThemeColor();
 const currentTabURL = await getCurrentTabURL();
 
-const GitLab = () => {
-  const issueDetailsRef = useRef(null);
+const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
+  const { setIsCopy, iisRef } = props;
 
   const [startGitLabAPI, setStartGitLabAPI] = useState<boolean>(true);
   const [progress, setProgress] = useState<string>('');
@@ -66,7 +66,8 @@ const GitLab = () => {
             const discussions = await fetchIssueDiscussions(gitlabProjectID, issueId)
 
             // Call the LLM with the fetched GitLab data
-            await fetchLLMResponse(issueDetailsRef, projectIssueData, discussions);
+            await fetchLLMResponse(iisRef, projectIssueData, discussions);
+            setIsCopy(true);
           }
 
           setStartGitLabAPI(false);
@@ -81,7 +82,10 @@ const GitLab = () => {
     <div
       className="container"
     >
-      {startGitLabAPI && <h2 className="has-text-centered" style={{ color: themeColor, fontSize: '1.2rem' }}>
+      {startGitLabAPI && <h2
+        className="mb-2 has-text-centered"
+        style={{ color: themeColor, fontSize: '1.2rem' }}
+      >
         {progress}
       </h2>}
 
@@ -98,7 +102,7 @@ const GitLab = () => {
           </p>}
         </div>
 
-        <div ref={issueDetailsRef}></div>
+        <div ref={iisRef}></div>
       </>}
     </div>
   );
