@@ -22,7 +22,7 @@ function AppIndex() {
   const [isCopy, setIsCopy] = useState(false);
   const [googleAccessToken, setGoogleAccessToken] = useState<string | undefined>(undefined);
 
-  const [screenName, setScreenName] = useState(AI_EXT_STATUS.signin);
+  const [screenName, setScreenName] = useState(AI_EXT_STATUS.signin.code);
   const [errorText, setErrorText] = useState('');
 
   useEffect(() => {
@@ -33,9 +33,9 @@ function AppIndex() {
 
   useEffect(() => {
     if (googleAccessToken === undefined) {
-      setScreenName(AI_EXT_STATUS.signin);
+      setScreenName(AI_EXT_STATUS.signin.code);
     } else {
-      setScreenName(AI_EXT_STATUS.summarizer);
+      setScreenName(AI_EXT_STATUS.summarizer.code);
     }
   }, [googleAccessToken]);
 
@@ -44,7 +44,7 @@ function AppIndex() {
       toast({
         message: errorText,
         type: 'is-danger',
-        duration: 2000,
+        duration: 5000,
         position: 'top-left',
         pauseOnHover: true,
         animate: { in: 'fadeIn', out: 'fadeOut' },
@@ -57,25 +57,25 @@ function AppIndex() {
   const signOut = (): void => {
     chrome.storage.sync.remove(["GASGoogleAccessToken"], () => {
       setGoogleAccessToken(undefined);
-      setScreenName(AI_EXT_STATUS.signin);
+      setScreenName(AI_EXT_STATUS.signin.code);
     });
   }
 
   return (
     <>
-      {screenName === AI_EXT_STATUS.signin &&
+      {screenName === AI_EXT_STATUS.signin.code &&
         <section className="hero is-info is-fullheight">
 
           <SignIn setScreenName={setScreenName}/>
         </section>
       }
-      {screenName === AI_EXT_STATUS.signup &&
+      {screenName === AI_EXT_STATUS.signup.code &&
         <section className="hero is-info is-fullheight">
 
           <SignUp setScreenName={setScreenName}/>
         </section>
       }
-      {screenName === AI_EXT_STATUS.summarizer && <>
+      {screenName === AI_EXT_STATUS.summarizer.code && <>
         <Header
           signOut={signOut}
           isCopy={isCopy}

@@ -1,8 +1,20 @@
 export const AI_EXT_STATUS = {
-  signin: "signin",
-  signout: "signout",
-  signup: "signup",
-  summarizer: "summarizer",
+  signin: {
+    text: "Sign In",
+    code: "signin",
+  },
+  signout: {
+    text: "Sign Out",
+    code: "signout",
+  },
+  signup: {
+    text: "Sign Up",
+    code: "signup",
+  },
+  summarizer: {
+    text: "Summarizer",
+    code: "summarizer",
+  },
 };
 
 export const THEMECOLORS = [

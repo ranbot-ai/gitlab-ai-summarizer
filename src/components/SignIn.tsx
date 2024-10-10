@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../assets/icons/logo.png";
 import { RanBOT } from "../utils/common";
-import { launchGoogleAuthentication } from "../utils";
 import { AI_EXT_STATUS } from "../utils/constants";
+import OrDivider from "./OrDivider";
+import GoogleAuthentication from "./GoogleAuthentication";
 
 const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
 
@@ -20,17 +19,17 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
               </div>
               <h1 className="title has-text-centered has-text-white mt-5">
-                Welcome to GitLab AI Summarizer
+                Welcome to {RanBOT.name}
               </h1>
 
               <form
                 id="loginForm"
-                onSubmit={() => openPage(AI_EXT_STATUS.summarizer) }
+                onSubmit={() => openPage(AI_EXT_STATUS.summarizer.code) }
                 className="mt-5"
               >
                 <div className="field">
                   <input
-                    className="input is-rounded"
+                    className="input is-rounded is-medium"
                     type="email"
                     placeholder="Email"
                     id="email"
@@ -40,7 +39,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
 
                 <div className="field">
                   <input
-                    className="input is-rounded"
+                    className="input is-rounded is-medium"
                     type="password"
                     placeholder="Password"
                     id="password"
@@ -64,38 +63,22 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                       className="button is-black is-fullwidth is-link"
                       type="submit"
                     >
-                      Sign In
+                      {AI_EXT_STATUS.signin.text}
                     </button>
                   </div>
                 </div>
 
                 <p className="has-text-centered has-text-white">
                   Don't have an account?
-                  <a onClick={() => openPage(AI_EXT_STATUS.signup) }>
-                    {' '} Sign Up
+                  <a onClick={() => openPage(AI_EXT_STATUS.signup.code) }>
+                    {' '} {AI_EXT_STATUS.signup.text}
                   </a>
                 </p>
               </form>
 
-              <div style={{display: 'flex', alignItems: 'center', margin: '20px 0'}}>
-                  <div style={{flex: '1', height: '1px', backgroundColor: '#d9d9d9'}}></div>
-                  <span className='has-text-white' style={{margin: '0 5px', fontSize: '1rem'}}> Or </span>
-                  <div style={{flex: '1', height: '1px', backgroundColor: '#d9d9d9'}}></div>
-              </div>
+              <OrDivider />
 
-              <div className="field mb-5">
-                <div className="control">
-                  <button
-                    className="button is-light is-fullwidth"
-                    onClick={() => launchGoogleAuthentication()}
-                  >
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faGoogle} />
-                    </span>
-                    <span>Sign In with Google</span>
-                  </button>
-                </div>
-              </div>
+              <GoogleAuthentication text={`${AI_EXT_STATUS.signin.text} with Google`} />
             </div>
           </div>
         </div>
