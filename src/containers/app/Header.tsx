@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { RanBOT } from "../../utils/common";
-import logo from "../../assets/icons/logo.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faGears, faSignOut } from "@fortawesome/free-solid-svg-icons";
+
+import logo from "../../assets/icons/logo.png";
 
 const Header = (props: {
   signOut: any,

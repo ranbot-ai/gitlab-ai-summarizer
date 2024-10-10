@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { calculateTicketAge, getCurrentTabURL, getGitLabApiKey, getOpenAIApiKey, getThemeColor } from "../../utils";
 import {

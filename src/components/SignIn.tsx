@@ -20,45 +20,40 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
               </div>
               <h1 className="title has-text-centered has-text-white mt-5">
-                Log in to your account
+                Welcome to GitLab AI Summarizer
               </h1>
-              <p className="subtitle has-text-centered has-text-white mt-5">
-                Please enter your details to proceed.
-              </p>
 
-              <form id="loginForm" onSubmit={() => openPage(AI_EXT_STATUS.summarizer) }>
+              <form
+                id="loginForm"
+                onSubmit={() => openPage(AI_EXT_STATUS.summarizer) }
+                className="mt-5"
+              >
                 <div className="field">
-                  <label className="label">Email</label>
-                  <div className="control">
-                    <input
-                      className="input"
-                      type="email"
-                      placeholder="Your email address"
-                      id="email"
-                      required
-                    />
-                  </div>
+                  <input
+                    className="input is-rounded"
+                    type="email"
+                    placeholder="Email"
+                    id="email"
+                    required
+                  />
                 </div>
 
                 <div className="field">
-                  <label className="label">Password</label>
-                  <div className="control">
-                    <input
-                      className="input"
-                      type="password"
-                      placeholder="Your password"
-                      id="password"
-                      required
-                    />
-                  </div>
+                  <input
+                    className="input is-rounded"
+                    type="password"
+                    placeholder="Password"
+                    id="password"
+                    required
+                  />
                 </div>
 
-                <div className="field">
+                <div className="field mt-5">
                   <div className="control">
-                    <label className="checkbox" style={{ lineHeight: '1.5rem' }}>
+                    <label className="checkbox has-text-white">
                       <input type="checkbox" id="terms" />
-                      {' '} By signing up, you agree to our
-                      <a href="#"> Terms, Data Policy, and Cookies Policy</a>.
+                      {' '} I agree to RanBOT's {' '}
+                      <a href="#" className="is-link">Terms of Use, and Privacy Policy</a>.
                     </label>
                   </div>
                 </div>
@@ -74,7 +69,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                   </div>
                 </div>
 
-                <p className="has-text-centered">
+                <p className="has-text-centered has-text-white">
                   Don't have an account?
                   <a onClick={() => openPage(AI_EXT_STATUS.signup) }>
                     {' '} Sign Up
@@ -82,7 +77,11 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 </p>
               </form>
 
-              <hr />
+              <div style={{display: 'flex', alignItems: 'center', margin: '20px 0'}}>
+                  <div style={{flex: '1', height: '1px', backgroundColor: '#d9d9d9'}}></div>
+                  <span className='has-text-white' style={{margin: '0 5px', fontSize: '1rem'}}> Or </span>
+                  <div style={{flex: '1', height: '1px', backgroundColor: '#d9d9d9'}}></div>
+              </div>
 
               <div className="field mb-5">
                 <div className="control">

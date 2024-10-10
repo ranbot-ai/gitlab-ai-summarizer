@@ -2,8 +2,6 @@
 import { useEffect, useState } from "react";
 import { getGoogleAccount } from "../../utils";
 import GitLab from "./GitLab";
-import { AI_EXT_STATUS } from "../../utils/constants";
-
 
 function AiSummarizer(porps: {
   token: string | undefined,
@@ -12,7 +10,7 @@ function AiSummarizer(porps: {
   setErrorText: any,
   iisRef: any
 }) {
-  const { token, setIsCopy, setScreenName, setErrorText, iisRef } = porps;
+  const { token, setIsCopy, setErrorText, iisRef } = porps;
 
   const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
 
