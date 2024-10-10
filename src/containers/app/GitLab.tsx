@@ -81,6 +81,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
   return (
     <div
       className="container"
+      id="gitlabAISummarizerDetails"
     >
       {startGitLabAPI && <h2
         className="mb-2 has-text-centered"

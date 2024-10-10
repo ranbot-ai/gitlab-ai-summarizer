@@ -73,3 +73,16 @@ html {
     transform: translate(1px, -2px) rotate(-1deg);
   }
 }
+
+.bg-1 {
+  background: linear-gradient(to left top, #1f808e, #132e3a);
+}
+
+.bg-2 {
+  background: linear-gradient(to left top, #122f39, #081e26);
+}
+
+.btn-bg {
+  background: #098395;
+}
+

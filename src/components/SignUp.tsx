@@ -15,7 +15,7 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-one-third">
-            <div className="box p-5 has-background-grey">
+            <div className="box p-5 bg-2">
               <div className="has-text-centered">
                 <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
               </div>
@@ -67,7 +67,7 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <div className="field">
                   <div className="control">
                     <button
-                      className="button is-black is-fullwidth is-link"
+                      className="button is-fullwidth btn-bg"
                       type="submit"
                     >
                       {AI_EXT_STATUS.signup.text}

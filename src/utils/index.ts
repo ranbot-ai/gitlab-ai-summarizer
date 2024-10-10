@@ -195,7 +195,9 @@ const getGoogleAccount = async (token: string) => {
   }
 };
 
-const launchGoogleAuthentication = async () => {
+const launchGoogleAuthentication = async (event: any) => {
+  const currentTarget = event.currentTarget;
+  currentTarget.disabled = true;
   const clientId = RanBOT.googleAppClientId;
 
   // Define your client ID and redirect URL from the Google Developer Console
@@ -228,6 +230,8 @@ const launchGoogleAuthentication = async () => {
       } else {
         console.error("Access token not found in response");
       }
+
+      currentTarget.disabled = false;
     }
   );
 };

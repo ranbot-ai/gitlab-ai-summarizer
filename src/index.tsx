@@ -7,13 +7,10 @@ import { FormProvider } from './contexts/FormContext';
 
 import './assets/styles/settings.css';
 import AppIndex from './containers/app/AppIndex';
-import { getThemeColor } from './utils';
 
 const container = document.getElementById('root')
 if (container) {
   const root = createRoot(container);
-  const themeColor = await getThemeColor();
-  container.style.backgroundColor = `${themeColor}`;
 
   root.render(
     <React.StrictMode>

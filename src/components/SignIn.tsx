@@ -14,7 +14,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-one-third">
-            <div className="box p-5 has-background-grey">
+            <div className="box p-5 bg-2">
               <div className="has-text-centered">
                 <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
               </div>
@@ -60,7 +60,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <div className="field">
                   <div className="control">
                     <button
-                      className="button is-black is-fullwidth is-link"
+                      className="button is-fullwidth btn-bg"
                       type="submit"
                     >
                       {AI_EXT_STATUS.signin.text}
@@ -79,6 +79,12 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
               <OrDivider />
 
               <GoogleAuthentication text={`${AI_EXT_STATUS.signin.text} with Google`} />
+
+              <p className="has-text-centered has-text-white">
+                <a onClick={() => openPage(AI_EXT_STATUS.forget_password.code) }>
+                  {AI_EXT_STATUS.forget_password.text}
+                </a>
+              </p>
             </div>
           </div>
         </div>

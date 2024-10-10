@@ -14,6 +14,7 @@ import AiSummarizer from './AiSummarizer';
 import { AI_EXT_STATUS } from '../../utils/constants';
 
 import './../../assets/styles/inject.css';
+import ForgetPassword from '../../components/ForgetPassword';
 
 const storageGoogleAccessToken = await getGoogleAccessToken();
 
@@ -64,17 +65,26 @@ function AppIndex() {
   return (
     <>
       {screenName === AI_EXT_STATUS.signin.code &&
-        <section className="hero is-info is-fullheight">
+        <section className="is-info is-fullheight">
 
           <SignIn setScreenName={setScreenName}/>
         </section>
       }
+
       {screenName === AI_EXT_STATUS.signup.code &&
-        <section className="hero is-info is-fullheight">
+        <section className="is-info is-fullheight">
 
           <SignUp setScreenName={setScreenName}/>
         </section>
       }
+
+      {screenName === AI_EXT_STATUS.forget_password.code &&
+        <section className="is-info is-fullheight">
+
+          <ForgetPassword setScreenName={setScreenName}/>
+        </section>
+      }
+
       {screenName === AI_EXT_STATUS.summarizer.code && <>
         <Header
           signOut={signOut}

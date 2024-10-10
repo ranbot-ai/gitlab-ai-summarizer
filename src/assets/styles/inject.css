@@ -51,6 +51,7 @@
     height: 100% !important;
     border: none !important;
     pointer-events: initial !important;
+    background: linear-gradient(to left top, rgba(32, 128, 142, 1), rgba(18, 49, 60, 1));
   }
 
   &.logoOnly {
@@ -73,5 +74,33 @@
     iframe {
       display: none !important;
     }
+  }
+}
+
+#gitlabAISummarizerDetails {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px transparent;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: var(--scrollbar-thumb-bg, rgba(31, 44, 108, 0.65));
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 5px transparent;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: var(--scrollbar-thumb-bg, rgba(31, 44, 108, 0.65));
+  }
+
+  &::-webkit-scrollbar-thumb:hover,
+  &::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbar-thumb-bg, rgba(31, 44, 108, 0.65));
   }
 }

@@ -15,6 +15,14 @@ export const AI_EXT_STATUS = {
     text: "Summarizer",
     code: "summarizer",
   },
+  forget_password: {
+    text: "Forget Password?",
+    code: "forget_password",
+  },
+  reset_password: {
+    text: "Reset Password",
+    code: "reset_password",
+  },
 };
 
 export const THEMECOLORS = [

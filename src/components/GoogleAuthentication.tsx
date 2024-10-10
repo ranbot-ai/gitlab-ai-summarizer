@@ -11,7 +11,7 @@ const GoogleAuthentication = (props: { text: string }) => {
       <div className="control">
         <button
           className="button is-light is-fullwidth"
-          onClick={() => launchGoogleAuthentication()}
+          onClick={(e) => launchGoogleAuthentication(e)}
         >
           <span className="icon">
             <FontAwesomeIcon icon={faGoogle} />
