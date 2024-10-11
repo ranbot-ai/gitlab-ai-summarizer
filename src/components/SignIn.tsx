@@ -4,6 +4,7 @@ import { RanBOT } from "../utils/common";
 import { AI_EXT_STATUS } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import GoogleAuthentication from "./GoogleAuthentication";
+import Footer from "../containers/app/Footer";
 
 const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
 
@@ -92,6 +93,8 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </section>
   );
 }

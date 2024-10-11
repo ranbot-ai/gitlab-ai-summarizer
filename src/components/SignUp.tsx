@@ -6,6 +6,7 @@ import { RanBOT } from "../utils/common";
 import { AI_EXT_STATUS } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import GoogleAuthentication from "./GoogleAuthentication";
+import Footer from "../containers/app/Footer";
 
 const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
   const openPage = (screenName: string) => { setScreenName(screenName) }
@@ -93,6 +94,8 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </section>
   );
 }

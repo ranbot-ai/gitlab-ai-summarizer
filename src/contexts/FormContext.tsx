@@ -14,6 +14,7 @@ interface FormData {
   GASOpenaiModel: string;
   GASOllamaURL: string;
   GASOllamaModel: string;
+  GASThemeType: string;
   GASThemeColor: string;
 }
 
@@ -38,6 +39,7 @@ const FormProvider = ({ children }: { children: ReactNode }) => {
     GASOpenaiModel: 'gpt-4o',
     GASOllamaURL: 'http://localhost:11434',
     GASOllamaModel: 'llama3.1',
+    GASThemeType: 'theme-green',
     GASThemeColor: '#000000'
   });
 

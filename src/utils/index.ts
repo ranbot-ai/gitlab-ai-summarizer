@@ -54,6 +54,11 @@ const getOpenAIApiKey = async (): Promise<string | undefined> => {
   return getFromBackground("getOpenAIApiKey", "GASOpenAIKey");
 };
 
+// Retrieve Theme Type
+const getThemeType = async (): Promise<string | undefined> => {
+  return getFromBackground("getThemeType", "GASThemeType");
+};
+
 // Retrieve Theme Color
 const getThemeColor = async (): Promise<string | undefined> => {
   return getFromBackground("getThemeColor", "GASThemeColor");
@@ -226,7 +231,7 @@ const launchGoogleAuthentication = async (event: any, setScreenName: any) => {
         const accessToken = tokenMatch[1];
 
         setStorage({ GASGoogleAccessToken: accessToken }, () => {
-          setScreenName(AI_EXT_STATUS.summarizer.code);
+          // setScreenName(AI_EXT_STATUS.summarizer.code);
         });
       } else {
         console.error("Access token not found in response");
@@ -243,6 +248,7 @@ export {
   getGitLabWebURL,
   getGitLabApiKey,
   getOpenAIApiKey,
+  getThemeType,
   getThemeColor,
   getAiProvider,
   getOpenAIModel,

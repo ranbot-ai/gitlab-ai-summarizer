@@ -7,12 +7,8 @@ export {};
 
 const currentTabUrl = window.document.URL;
 
-console.log(`currentTabUrl: ${currentTabUrl}`);
-
 if (isGitLabIssuesPage(currentTabUrl)) {
   extView.displayExtView();
 
-  setStorage({ GASCurrentTabUrl: currentTabUrl }, () => {
-    console.log("Current Tab URL:", currentTabUrl);
-  });
+  setStorage({ GASCurrentTabUrl: currentTabUrl }, () => {});
 }

@@ -233,7 +233,7 @@ function Settings() {
                         placeholder="OpenAI Access Token"
                         onChange={handleChange}
                         value={formData.GASOpenAIKey}
-                        style={{ width: '60.5%' }}
+                        style={{ width: '64.5%' }}
                       />
                       {showOpenAIPassword ?
                       <FontAwesomeIcon
@@ -342,6 +342,29 @@ function Settings() {
                 </div>
               </div>
             </div>}
+
+            <div className="field is-horizontal">
+              <div className="field-label">
+                <label className="label has-text-white"> Theme </label>
+              </div>
+              <div className="field-body">
+                <div className="field is-expanded">
+                  <div className="field has-addons">
+                    <div className="select is-expanded">
+                      <select
+                        name="GASThemeType"
+                        onChange={handleChange}
+                        style={{ minWidth: '290px' }}
+                        value={formData.GASThemeType}
+                      >
+                        <option value={'theme-green'}>Green</option>
+                        <option value={'theme-dark-blue'}>Dark Blue</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="field is-horizontal">
               <div className="field-label">

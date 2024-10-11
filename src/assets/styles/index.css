@@ -104,8 +104,6 @@ html {
 
 /* Theme Green */
 div[data-theme="theme-green"] {
-  background: linear-gradient(to right bottom, #64478c, #2c1646) !important;
-
   .dom-bg-color {
     background: linear-gradient(to right bottom, #64478c, #2c1646) !important;
   }
@@ -115,18 +113,12 @@ div[data-theme="theme-green"] {
   }
 
   .btn-bg-color {
-    background: #098395 !important;
-  }
-
-  .g1-color {
-    color: #ffffff !important;
+    background: #513579 !important;
   }
 }
 
 /* Theme Dark Blue */
 div[data-theme="theme-dark-blue"] {
-  background: linear-gradient(to right bottom, #1f808e, #132e3a) !important;
-
   .dom-bg-color {
     background: linear-gradient(to right bottom, #1f808e, #132e3a) !important;
   }
@@ -136,10 +128,6 @@ div[data-theme="theme-dark-blue"] {
   }
 
   .btn-bg-color {
-    background: #513579 !important;
-  }
-
-  .g2-color {
-    color: #ffddc4 !important;
+    background: #098395 !important;
   }
 }

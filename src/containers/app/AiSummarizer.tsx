@@ -11,9 +11,7 @@ function AiSummarizer(porps: {
   iisRef: any
 }) {
   const { token, setIsCopy, setErrorText, iisRef } = porps;
-
   const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
-
 
   useEffect(() => {
     if (token !== undefined) {
@@ -32,14 +30,12 @@ function AiSummarizer(porps: {
       };
 
       fetchGoogleAccount()
-    } else {
-      setErrorText("The token was not found!");
     }
   }, [token]);
 
   return (
     <div
-      className="container m-5 p-5 btn-bg-color"
+      className="container m-5 p-5"
       style={{
         height: "calc(100vh - 133px)",
         width: "90%",

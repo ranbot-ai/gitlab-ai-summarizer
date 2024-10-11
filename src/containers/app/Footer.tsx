@@ -12,6 +12,7 @@ const Footer = () => {
         lineHeight: '25px',
         width: '100%',
         bottom: 0,
+        left: 0,
         backgroundColor: themeColor,
       }}
       className="has-text-centered"

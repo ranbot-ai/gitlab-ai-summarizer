@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'bulma-toast';
 
-import { getGoogleAccessToken } from './../../utils';
+import { getGoogleAccessToken, getThemeType } from './../../utils';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -17,6 +17,7 @@ import './../../assets/styles/inject.css';
 import ForgetPassword from '../../components/ForgetPassword';
 
 const storageGoogleAccessToken = await getGoogleAccessToken();
+const themeType = await getThemeType();
 
 function AppIndex() {
   const issueDetailsRef = useRef(null);
@@ -58,12 +59,11 @@ function AppIndex() {
   const signOut = (): void => {
     chrome.storage.sync.remove(["GASGoogleAccessToken"], () => {
       setGoogleAccessToken(undefined);
-      setScreenName(AI_EXT_STATUS.signin.code);
     });
   }
 
   return (
-    <div data-theme="theme-green">
+    <div data-theme={themeType}>
       {screenName === AI_EXT_STATUS.signin.code &&
         <section className="is-info is-fullheight">
 
