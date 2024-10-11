@@ -51,7 +51,6 @@
     height: 100% !important;
     border: none !important;
     pointer-events: initial !important;
-    background: linear-gradient(to left top, rgba(32, 128, 142, 1), rgba(18, 49, 60, 1));
   }
 
   &.logoOnly {
@@ -102,5 +101,47 @@
   &::-webkit-scrollbar-thumb:hover,
   &::-webkit-scrollbar-thumb:active {
     background: var(--scrollbar-thumb-bg, rgba(31, 44, 108, 0.65));
+  }
+}
+
+/* Theme Green */
+iframe[theme="theme-green"] {
+  background: linear-gradient(to right bottom, #64478c, #2c1646) !important;
+
+  .dom-bg-color {
+    background: linear-gradient(to right bottom, #64478c, #2c1646) !important;
+  }
+
+  .wrap-bg-color {
+    background: linear-gradient(to right bottom, #462f6e, #2f1350) !important;
+  }
+
+  .btn-bg-color {
+    background: #098395 !important;
+  }
+
+  .g1-color {
+    color: #ffffff !important;
+  }
+}
+
+/* Theme Dark Blue */
+iframe[theme="theme-dark-blue"] {
+  background: linear-gradient(to right bottom, #1f808e, #132e3a) !important;
+
+  .dom-bg-color {
+    background: linear-gradient(to right bottom, #1f808e, #132e3a) !important;
+  }
+
+  .wrap-bg-color {
+    background: linear-gradient(to right bottom, #122f39, #081e26) !important;
+  }
+
+  .btn-bg-color {
+    background: #513579 !important;
+  }
+
+  .g2-color {
+    color: #ffddc4 !important;
   }
 }

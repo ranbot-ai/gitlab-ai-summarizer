@@ -14,6 +14,7 @@ const createExtView = (): void => {
 
   const iframe = document.createElement("iframe");
   iframe.src = chrome.runtime.getURL(`/packs/static/index.html`);
+  iframe.setAttribute("theme", "theme-green");
 
   const headerRanbotLogo = document.createElement("img");
   headerRanbotLogo.id = "gitlabAISummarizerHeaderRanbotLogo";

@@ -1,4 +1,5 @@
 import { RanBOT } from "./common";
+import { AI_EXT_STATUS } from "./constants";
 
 async function fetchFromGitLabAPI(url: string) {
   const gitLabWebURL = await getGitLabWebURL();
@@ -195,7 +196,7 @@ const getGoogleAccount = async (token: string) => {
   }
 };
 
-const launchGoogleAuthentication = async (event: any) => {
+const launchGoogleAuthentication = async (event: any, setScreenName: any) => {
   const currentTarget = event.currentTarget;
   currentTarget.disabled = true;
   const clientId = RanBOT.googleAppClientId;
@@ -225,7 +226,7 @@ const launchGoogleAuthentication = async (event: any) => {
         const accessToken = tokenMatch[1];
 
         setStorage({ GASGoogleAccessToken: accessToken }, () => {
-          console.log("Access Token:", accessToken);
+          setScreenName(AI_EXT_STATUS.summarizer.code);
         });
       } else {
         console.error("Access token not found in response");

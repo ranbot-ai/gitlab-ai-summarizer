@@ -63,7 +63,7 @@ function AppIndex() {
   }
 
   return (
-    <>
+    <div data-theme="theme-green">
       {screenName === AI_EXT_STATUS.signin.code &&
         <section className="is-info is-fullheight">
 
@@ -102,7 +102,7 @@ function AppIndex() {
 
         <Footer />
       </>}
-    </>
+    </div>
   );
 }
 

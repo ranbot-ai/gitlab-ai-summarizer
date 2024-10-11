@@ -21,13 +21,12 @@ const Header = (props: {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand is-pulled-left">
         <a
-          className="navbar-item is-size-5"
+          className="navbar-item ml-2"
           href="https://ranbot.online"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
-          <strong>{RanBOT?.name}</strong>
         </a>
       </div>
 

@@ -18,7 +18,7 @@ const Footer = () => {
     >
       <div className="p-4">
         <p className="has-text-white">
-          <strong className="has-text-white">RanBOT</strong> v{RanBOT?.version}
+          <strong className="has-text-white">{RanBOT.name}</strong> v{RanBOT?.version}
         </p>
       </div>
     </footer>

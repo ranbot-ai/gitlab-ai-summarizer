@@ -158,7 +158,7 @@ function Settings() {
                         placeholder="Personal Access Token (glpat-xxx)"
                         onChange={handleChange}
                         value={formData.GASGitLabAccessToken}
-                        style={{ width: '94%' }}
+                        style={{ width: '60%' }}
                       />
                       {showGitlabToken ?
                       <FontAwesomeIcon
@@ -233,7 +233,7 @@ function Settings() {
                         placeholder="OpenAI Access Token"
                         onChange={handleChange}
                         value={formData.GASOpenAIKey}
-                        style={{ width: '94.5%' }}
+                        style={{ width: '60.5%' }}
                       />
                       {showOpenAIPassword ?
                       <FontAwesomeIcon

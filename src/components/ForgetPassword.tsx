@@ -15,7 +15,7 @@ const ForgetPassword: React.FC<ScreenProps> = ({ setScreenName }) => {
       <div className="container">
         <div className="columns is-centered">
           <div className="column is-one-third">
-            <div className="box p-5 bg-2">
+            <div className="box p-5 wrap-bg-color" style={{ borderRadius: "50px" }}>
               <div className="has-text-centered">
                 <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
               </div>
@@ -38,7 +38,7 @@ const ForgetPassword: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <div className="field">
                   <div className="control">
                     <button
-                      className="button is-fullwidth btn-bg"
+                      className="button is-fullwidth btn-bg-color"
                       type="submit"
                     >
                       {AI_EXT_STATUS.reset_password.text}
