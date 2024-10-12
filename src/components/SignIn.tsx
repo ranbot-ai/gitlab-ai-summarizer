@@ -5,10 +5,35 @@ import { AI_EXT_STATUS } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import GoogleAuthentication from "./GoogleAuthentication";
 import Footer from "../containers/app/Footer";
+import { useState } from "react";
+import { isEmail } from "../utils/tools";
 
-const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
+const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken }) => {
+  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [password, setPassword] = useState<string | undefined>(undefined);
 
   const openPage = (screenName: string) => { setScreenName(screenName) }
+
+  const handleSignIn = () => {
+    let hasError = false;
+    if (!hasError && email === undefined) {
+      hasError = true;
+      setErrorText('Please enter email');
+    }
+    if (!hasError && email && !isEmail(email)) {
+      hasError = true;
+      setErrorText('Invalid email address');
+    }
+    if (!hasError && password === undefined) {
+      hasError = true;
+      setErrorText('Please enter password');
+    }
+
+    if (!hasError) {
+      setScreenName(AI_EXT_STATUS.summarizer.code);
+      setUserAccessToken?.('userToken');
+    }
+  }
 
   return (
     <section className="section" style={{ height: "100%" }}>
@@ -23,18 +48,14 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 Welcome to {RanBOT.name}
               </h1>
 
-              <form
-                id="loginForm"
-                onSubmit={() => openPage(AI_EXT_STATUS.summarizer.code) }
-                className="mt-5"
-              >
+              <>
                 <div className="field">
                   <input
                     className="input is-rounded is-medium"
                     type="email"
                     placeholder="Email"
-                    id="email"
-                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value) }
                   />
                 </div>
 
@@ -43,8 +64,8 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                     className="input is-rounded is-medium"
                     type="password"
                     placeholder="Password"
-                    id="password"
-                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value) }
                   />
                 </div>
 
@@ -53,7 +74,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                     <label className="checkbox has-text-white">
                       <input type="checkbox" id="terms" />
                       {' '} I agree to RanBOT's {' '}
-                      <a href="#" className="is-link">Terms of Use, and Privacy Policy</a>.
+                      <a href="#" className="link-color">Terms of Use, and Privacy Policy</a>.
                     </label>
                   </div>
                 </div>
@@ -61,8 +82,8 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <div className="field">
                   <div className="control">
                     <button
-                      className="button is-fullwidth btn-bg-color"
-                      type="submit"
+                      className="button is-fullwidth has-text-white btn-bg-color"
+                      onClick={() => handleSignIn() }
                     >
                       {AI_EXT_STATUS.signin.text}
                     </button>
@@ -71,11 +92,14 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
 
                 <p className="has-text-centered has-text-white">
                   Don't have an account?
-                  <a onClick={() => openPage(AI_EXT_STATUS.signup.code) }>
+                  <a
+                    onClick={() => openPage(AI_EXT_STATUS.signup.code) }
+                    className="link-color"
+                  >
                     {' '} {AI_EXT_STATUS.signup.text}
                   </a>
                 </p>
-              </form>
+              </>
 
               <OrDivider />
 
@@ -85,7 +109,10 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName }) => {
               />
 
               <p className="has-text-centered has-text-white">
-                <a onClick={() => openPage(AI_EXT_STATUS.forget_password.code) }>
+                <a
+                  onClick={() => openPage(AI_EXT_STATUS.forget_password.code) }
+                  className="link-color"
+                >
                   {AI_EXT_STATUS.forget_password.text}
                 </a>
               </p>

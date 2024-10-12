@@ -115,6 +115,10 @@ div[data-theme="theme-green"] {
   .btn-bg-color {
     background: #513579 !important;
   }
+
+  .link-color {
+    color: #c45bee !important;
+  }
 }
 
 /* Theme Dark Blue */
@@ -129,5 +133,9 @@ div[data-theme="theme-dark-blue"] {
 
   .btn-bg-color {
     background: #098395 !important;
+  }
+
+  .link-color {
+    color: #098395 !important;
   }
 }

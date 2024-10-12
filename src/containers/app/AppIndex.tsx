@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'bulma-toast';
 
-import { getGoogleAccessToken, getThemeType } from './../../utils';
+import { getGoogleAccessToken, getThemeType, getUserAccessToken } from './../../utils';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -17,29 +17,34 @@ import './../../assets/styles/inject.css';
 import ForgetPassword from '../../components/ForgetPassword';
 
 const storageGoogleAccessToken = await getGoogleAccessToken();
+const storageUserAccessToken = await getUserAccessToken();
 const themeType = await getThemeType();
 
 function AppIndex() {
   const issueDetailsRef = useRef(null);
   const [isCopy, setIsCopy] = useState(false);
   const [googleAccessToken, setGoogleAccessToken] = useState<string | undefined>(undefined);
+  const [userAccessToken, setUserAccessToken] = useState<string | undefined>(undefined);
 
   const [screenName, setScreenName] = useState(AI_EXT_STATUS.signin.code);
   const [errorText, setErrorText] = useState('');
+  const [messageText, setMessageText] = useState('');
 
   useEffect(() => {
     if (googleAccessToken === undefined && storageGoogleAccessToken !== undefined) {
       setGoogleAccessToken(storageGoogleAccessToken);
     }
+
+    if (userAccessToken === undefined && storageUserAccessToken !== undefined) {
+      setUserAccessToken(storageUserAccessToken);
+    }
   }, []);
 
   useEffect(() => {
-    if (googleAccessToken === undefined) {
-      setScreenName(AI_EXT_STATUS.signin.code);
-    } else {
+    if (googleAccessToken !== undefined || userAccessToken !== undefined) {
       setScreenName(AI_EXT_STATUS.summarizer.code);
     }
-  }, [googleAccessToken]);
+  }, [googleAccessToken, userAccessToken]);
 
   useEffect(() => {
     if (errorText !== '') {
@@ -56,9 +61,23 @@ function AppIndex() {
     }
   }, [errorText]);
 
+  useEffect(() => {
+    if (messageText !== '') {
+      toast({
+        message: messageText,
+        type: 'is-info',
+        duration: 5000,
+        position: 'top-left',
+        pauseOnHover: true,
+        animate: { in: 'fadeIn', out: 'fadeOut' },
+      });
+    }
+  }, [messageText]);
+
   const signOut = (): void => {
-    chrome.storage.sync.remove(["GASGoogleAccessToken"], () => {
+    chrome.storage.sync.remove(["GASGoogleAccessToken", "GASUserAccessToken"], () => {
       setGoogleAccessToken(undefined);
+      setUserAccessToken(undefined);
     });
   }
 
@@ -66,22 +85,30 @@ function AppIndex() {
     <div data-theme={themeType}>
       {screenName === AI_EXT_STATUS.signin.code &&
         <section className="is-info is-fullheight">
-
-          <SignIn setScreenName={setScreenName}/>
+          <SignIn
+            setScreenName={setScreenName}
+            setErrorText={setErrorText}
+            setUserAccessToken={setUserAccessToken}
+          />
         </section>
       }
 
       {screenName === AI_EXT_STATUS.signup.code &&
         <section className="is-info is-fullheight">
-
-          <SignUp setScreenName={setScreenName}/>
+          <SignUp
+            setScreenName={setScreenName}
+            setErrorText={setErrorText}
+          />
         </section>
       }
 
       {screenName === AI_EXT_STATUS.forget_password.code &&
         <section className="is-info is-fullheight">
-
-          <ForgetPassword setScreenName={setScreenName}/>
+          <ForgetPassword
+            setScreenName={setScreenName}
+            setErrorText={setErrorText}
+            setMessageText={setMessageText}
+          />
         </section>
       }
 
@@ -93,7 +120,8 @@ function AppIndex() {
         />
 
         <AiSummarizer
-          token={googleAccessToken}
+          googleToken={googleAccessToken}
+          userAccessToken={userAccessToken}
           setIsCopy={setIsCopy}
           setScreenName={setScreenName}
           setErrorText={setErrorText}

@@ -7,9 +7,44 @@ import { AI_EXT_STATUS } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import GoogleAuthentication from "./GoogleAuthentication";
 import Footer from "../containers/app/Footer";
+import { useState } from "react";
+import { isEmail } from "../utils/tools";
 
-const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
+const SignUp: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken }) => {
+  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [password, setPassword] = useState<string | undefined>(undefined);
+  const [confirmPassword, setConfirmPassword] = useState<string | undefined>(undefined);
+
   const openPage = (screenName: string) => { setScreenName(screenName) }
+
+  const handleSignUp = () => {
+    let hasError = false;
+    if (!hasError && email === undefined) {
+      setErrorText('Please enter email');
+      hasError = true;
+    }
+    if (!hasError && email && !isEmail(email)) {
+      hasError = true;
+      setErrorText('Invalid email address');
+    }
+    if (!hasError && password === undefined) {
+      setErrorText('Please enter password');
+      hasError = true
+    }
+    if (!hasError && confirmPassword === undefined) {
+      setErrorText('Please enter confirm password');
+      hasError = true;
+    }
+    if (!hasError && password !== confirmPassword) {
+      setErrorText('Passwords do not match');
+      hasError = true;
+    }
+
+    if (!hasError) {
+      setScreenName(AI_EXT_STATUS.summarizer.code);
+      setUserAccessToken?.('userToken');
+    }
+  }
 
   return (
     <section className="section" style={{ height: "100%" }}>
@@ -24,14 +59,14 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                 {AI_EXT_STATUS.signup.text} to {RanBOT.name}
               </h1>
 
-              <form id="loginForm">
+              <>
                 <div className="field">
                   <input
                     className="input is-rounded is-medium"
                     type="email"
-                    placeholder="Email"
-                    id="email"
-                    required
+                    placeholder='Email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value) }
                   />
                 </div>
 
@@ -40,8 +75,8 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                     className="input is-rounded is-medium"
                     type="password"
                     placeholder="Password"
-                    id="password"
-                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value) }
                   />
                 </div>
 
@@ -50,8 +85,8 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                     className="input is-rounded is-medium"
                     type="password"
                     placeholder="Confirm Password"
-                    id="confirm_password"
-                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value) }
                   />
                 </div>
 
@@ -60,7 +95,7 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                     <label className="checkbox has-text-white">
                       <input type="checkbox" id="terms" />
                       {' '} I agree to RanBOT's {' '}
-                      <a href="#" className="is-link">Terms of Use, and Privacy Policy</a>.
+                      <a href="#" className="link-color">Terms of Use, and Privacy Policy</a>.
                     </label>
                   </div>
                 </div>
@@ -68,8 +103,8 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
                 <div className="field">
                   <div className="control">
                     <button
-                      className="button is-fullwidth btn-bg-color"
-                      type="submit"
+                      className="button is-fullwidth has-text-white btn-bg-color"
+                      onClick={() => handleSignUp() }
                     >
                       {AI_EXT_STATUS.signup.text}
                     </button>
@@ -78,11 +113,14 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName }) => {
 
                 <p className="has-text-centered has-text-white">
                   Already have an account
-                  <a onClick={() => openPage(AI_EXT_STATUS.signin.code) }>
+                  <a
+                    onClick={() => openPage(AI_EXT_STATUS.signin.code) }
+                    className="link-color"
+                  >
                     {' '} {AI_EXT_STATUS.signin.text}
                   </a>
                 </p>
-              </form>
+              </>
 
               <OrDivider />
 

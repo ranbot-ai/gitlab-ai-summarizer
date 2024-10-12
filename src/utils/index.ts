@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { RanBOT } from "./common";
 import { AI_EXT_STATUS } from "./constants";
 
@@ -83,6 +84,10 @@ const getOllamaURL = async (): Promise<string | undefined> => {
 
 const getGoogleAccessToken = async (): Promise<string | undefined> => {
   return getFromBackground("getGoogleAccessToken", "GASGoogleAccessToken");
+};
+
+const getUserAccessToken = async (): Promise<string | undefined> => {
+  return getFromBackground("getUserAccessToken", "GASUserAccessToken");
 };
 
 const getCurrentTabURL = async (): Promise<string | undefined> => {
@@ -201,6 +206,25 @@ const getGoogleAccount = async (token: string) => {
   }
 };
 
+const getUserAccount = async (token: string) => {
+  try {
+    // const response = await fetch(
+    //   "https://gitlab-ai.ranbot.online/v1/userinfo",
+    //   {
+    //     method: "GET",
+    //     headers: new Headers({ Authorization: "Bearer " + token }),
+    //   }
+    // );
+    // return await response.json();
+    return {
+      name: "Encore",
+      email: "encore@apple.com",
+    };
+  } catch (error: any) {
+    throw new Error("Failed to fetch data: " + error.message); // Throw error so caller can handle it
+  }
+};
+
 const launchGoogleAuthentication = async (event: any, setScreenName: any) => {
   const currentTarget = event.currentTarget;
   currentTarget.disabled = true;
@@ -256,6 +280,7 @@ export {
   getOllamaURL,
   getDomainFromURL,
   getGoogleAccessToken,
+  getUserAccessToken,
   getCurrentTabURL,
   chunkArray,
   calculateTicketAge,
@@ -264,5 +289,6 @@ export {
   checkDisabledGitLabSites,
   toggleDisabledGitLabSites,
   getGoogleAccount,
+  getUserAccount,
   launchGoogleAuthentication,
 };

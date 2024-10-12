@@ -3,6 +3,9 @@ declare module "lodash/debounce";
 // Define the props interface to include the setScreenName function
 interface ScreenProps {
   setScreenName: (name: string) => void;
+  setErrorText: (name: string) => void;
+  setMessageText?: (name: string) => void;
+  setUserAccessToken?: (name: string) => void;
 }
 
 type PlainObjectType = {

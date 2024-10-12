@@ -27,6 +27,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     getOpenAIApiKey: { key: "GASOpenAIKey" },
     getGitLabApiKey: { key: "GASGitLabAccessToken" },
     getGoogleAccessToken: { key: "GASGoogleAccessToken" },
+    getUserAccessToken: { key: "GASUserAccessToken" },
     getCurrentTabURL: { key: "GASCurrentTabUrl" },
     getGitLab: { key: "GASGitLab" },
     getThemeType: { key: "GASThemeType", defaultValue: "theme-green" },

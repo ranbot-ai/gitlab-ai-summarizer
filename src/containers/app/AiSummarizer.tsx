@@ -4,20 +4,21 @@ import { getGoogleAccount } from "../../utils";
 import GitLab from "./GitLab";
 
 function AiSummarizer(porps: {
-  token: string | undefined,
+  googleToken: string | undefined,
+  userAccessToken: string | undefined,
   setIsCopy: any,
   setScreenName: any,
   setErrorText: any,
   iisRef: any
 }) {
-  const { token, setIsCopy, setErrorText, iisRef } = porps;
+  const { googleToken, userAccessToken, setIsCopy, setErrorText, iisRef } = porps;
   const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
 
   useEffect(() => {
-    if (token !== undefined) {
+    if (googleToken !== undefined) {
       const fetchGoogleAccount = async () => {
         try {
-          const result = await getGoogleAccount(token);
+          const result = await getGoogleAccount(googleToken);
 
           if (result.error) {
             setErrorText(result.error.message);
@@ -31,7 +32,27 @@ function AiSummarizer(porps: {
 
       fetchGoogleAccount()
     }
-  }, [token]);
+  }, [googleToken]);
+
+  useEffect(() => {
+    if (userAccessToken !== undefined) {
+      const fetchUserAccount = async () => {
+        try {
+          const result = await getGoogleAccount(userAccessToken);
+
+          if (result.error) {
+            setErrorText(result.error.message);
+          } else {
+            setData(result); // Update the state with the fetched data
+          }
+        } catch (err: any) {
+          setErrorText(err.message); // Handle error
+        }
+      };
+
+      fetchUserAccount()
+    }
+  }, [userAccessToken]);
 
   return (
     <div
@@ -43,7 +64,7 @@ function AiSummarizer(porps: {
         overflowY: 'scroll'
       }}
     >
-      {data &&  <GitLab setIsCopy={setIsCopy} iisRef={iisRef} />}
+      {data && <GitLab setIsCopy={setIsCopy} iisRef={iisRef} />}
     </div>
   );
 }
