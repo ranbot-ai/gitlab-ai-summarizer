@@ -4,6 +4,7 @@ import { createContext, useState, useEffect, useContext, ReactNode, ChangeEvent,
 import { getStorage, setStorage } from '../utils';
 import { toast } from 'bulma-toast'
 import debounce from "lodash/debounce"
+import { toastMessage } from '../utils/tools';
 
 interface FormData {
   GASGitLab: string;
@@ -55,14 +56,7 @@ const FormProvider = ({ children }: { children: ReactNode }) => {
   const debouncedSave = useCallback(
     debounce((name: string, value: any) => {
       setStorage({ [name]: value }, () => {
-        toast({
-          message: 'Settings saved successfully',
-          type: 'is-link',
-          duration: 2000,
-          position: 'top-left',
-          pauseOnHover: true,
-          animate: { in: 'fadeIn', out: 'fadeOut' },
-        });
+        toastMessage('Settings saved successfully', 'is-link')
       });
     }, 1000),
     [1000]

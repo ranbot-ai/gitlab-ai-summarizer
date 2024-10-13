@@ -1,3 +1,5 @@
+import { toast } from "bulma-toast";
+
 const hexToRGB = (
   hex: string | undefined,
   opacity: number | undefined
@@ -22,4 +24,15 @@ const hexToRGB = (
 const isEmail = (email: string) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
-export { hexToRGB, isEmail };
+const toastMessage = (message: string, messagetype: any) => {
+  return toast({
+    message: message,
+    type: messagetype,
+    duration: 5000,
+    position: "top-left",
+    pauseOnHover: true,
+    animate: { in: "fadeIn", out: "fadeOut" },
+  });
+};
+
+export { hexToRGB, isEmail, toastMessage };

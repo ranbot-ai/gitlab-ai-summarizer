@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { getGoogleAccount } from "../../utils";
+import { getGoogleAccount, getUserAccount } from "../../utils";
 import GitLab from "./GitLab";
 
 function AiSummarizer(porps: {
@@ -12,7 +12,7 @@ function AiSummarizer(porps: {
   iisRef: any
 }) {
   const { googleToken, userAccessToken, setIsCopy, setErrorText, iisRef } = porps;
-  const [data, setData] = useState<GoogleAccountType | undefined>(undefined);
+  const [data, setData] = useState<AccountType | undefined>(undefined);
 
   useEffect(() => {
     if (googleToken !== undefined) {
@@ -32,19 +32,18 @@ function AiSummarizer(porps: {
 
       fetchGoogleAccount()
     }
-  }, [googleToken]);
 
-  useEffect(() => {
     if (userAccessToken !== undefined) {
       const fetchUserAccount = async () => {
         try {
-          const result = await getGoogleAccount(userAccessToken);
+          const result = await getUserAccount(userAccessToken);
 
-          if (result.error) {
-            setErrorText(result.error.message);
-          } else {
-            setData(result); // Update the state with the fetched data
-          }
+          // if (result.error) {
+          //   setErrorText(result.error.message);
+          // } else {
+          //   setData(result); // Update the state with the fetched data
+          // }
+          setData(result);
         } catch (err: any) {
           setErrorText(err.message); // Handle error
         }
@@ -52,7 +51,7 @@ function AiSummarizer(porps: {
 
       fetchUserAccount()
     }
-  }, [userAccessToken]);
+  }, [googleToken, userAccessToken]);
 
   return (
     <div

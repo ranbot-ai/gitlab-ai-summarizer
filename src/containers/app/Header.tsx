@@ -5,16 +5,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faGears, faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../../assets/icons/logo.png";
+import { AI_EXT_STATUS } from "../../utils/constants";
 
 const Header = (props: {
   signOut: any,
   isCopy: boolean,
-  iisRef: any
+  iisRef: any,
+  setScreenName: any
 }) => {
-  const { signOut, isCopy, iisRef } = props;
+  const { signOut, isCopy, iisRef, setScreenName } = props;
 
   const openChromeSettingPage = (): void => {
     chrome.runtime.sendMessage({ action: "openSettingPage" })
+  }
+
+  const handleSignOut = (): void => {
+    signOut();
+
+    setScreenName(AI_EXT_STATUS.signin.code);
   }
 
   return (
@@ -50,7 +58,7 @@ const Header = (props: {
         <a
           style={{ marginTop: '5px' }}
           className="navbar-item is-size-5 is-pulled-left"
-          onClick={() => signOut() }
+          onClick={() => handleSignOut() }
         >
           <FontAwesomeIcon icon={faSignOut} fontSize={'25px'} />
         </a>

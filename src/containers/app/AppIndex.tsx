@@ -15,6 +15,7 @@ import { AI_EXT_STATUS } from '../../utils/constants';
 
 import './../../assets/styles/inject.css';
 import ForgetPassword from '../../components/ForgetPassword';
+import { toastMessage } from '../../utils/tools';
 
 const storageGoogleAccessToken = await getGoogleAccessToken();
 const storageUserAccessToken = await getUserAccessToken();
@@ -47,32 +48,9 @@ function AppIndex() {
   }, [googleAccessToken, userAccessToken]);
 
   useEffect(() => {
-    if (errorText !== '') {
-      toast({
-        message: errorText,
-        type: 'is-danger',
-        duration: 5000,
-        position: 'top-left',
-        pauseOnHover: true,
-        animate: { in: 'fadeIn', out: 'fadeOut' },
-      });
-
-      signOut();
-    }
-  }, [errorText]);
-
-  useEffect(() => {
-    if (messageText !== '') {
-      toast({
-        message: messageText,
-        type: 'is-info',
-        duration: 5000,
-        position: 'top-left',
-        pauseOnHover: true,
-        animate: { in: 'fadeIn', out: 'fadeOut' },
-      });
-    }
-  }, [messageText]);
+    if (errorText !== '') toastMessage(errorText, 'is-danger')
+    if (messageText !== '') toastMessage(messageText, 'is-info')
+  }, [errorText, messageText]);
 
   const signOut = (): void => {
     chrome.storage.sync.remove(["GASGoogleAccessToken", "GASUserAccessToken"], () => {
@@ -117,6 +95,7 @@ function AppIndex() {
           signOut={signOut}
           isCopy={isCopy}
           iisRef={issueDetailsRef}
+          setScreenName={setScreenName}
         />
 
         <AiSummarizer

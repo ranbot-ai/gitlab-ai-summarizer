@@ -217,8 +217,10 @@ const getUserAccount = async (token: string) => {
     // );
     // return await response.json();
     return {
+      id: "1234",
       name: "Encore",
       email: "encore@apple.com",
+      verified_email: true,
     };
   } catch (error: any) {
     throw new Error("Failed to fetch data: " + error.message); // Throw error so caller can handle it

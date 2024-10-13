@@ -30,8 +30,8 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
     }
 
     if (!hasError) {
-      setScreenName(AI_EXT_STATUS.summarizer.code);
       setUserAccessToken?.('userToken');
+      setScreenName(AI_EXT_STATUS.summarizer.code);
     }
   }
 

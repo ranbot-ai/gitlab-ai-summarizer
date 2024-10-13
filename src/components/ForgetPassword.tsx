@@ -28,6 +28,7 @@ const ForgetPassword: React.FC<ScreenProps> = ({ setScreenName, setErrorText, se
       setMessageText?.('Please check your email to reset password');
     }
   }
+
   return (
     <section className="section" style={{ height: "100%" }}>
       <div className="container">
