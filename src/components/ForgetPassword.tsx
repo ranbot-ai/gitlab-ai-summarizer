@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import logo from "../assets/icons/logo.png";
 import { RanBOT } from "../utils/common";
-import { AI_EXT_STATUS } from "../utils/constants";
+import { AI_EXT_STATUS, MESSAGES } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import { useState } from "react";
 import Footer from "../containers/app/Footer";
@@ -15,17 +15,17 @@ const ForgetPassword: React.FC<ScreenProps> = ({ setScreenName, setErrorText, se
   const handleForgetPassword = () => {
     let hasError = false;
     if (!hasError && email === undefined) {
-      setErrorText('Please enter email');
+      setErrorText(MESSAGES.missing_email);
       hasError = true
     }
     if (!hasError && email && !isEmail(email)) {
       hasError = true;
-      setErrorText('Invalid email address');
+      setErrorText(MESSAGES.invalid_email);
     }
 
     if (!hasError) {
       setScreenName(AI_EXT_STATUS.signin.code);
-      setMessageText?.('Please check your email to reset password');
+      setMessageText?.(MESSAGES.reset_password);
     }
   }
 
@@ -70,16 +70,14 @@ const ForgetPassword: React.FC<ScreenProps> = ({ setScreenName, setErrorText, se
 
               <OrDivider />
 
-              <div className="field mt-5 mb-5">
-                <div className="control">
-                  <button
-                    className="button is-light is-fullwidth"
-                    onClick={() => openPage(AI_EXT_STATUS.signin.code)}
-                  >
-                    <span>{AI_EXT_STATUS.signin.text}</span>
-                  </button>
-                </div>
-              </div>
+              <p className="has-text-centered has-text-white">
+                <a
+                  onClick={() => openPage(AI_EXT_STATUS.signin.code) }
+                  className="link-color"
+                >
+                  {AI_EXT_STATUS.signin.text}
+                </a>
+              </p>
             </div>
           </div>
         </div>

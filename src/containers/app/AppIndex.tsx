@@ -76,6 +76,7 @@ function AppIndex() {
           <SignUp
             setScreenName={setScreenName}
             setErrorText={setErrorText}
+            setUserAccessToken={setUserAccessToken}
           />
         </section>
       }

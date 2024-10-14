@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import logo from "../assets/icons/logo.png";
 import { RanBOT } from "../utils/common";
-import { AI_EXT_STATUS } from "../utils/constants";
+import { AI_EXT_STATUS, MESSAGES } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import GoogleAuthentication from "./GoogleAuthentication";
 import Footer from "../containers/app/Footer";
 import { useState } from "react";
 import { isEmail } from "../utils/tools";
+import { setStorage } from "../utils";
 
 const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken }) => {
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -18,20 +19,23 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
     let hasError = false;
     if (!hasError && email === undefined) {
       hasError = true;
-      setErrorText('Please enter email');
+      setErrorText(MESSAGES.missing_email);
     }
     if (!hasError && email && !isEmail(email)) {
       hasError = true;
-      setErrorText('Invalid email address');
+      setErrorText(MESSAGES.invalid_email);
     }
     if (!hasError && password === undefined) {
       hasError = true;
-      setErrorText('Please enter password');
+      setErrorText(MESSAGES.missing_password);
     }
 
     if (!hasError) {
-      setUserAccessToken?.('userToken');
-      setScreenName(AI_EXT_STATUS.summarizer.code);
+      const newUserToken = 'userToken';
+
+      setStorage({ GASUserAccessToken: newUserToken }, () => {
+        setUserAccessToken?.(newUserToken);
+      });
     }
   }
 

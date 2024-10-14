@@ -15,6 +15,8 @@ async function fetchLLMResponse(
   discussions: any
 ) {
   const personalOpenAIApiKey = await getOpenAIApiKey();
+  if (!personalOpenAIApiKey) return;
+
   const aiProvider = await getAiProvider();
   const openAIModel = await getOpenAIModel();
   const ollamaModel = await getOllamaModel();

@@ -3,12 +3,13 @@
 import logo from "../assets/icons/logo.png";
 import { RanBOT } from "../utils/common";
 
-import { AI_EXT_STATUS } from "../utils/constants";
+import { AI_EXT_STATUS, MESSAGES } from "../utils/constants";
 import OrDivider from "./OrDivider";
 import GoogleAuthentication from "./GoogleAuthentication";
 import Footer from "../containers/app/Footer";
 import { useState } from "react";
 import { isEmail } from "../utils/tools";
+import { setStorage } from "../utils";
 
 const SignUp: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken }) => {
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -20,29 +21,32 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
   const handleSignUp = () => {
     let hasError = false;
     if (!hasError && email === undefined) {
-      setErrorText('Please enter email');
+      setErrorText(MESSAGES.missing_email);
       hasError = true;
     }
     if (!hasError && email && !isEmail(email)) {
       hasError = true;
-      setErrorText('Invalid email address');
+      setErrorText(MESSAGES.invalid_email);
     }
     if (!hasError && password === undefined) {
-      setErrorText('Please enter password');
+      setErrorText(MESSAGES.missing_password);
       hasError = true
     }
     if (!hasError && confirmPassword === undefined) {
-      setErrorText('Please enter confirm password');
+      setErrorText(MESSAGES.missing_confirm_password);
       hasError = true;
     }
     if (!hasError && password !== confirmPassword) {
-      setErrorText('Passwords do not match');
+      setErrorText(MESSAGES.password_not_match);
       hasError = true;
     }
 
     if (!hasError) {
-      setUserAccessToken?.('userToken');
-      setScreenName(AI_EXT_STATUS.summarizer.code);
+      const newUserToken = 'userToken';
+
+      setStorage({ GASUserAccessToken: newUserToken }, () => {
+        setUserAccessToken?.(newUserToken);
+      });
     }
   }
 

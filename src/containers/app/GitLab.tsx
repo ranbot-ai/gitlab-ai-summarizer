@@ -20,6 +20,7 @@ const currentTabURL = await getCurrentTabURL();
 const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
   const { setIsCopy, iisRef } = props;
 
+  const [hasOpenaiKey, setHasOpenaiKey] = useState<boolean>(true);
   const [startGitLabAPI, setStartGitLabAPI] = useState<boolean>(true);
   const [progress, setProgress] = useState<string>('');
 
@@ -33,6 +34,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
         setProgress(`GitLab access token was not found.`)
       } else if (openAIApiKey === undefined) {
         setProgress(`OpenAI key was not found.`)
+        setHasOpenaiKey(false);
       } else {
         setProgress(`Start AI Summarizing...`)
       }
@@ -62,12 +64,14 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
             const projectIssueData = await fetchIssueDetails(gitlabProjectID, issueId)
             setIssueData(projectIssueData);
 
-            // Fetch the issue discussions
-            const discussions = await fetchIssueDiscussions(gitlabProjectID, issueId)
+            if (hasOpenaiKey) {
+              // Fetch the issue discussions
+              const discussions = await fetchIssueDiscussions(gitlabProjectID, issueId)
 
-            // Call the LLM with the fetched GitLab data
-            await fetchLLMResponse(iisRef, projectIssueData, discussions);
-            setIsCopy(true);
+              // Call the LLM with the fetched GitLab data
+              await fetchLLMResponse(iisRef, projectIssueData, discussions);
+              setIsCopy(true);
+            }
           }
 
           setStartGitLabAPI(false);
