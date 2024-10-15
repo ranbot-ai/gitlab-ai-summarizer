@@ -268,6 +268,10 @@ const launchGoogleAuthentication = async (event: any, setScreenName: any) => {
   );
 };
 
+const openChromeSettingPage = (): void => {
+  chrome.runtime.sendMessage({ action: "openSettingPage" });
+};
+
 export {
   getStorage,
   setStorage,
@@ -293,4 +297,5 @@ export {
   getGoogleAccount,
   getUserAccount,
   launchGoogleAuthentication,
+  openChromeSettingPage,
 };

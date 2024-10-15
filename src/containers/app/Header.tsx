@@ -6,6 +6,7 @@ import { faCopy, faGears, faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../../assets/icons/logo.png";
 import { AI_EXT_STATUS } from "../../utils/constants";
+import { openChromeSettingPage } from "../../utils";
 
 const Header = (props: {
   signOut: any,
@@ -14,10 +15,6 @@ const Header = (props: {
   setScreenName: any
 }) => {
   const { signOut, isCopy, iisRef, setScreenName } = props;
-
-  const openChromeSettingPage = (): void => {
-    chrome.runtime.sendMessage({ action: "openSettingPage" })
-  }
 
   const handleSignOut = (): void => {
     signOut();

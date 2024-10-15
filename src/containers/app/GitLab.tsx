@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
-import { calculateTicketAge, getCurrentTabURL, getGitLabApiKey, getOpenAIApiKey, getThemeColor } from "../../utils";
+import { calculateTicketAge, getCurrentTabURL, getGitLabApiKey, getOpenAIApiKey, getThemeColor, openChromeSettingPage } from "../../utils";
 import {
   extractProjectPathAndIssueId,
   fetchIssueDetails,
@@ -11,6 +11,9 @@ import {
 } from "../../utils/gitlab";
 import { fetchLLMResponse } from "../../utils/llm";
 import { RanBOT } from "../../utils/common";
+import { MESSAGES } from "../../utils/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 const gitLabApiKey = await getGitLabApiKey();
 const openAIApiKey = await getOpenAIApiKey();
@@ -21,7 +24,8 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
   const { setIsCopy, iisRef } = props;
 
   const [hasOpenaiKey, setHasOpenaiKey] = useState<boolean>(true);
-  const [startGitLabAPI, setStartGitLabAPI] = useState<boolean>(true);
+  const [hasGitLabAccessToken, setHasGitLabAccessToken] = useState<boolean>(true);
+  const [startGitLabAPI, setStartGitLabAPI] = useState<boolean>(false);
   const [progress, setProgress] = useState<string>('');
 
   const [projectId, setProjectId] = useState<string | undefined>(undefined);
@@ -29,14 +33,17 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
 
   useEffect(() => {
     setProgress(RanBOT.name)
+
     const loadingExtensionSettings = async () => {
       if (gitLabApiKey === undefined) {
-        setProgress(`GitLab access token was not found.`)
+        setProgress(MESSAGES.missing_gitlab_access_token);
+        setHasGitLabAccessToken(false);
       } else if (openAIApiKey === undefined) {
-        setProgress(`OpenAI key was not found.`)
+        setProgress(MESSAGES.missing_openaikey)
         setHasOpenaiKey(false);
       } else {
-        setProgress(`Start AI Summarizing...`)
+        setProgress(MESSAGES.start_ai_summarizing)
+        setStartGitLabAPI(true);
       }
     };
 
@@ -48,11 +55,11 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       if (startGitLabAPI && currentTabURL && currentTabURL.startsWith('http')) {
         const { projectPath, issueId } = extractProjectPathAndIssueId(currentTabURL);
         if (projectPath === undefined && issueId === undefined) {
-          setProgress(`This is not a GitLab URL.`);
+          setProgress(MESSAGES.not_gitlab_url);
         } else if (projectPath === undefined) {
           setProgress(`Project '${projectPath}' was not found.`);
         } else if (issueId === undefined) {
-          setProgress(`This is not a GitLab issue/task URL.`);
+          setProgress(MESSAGES.not_task_url);
         } else {
           const gitlabProjectID = await getProjectIdFromPath(currentTabURL)
 
@@ -87,7 +94,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       className="container"
       id="gitlabAISummarizerDetails"
     >
-      {startGitLabAPI && <h2
+      {<h2
         className="mb-2 has-text-centered"
         style={{ color: themeColor, fontSize: '1.2rem' }}
       >
@@ -102,13 +109,43 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
           {issueData.updated_at && <p className="has-text-black">
             <b>Last Updated:</b> {calculateTicketAge(issueData.updated_at)} days ago. <em>{new Date(issueData.updated_at).toLocaleDateString()}</em>
           </p>}
-          {issueData.user_notes_count && <p className="has-text-black">
+          {<p className="has-text-black">
             <b>Comments:</b> {issueData.user_notes_count}
           </p>}
         </div>
 
         <div ref={iisRef}></div>
       </>}
+
+      {!hasGitLabAccessToken && <div className="field" style={{marginTop: '4rem'}}>
+        <div className="control has-text-centered">
+          <p>
+            <FontAwesomeIcon icon={faTriangleExclamation} fontSize={'5rem'}/>
+          </p>
+
+          <button
+            className="button is-fullwidth has-text-white btn-bg-color"
+            onClick={() => openChromeSettingPage() }
+          >
+            {MESSAGES.setup_gitlab_access_token}
+          </button>
+        </div>
+      </div>}
+
+      {!hasOpenaiKey && <div className="field" style={{marginTop: '4rem'}}>
+        <div className="control has-text-centered">
+          <p>
+            <FontAwesomeIcon icon={faTriangleExclamation} fontSize={'5rem'}/>
+          </p>
+
+          <button
+            className="button is-fullwidth has-text-white btn-bg-color"
+            onClick={() => openChromeSettingPage() }
+          >
+            {MESSAGES.setup_openaikey}
+          </button>
+        </div>
+      </div>}
     </div>
   );
 }

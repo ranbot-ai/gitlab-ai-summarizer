@@ -49,4 +49,11 @@ export const MESSAGES = {
   missing_confirm_password: "Please confirm your password.",
   password_not_match: "The passwords do not match.",
   reset_password: "Check your email for instructions to reset your password.",
+  missing_openaikey: "OpenAI key was not found.",
+  setup_openaikey: "Setup an OpenAI key",
+  missing_gitlab_access_token: "GitLab access token was not found.",
+  setup_gitlab_access_token: "Setup an GitLab Access Token",
+  start_ai_summarizing: "Start AI Summarizing...",
+  not_gitlab_url: "This is not a GitLab URL.",
+  not_task_url: "This is not a GitLab issue/task URL.",
 };

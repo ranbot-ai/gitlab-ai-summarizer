@@ -1,6 +1,14 @@
 /* eslint-disable import/first */
 export {};
 
+chrome.runtime.onInstalled.addListener(function (details) {
+  if (details.reason === "install") {
+    chrome.tabs.create({
+      url: "https://ranbot.online/projects/ranbot-ai-summarizer/installation.html",
+    });
+  }
+});
+
 // chrome.storage.onChanged.addListener((changes, namespace) => {
 //   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
 //     console.log(
