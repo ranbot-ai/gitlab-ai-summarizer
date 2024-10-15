@@ -9,7 +9,7 @@ import { useState } from "react";
 import { isEmail } from "../utils/tools";
 import { setStorage } from "../utils";
 
-const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken }) => {
+const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken, setGoogleAccessToken }) => {
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
 
@@ -109,7 +109,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
 
               <GoogleAuthentication
                 text={`${AI_EXT_STATUS.signin.text} with Google`}
-                setScreenName={setScreenName}
+                setGoogleAccessToken={setGoogleAccessToken}
               />
 
               <p className="has-text-centered has-text-white">

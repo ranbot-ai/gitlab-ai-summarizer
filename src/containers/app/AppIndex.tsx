@@ -67,6 +67,7 @@ function AppIndex() {
             setScreenName={setScreenName}
             setErrorText={setErrorText}
             setUserAccessToken={setUserAccessToken}
+            setGoogleAccessToken={setGoogleAccessToken}
           />
         </section>
       }
@@ -77,6 +78,7 @@ function AppIndex() {
             setScreenName={setScreenName}
             setErrorText={setErrorText}
             setUserAccessToken={setUserAccessToken}
+            setGoogleAccessToken={setGoogleAccessToken}
           />
         </section>
       }

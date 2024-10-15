@@ -227,7 +227,10 @@ const getUserAccount = async (token: string) => {
   }
 };
 
-const launchGoogleAuthentication = async (event: any, setScreenName: any) => {
+const launchGoogleAuthentication = async (
+  event: any,
+  setGoogleAccessToken: any
+) => {
   const currentTarget = event.currentTarget;
   currentTarget.disabled = true;
   const clientId = RanBOT.googleAppClientId;
@@ -257,7 +260,7 @@ const launchGoogleAuthentication = async (event: any, setScreenName: any) => {
         const accessToken = tokenMatch[1];
 
         setStorage({ GASGoogleAccessToken: accessToken }, () => {
-          // setScreenName(AI_EXT_STATUS.summarizer.code);
+          setGoogleAccessToken(accessToken);
         });
       } else {
         console.error("Access token not found in response");

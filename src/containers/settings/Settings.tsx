@@ -233,7 +233,7 @@ function Settings() {
                         placeholder="OpenAI Access Token"
                         onChange={handleChange}
                         value={formData.GASOpenAIKey}
-                        style={{ width: '64.5%' }}
+                        style={{ width: '63%' }}
                       />
                       {showOpenAIPassword ?
                       <FontAwesomeIcon

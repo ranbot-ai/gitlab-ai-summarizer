@@ -11,7 +11,9 @@ import { useState } from "react";
 import { isEmail } from "../utils/tools";
 import { setStorage } from "../utils";
 
-const SignUp: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken }) => {
+const SignUp: React.FC<ScreenProps> = ({
+  setScreenName, setErrorText, setUserAccessToken, setGoogleAccessToken
+}) => {
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [confirmPassword, setConfirmPassword] = useState<string | undefined>(undefined);
@@ -130,7 +132,7 @@ const SignUp: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
 
               <GoogleAuthentication
                 text={`${AI_EXT_STATUS.signup.text} with Google`}
-                setScreenName={setScreenName}
+                setGoogleAccessToken={setGoogleAccessToken}
               />
             </div>
           </div>

@@ -6,6 +6,7 @@ interface ScreenProps {
   setErrorText: (name: string) => void;
   setMessageText?: (name: string) => void;
   setUserAccessToken?: (name: string) => void;
+  setGoogleAccessToken?: (name: string) => void;
 }
 
 type PlainObjectType = {

@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { launchGoogleAuthentication } from "../utils";
 
-const GoogleAuthentication = (props: { text: string, setScreenName: any }) => {
-  const { text, setScreenName } = props;
+const GoogleAuthentication = (props: { text: string, setGoogleAccessToken: any }) => {
+  const { text, setGoogleAccessToken } = props;
 
   return (
     <div className="field mb-5">
       <div className="control">
         <button
           className="button is-light is-fullwidth"
-          onClick={(e) => launchGoogleAuthentication(e, setScreenName)}
+          onClick={(e) => launchGoogleAuthentication(e, setGoogleAccessToken)}
         >
           <span className="icon">
             <FontAwesomeIcon icon={faGoogle} />

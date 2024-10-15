@@ -38,7 +38,8 @@ const Header = (props: {
       <div className="is-pulled-right">
         {isCopy && <a
           style={{ marginTop: '5px' }}
-          className="navbar-item is-size-5 is-pulled-left"
+          className="navbar-item is-size-5 is-pulled-left has-tooltip-arrow has-tooltip-info has-tooltip-left"
+          data-tooltip="Copy it"
           onClick={() => navigator.clipboard.writeText(iisRef.innerText) }
         >
           <FontAwesomeIcon icon={faCopy} fontSize={'25px'} />
@@ -46,7 +47,8 @@ const Header = (props: {
 
         <a
           style={{ marginTop: '5px' }}
-          className="navbar-item is-size-5 is-pulled-left"
+          className="navbar-item is-size-5 is-pulled-left has-tooltip-arrow has-tooltip-info has-tooltip-left"
+          data-tooltip="Open Settings Page"
           onClick={() => openChromeSettingPage() }
         >
           <FontAwesomeIcon icon={faGears} fontSize={'25px'} />
@@ -54,7 +56,8 @@ const Header = (props: {
 
         <a
           style={{ marginTop: '5px' }}
-          className="navbar-item is-size-5 is-pulled-left"
+          className="navbar-item is-size-5 is-pulled-left has-tooltip-arrow has-tooltip-info has-tooltip-left"
+          data-tooltip="Sign Out"
           onClick={() => handleSignOut() }
         >
           <FontAwesomeIcon icon={faSignOut} fontSize={'25px'} />

@@ -77,7 +77,8 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
 
               // Call the LLM with the fetched GitLab data
               await fetchLLMResponse(iisRef, projectIssueData, discussions);
-              setIsCopy(true);
+              // setIsCopy(true);
+              setProgress('');
             }
           }
 
