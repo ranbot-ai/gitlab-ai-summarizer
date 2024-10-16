@@ -8,10 +8,12 @@ function AiSummarizer(porps: {
   userAccessToken: string | undefined,
   setIsCopy: any,
   setScreenName: any,
+  setGoogleAccessToken: any,
+  setUserAccessToken: any,
   setErrorText: any,
   iisRef: any
 }) {
-  const { googleToken, userAccessToken, setIsCopy, setErrorText, iisRef } = porps;
+  const { googleToken, userAccessToken, setIsCopy, setGoogleAccessToken, setUserAccessToken, setErrorText, iisRef } = porps;
   const [data, setData] = useState<AccountType | undefined>(undefined);
 
   useEffect(() => {
@@ -22,11 +24,19 @@ function AiSummarizer(porps: {
 
           if (result.error) {
             setErrorText(result.error.message);
+
+            chrome.storage.sync.remove(["GASGoogleAccessToken"], () => {
+              setGoogleAccessToken(undefined);
+            });
           } else {
             setData(result); // Update the state with the fetched data
           }
         } catch (err: any) {
           setErrorText(err.message); // Handle error
+
+          chrome.storage.sync.remove(["GASGoogleAccessToken"], () => {
+            setGoogleAccessToken(undefined);
+          });
         }
       };
 
@@ -40,12 +50,20 @@ function AiSummarizer(porps: {
 
           // if (result.error) {
           //   setErrorText(result.error.message);
+          //   chrome.storage.sync.remove(["GASUserAccessToken"], () => {
+          //     setUserAccessToken(undefined);
+          //   });
           // } else {
           //   setData(result); // Update the state with the fetched data
           // }
           setData(result);
         } catch (err: any) {
           setErrorText(err.message); // Handle error
+          setUserAccessToken(undefined);
+
+          chrome.storage.sync.remove(["GASUserAccessToken"], () => {
+            setUserAccessToken(undefined);
+          });
         }
       };
 

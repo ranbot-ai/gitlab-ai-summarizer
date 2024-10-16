@@ -106,6 +106,8 @@ function AppIndex() {
           userAccessToken={userAccessToken}
           setIsCopy={setIsCopy}
           setScreenName={setScreenName}
+          setGoogleAccessToken={setGoogleAccessToken}
+          setUserAccessToken={setUserAccessToken}
           setErrorText={setErrorText}
           iisRef={issueDetailsRef}
         />
