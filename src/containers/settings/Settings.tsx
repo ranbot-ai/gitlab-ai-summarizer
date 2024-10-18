@@ -14,6 +14,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { setStorage } from "../../utils";
 import { THEMECOLORS } from "../../utils/constants";
+import { RanBOT } from "../../utils/common";
 
 function Settings() {
   const { formData, handleChange } = useFormContext();
@@ -443,7 +444,7 @@ function Settings() {
       <article className="message has-text-centered has-background-white has-text-black" style={{ marginBottom: '0px' }}>
         <div className="message-body has-background-white">
           <p>
-            <strong>GitLab AI Summarizer</strong> by <a href="https://icmoc.com">Encore Shao</a>.
+            <strong>{RanBOT.name}</strong> by <a href="https://icmoc.com">Encore Shao</a>.
 
             If you have a idea? Please contact me (encore.shao[at]gmail.com).
           </p>

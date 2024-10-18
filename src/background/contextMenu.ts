@@ -3,10 +3,11 @@ import {
   isGitLabIssuesPage,
   toggleDisabledGitLabSites,
 } from "../utils";
+import { RanBOT } from "../utils/common";
 
 const menus = {
   gitlab_recognition(isDisabled: boolean = true) {
-    return `Turn ${isDisabled ? "On" : "Off"} GitLab AI Summarizer`;
+    return `Turn ${isDisabled ? "On" : "Off"} ${RanBOT.name}`;
   },
 };
 

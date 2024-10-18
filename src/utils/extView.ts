@@ -1,9 +1,10 @@
 /* eslint-disable eqeqeq */
 
 import { getThemeColor, getThemeType } from ".";
+import { RanBOT } from "./common";
 
 /* eslint-disable import/no-anonymous-default-export */
-const defaultTitle = "GitLab AI Summarizer";
+const defaultTitle = RanBOT.name;
 const defaultLogoURL = "https://ranbot.online/assets/img/icon48.png";
 
 const themeColor = await getThemeColor();
