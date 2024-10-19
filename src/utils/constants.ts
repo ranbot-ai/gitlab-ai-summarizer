@@ -53,7 +53,7 @@ export const MESSAGES = {
   setup_openaikey: "Setup an OpenAI key",
   missing_gitlab_access_token: "GitLab access token was not found.",
   setup_gitlab_access_token: "Setup an GitLab Access Token",
-  start_ai_summarizing: "Start AI Summarizing...",
+  start_ai_summarizing: "AI Summarizing...",
   not_gitlab_url: "This is not a GitLab URL.",
   not_task_url: "This is not a GitLab issue/task URL.",
 };

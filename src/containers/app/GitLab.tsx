@@ -116,6 +116,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
           </p>}
         </div>
 
+        <hr style={{marginBlockStart: '0.5em', marginBlockEnd: '0.5em'}}/>
         <div ref={iisRef}></div>
       </>}
 
