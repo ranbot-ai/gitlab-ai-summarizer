@@ -1,10 +1,8 @@
 /* eslint-disable no-unreachable */
 import { RanBOT } from "./common";
-import { AI_EXT_STATUS } from "./constants";
 
 async function fetchFromGitLabAPI(url: string) {
   const gitLabWebURL = await getGitLabWebURL();
-  const gitLabAPI = await getGitLabApiKey();
   const requestUrl = url.startsWith("http")
     ? gitLabWebURL
     : [gitLabWebURL, url].join("");
@@ -12,9 +10,7 @@ async function fetchFromGitLabAPI(url: string) {
   if (requestUrl === undefined) {
     throw new Error(`GitLab API request URL is wrong.`);
   }
-  const response = await fetch(requestUrl, {
-    headers: { Authorization: `Bearer ${gitLabAPI}` },
-  });
+  const response = await fetch(requestUrl);
 
   if (!response.ok) {
     throw new Error(`GitLab API error: ${response.statusText}`);

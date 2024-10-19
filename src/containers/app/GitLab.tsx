@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
-import { calculateTicketAge, getCurrentTabURL, getGitLabApiKey, getOpenAIApiKey, getThemeColor, openChromeSettingPage } from "../../utils";
+import { calculateTicketAge, getCurrentTabURL, getOpenAIApiKey, getThemeColor, openChromeSettingPage } from "../../utils";
 import {
   extractProjectPathAndIssueId,
   fetchIssueDetails,
@@ -15,7 +15,6 @@ import { MESSAGES } from "../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
-const gitLabApiKey = await getGitLabApiKey();
 const openAIApiKey = await getOpenAIApiKey();
 const themeColor = await getThemeColor();
 const currentTabURL = await getCurrentTabURL();
@@ -24,7 +23,6 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
   const { setIsCopy, iisRef } = props;
 
   const [hasOpenaiKey, setHasOpenaiKey] = useState<boolean>(true);
-  const [hasGitLabAccessToken, setHasGitLabAccessToken] = useState<boolean>(true);
   const [startGitLabAPI, setStartGitLabAPI] = useState<boolean>(false);
   const [progress, setProgress] = useState<string>('');
 
@@ -35,10 +33,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
     setProgress(RanBOT.name)
 
     const loadingExtensionSettings = async () => {
-      if (gitLabApiKey === undefined) {
-        setProgress(MESSAGES.missing_gitlab_access_token);
-        setHasGitLabAccessToken(false);
-      } else if (openAIApiKey === undefined) {
+      if (openAIApiKey === undefined) {
         setProgress(MESSAGES.missing_openaikey)
         setHasOpenaiKey(false);
       } else {
@@ -117,21 +112,6 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
 
         <div ref={iisRef}></div>
       </>}
-
-      {!hasGitLabAccessToken && <div className="field" style={{marginTop: '4rem'}}>
-        <div className="control has-text-centered">
-          <p>
-            <FontAwesomeIcon icon={faTriangleExclamation} fontSize={'5rem'}/>
-          </p>
-
-          <button
-            className="button is-fullwidth has-text-white btn-bg-color"
-            onClick={() => openChromeSettingPage() }
-          >
-            {MESSAGES.setup_gitlab_access_token}
-          </button>
-        </div>
-      </div>}
 
       {!hasOpenaiKey && <div className="field" style={{marginTop: '4rem'}}>
         <div className="control has-text-centered">

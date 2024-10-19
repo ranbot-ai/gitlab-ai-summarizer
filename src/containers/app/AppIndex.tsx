@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react';
-import { toast } from 'bulma-toast';
 
 import { getGoogleAccessToken, getThemeType, getUserAccessToken } from './../../utils';
 

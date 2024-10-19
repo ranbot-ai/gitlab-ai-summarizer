@@ -20,7 +20,6 @@ function Settings() {
   const { formData, handleChange } = useFormContext();
   const [pickedThemeColor, setPickedThemeColor] = useState(THEMECOLORS[0]);
   const [showOpenAIPassword, setShowOpenAIPassword] = useState(true);
-  const [showGitlabToken, setShowGitlabToken] = useState(true);
 
   useEffect(() => {
     setPickedThemeColor(formData.GASThemeColor)
@@ -63,9 +62,6 @@ function Settings() {
   const switchOpenAIEyeIcon = (show: boolean) => {
     setShowOpenAIPassword(show)
   }
-  const switchGitlabTokenEyeIcon = (show: boolean) => {
-    setShowGitlabToken(show)
-  }
 
   return (
     <>
@@ -95,8 +91,13 @@ function Settings() {
                     </p>
                     <p className="control is-expanded">
                       <input
-                        className="input" type="text" name="GASGitLab" placeholder="Your gitLab Web URL"
-                        onChange={handleChange} value={formData.GASGitLab}
+                        className="input"
+                        type="text"
+                        name="GASGitLab"
+                        placeholder="Your gitLab Web URL"
+                        onChange={handleChange}
+                        value={formData.GASGitLab}
+                        readOnly
                       />
                     </p>
                   </div>
@@ -135,7 +136,7 @@ function Settings() {
               </div>
             </div>
 
-            <div className="field is-horizontal">
+            {/* <div className="field is-horizontal">
               <div className="field-label"></div>
               <div className="field-body">
                 <div className="field is-expanded">
@@ -188,7 +189,7 @@ function Settings() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="field is-horizontal">
               <div className="field-label">

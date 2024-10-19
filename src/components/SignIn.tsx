@@ -77,7 +77,7 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
                   <div className="control">
                     <label className="checkbox has-text-white">
                       <input type="checkbox" id="terms" />
-                      {' '} I agree to RanBOT's {' '}
+                      {' '} I agree to {RanBOT.name} {' '}
                       <a href="#" className="link-color">Terms of Use, and Privacy Policy</a>.
                     </label>
                   </div>

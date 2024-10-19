@@ -10,5 +10,13 @@ const currentTabUrl = window.document.URL;
 if (isGitLabIssuesPage(currentTabUrl)) {
   extView.displayExtView();
 
-  setStorage({ GASCurrentTabUrl: currentTabUrl }, () => {});
+  setStorage(
+    {
+      GASCurrentTabUrl: currentTabUrl,
+      GASGitLab: [window.location.protocol, window.location.hostname].join(
+        "//"
+      ),
+    },
+    () => {}
+  );
 }
