@@ -99,6 +99,12 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
 
       {Object.keys(issueData).length > 0 && <>
         <div>
+          {issueData.author && <p className="has-text-black">
+            <b>Author:</b> <a href={issueData.author?.web_url} target="_blank">{issueData.author?.name}</a>
+          </p>}
+          {issueData.assignee && <p className="has-text-black">
+            <b>Assignee:</b> <a href={issueData.assignee?.web_url} target="_blank">{issueData.assignee?.name}</a>
+          </p>}
           {issueData.created_at && <p className="has-text-black">
             <b>Age:</b> {calculateTicketAge(issueData.created_at)} days. <em>{new Date(issueData.created_at).toLocaleDateString()}</em>
           </p>}
