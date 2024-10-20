@@ -17,19 +17,20 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
   const openPage = (screenName: string) => { setScreenName(screenName) }
 
   const handleSignIn = () => {
-    let hasError = false;
-    if (!hasError && email === undefined) {
-      hasError = true;
-      setErrorText(MESSAGES.missing_email);
-    }
-    if (!hasError && email && !isEmail(email)) {
-      hasError = true;
-      setErrorText(MESSAGES.invalid_email);
-    }
-    if (!hasError && password === undefined) {
-      hasError = true;
-      setErrorText(MESSAGES.missing_password);
-    }
+    const validations = [
+      { condition: email === undefined, message: MESSAGES.missing_email },
+      { condition: email && !isEmail(email), message: MESSAGES.invalid_email },
+      { condition: password === undefined, message: MESSAGES.missing_password },
+      { condition: password && password.length < 8, message: MESSAGES.invalid_password },
+    ];
+
+    const hasError = validations.some(({ condition, message }) => {
+      if (condition) {
+        setErrorText(message);
+        return true;
+      }
+      return false;
+    });
 
     if (!hasError) {
       const newUserToken = 'userToken';

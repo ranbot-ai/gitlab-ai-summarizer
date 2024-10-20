@@ -22,27 +22,22 @@ const SignUp: React.FC<ScreenProps> = ({
   const openPage = (screenName: string) => { setScreenName(screenName) }
 
   const handleSignUp = () => {
-    let hasError = false;
-    if (!hasError && email === undefined) {
-      setErrorText(MESSAGES.missing_email);
-      hasError = true;
-    }
-    if (!hasError && email && !isEmail(email)) {
-      hasError = true;
-      setErrorText(MESSAGES.invalid_email);
-    }
-    if (!hasError && password === undefined) {
-      setErrorText(MESSAGES.missing_password);
-      hasError = true
-    }
-    if (!hasError && confirmPassword === undefined) {
-      setErrorText(MESSAGES.missing_confirm_password);
-      hasError = true;
-    }
-    if (!hasError && password !== confirmPassword) {
-      setErrorText(MESSAGES.password_not_match);
-      hasError = true;
-    }
+    const validations = [
+      { condition: email === undefined, message: MESSAGES.missing_email },
+      { condition: email && !isEmail(email), message: MESSAGES.invalid_email },
+      { condition: password === undefined, message: MESSAGES.missing_password },
+      { condition: password && password.length < 8, message: MESSAGES.invalid_password },
+      { condition: confirmPassword === undefined, message: MESSAGES.missing_confirm_password },
+      { condition: password !== confirmPassword, message: MESSAGES.password_not_match },
+    ];
+
+    const hasError = validations.some(({ condition, message }) => {
+      if (condition) {
+        setErrorText(message);
+        return true;
+      }
+      return false;
+    });
 
     if (!hasError) {
       const newUserToken = 'userToken';
