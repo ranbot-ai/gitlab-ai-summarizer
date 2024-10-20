@@ -24,20 +24,19 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
 
   const [hasOpenaiKey, setHasOpenaiKey] = useState<boolean>(true);
   const [startGitLabAPI, setStartGitLabAPI] = useState<boolean>(false);
+  const [enabledLLM, setEnabledLLM] = useState<boolean>(false);
   const [progress, setProgress] = useState<string>('');
 
   const [projectId, setProjectId] = useState<string | undefined>(undefined);
+  const [issueId, setIssueId] = useState<number | undefined>(undefined);
   const [issueData, setIssueData] = useState<any>({});
 
   useEffect(() => {
-    setProgress(RanBOT.name)
-
     const loadingExtensionSettings = async () => {
       if (openAIApiKey === undefined) {
         setProgress(MESSAGES.missing_openaikey)
         setHasOpenaiKey(false);
       } else {
-        setProgress(MESSAGES.start_ai_summarizing)
         setStartGitLabAPI(true);
       }
     };
@@ -62,19 +61,10 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
             setProgress(`Project '${projectPath}' was not found.`);
           } else {
             setProjectId(gitlabProjectID);
+            setIssueId(issueId);
 
-            const projectIssueData = await fetchIssueDetails(gitlabProjectID, issueId)
+            const projectIssueData = await fetchIssueDetails(gitlabProjectID, issueId);
             setIssueData(projectIssueData);
-
-            if (hasOpenaiKey) {
-              // Fetch the issue discussions
-              const discussions = await fetchIssueDiscussions(gitlabProjectID, issueId)
-
-              // Call the LLM with the fetched GitLab data
-              await fetchLLMResponse(iisRef, projectIssueData, discussions);
-              // setIsCopy(true);
-              setProgress('');
-            }
           }
 
           setStartGitLabAPI(false);
@@ -82,8 +72,24 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       }
     };
 
-    loadingExtensionSettings()
+    loadingExtensionSettings();
   }, [startGitLabAPI]);
+
+  useEffect(() => {
+    const loadingOpenAILLM = async () => {
+      if (hasOpenaiKey && enabledLLM && projectId && issueId) {
+        // Fetch the issue discussions
+        const discussions = await fetchIssueDiscussions(projectId, issueId)
+
+        // Call the LLM with the fetched GitLab data
+        await fetchLLMResponse(iisRef, issueData, discussions);
+        // setIsCopy(true);
+        setProgress('');
+      }
+    }
+
+    loadingOpenAILLM();
+  }, [enabledLLM]);
 
   return (
     <div
@@ -117,7 +123,17 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
         </div>
 
         <hr style={{marginBlockStart: '0.5em', marginBlockEnd: '0.5em'}}/>
-        <div ref={iisRef}></div>
+
+        {!enabledLLM && <div className="control has-text-centered">
+          <button
+            className="button is-fullwidth has-text-white btn-bg-color mt-6"
+            onClick={() => setEnabledLLM(true) }
+          >
+            {MESSAGES.start_ai_summarizing}
+          </button>
+        </div>}
+
+        {enabledLLM && <div ref={iisRef} />}
       </>}
 
       {!hasOpenaiKey && <div className="field" style={{marginTop: '4rem'}}>
