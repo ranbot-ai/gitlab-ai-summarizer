@@ -12,6 +12,7 @@ import { setStorage } from "../utils";
 const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAccessToken, setGoogleAccessToken }) => {
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
+  const [privacyPolicy, setPrivacyPolicy] = useState<boolean>(false);
 
   const openPage = (screenName: string) => { setScreenName(screenName) }
 
@@ -76,7 +77,11 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
                 <div className="field mt-5">
                   <div className="control">
                     <label className="checkbox has-text-white">
-                      <input type="checkbox" id="terms" />
+                      <input
+                        type="checkbox"
+                        checked={privacyPolicy}
+                        onChange={(e) => setPrivacyPolicy(e.target.checked) }
+                      />
                       {' '} I agree to {RanBOT.name} {' '}
                       <a href="#" className="link-color">Terms of Use, and Privacy Policy</a>.
                     </label>
@@ -87,7 +92,8 @@ const SignIn: React.FC<ScreenProps> = ({ setScreenName, setErrorText, setUserAcc
                   <div className="control">
                     <button
                       className="button is-fullwidth has-text-white btn-bg-color"
-                      onClick={() => handleSignIn() }
+                      style={ privacyPolicy ? {} : { opacity: '0.5' } }
+                      onClick={() => privacyPolicy && handleSignIn() }
                     >
                       {AI_EXT_STATUS.signin.text}
                     </button>

@@ -17,6 +17,7 @@ const SignUp: React.FC<ScreenProps> = ({
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [confirmPassword, setConfirmPassword] = useState<string | undefined>(undefined);
+  const [privacyPolicy, setPrivacyPolicy] = useState<boolean>(false);
 
   const openPage = (screenName: string) => { setScreenName(screenName) }
 
@@ -99,8 +100,13 @@ const SignUp: React.FC<ScreenProps> = ({
                 <div className="field mt-5">
                   <div className="control">
                     <label className="checkbox has-text-white">
-                      <input type="checkbox" id="terms" />
-                      {' '} I agree to RanBOT's {' '}
+                      <input
+                        type="checkbox"
+                        id="terms"
+                        checked={privacyPolicy}
+                        onChange={(e) => setPrivacyPolicy(e.target.checked) }
+                      />
+                      {' '} I agree to {RanBOT.name} {' '}
                       <a href="#" className="link-color">Terms of Use, and Privacy Policy</a>.
                     </label>
                   </div>
@@ -110,7 +116,8 @@ const SignUp: React.FC<ScreenProps> = ({
                   <div className="control">
                     <button
                       className="button is-fullwidth has-text-white btn-bg-color"
-                      onClick={() => handleSignUp() }
+                      style={ privacyPolicy ? {} : { opacity: '0.5' } }
+                      onClick={() => privacyPolicy && handleSignUp() }
                     >
                       {AI_EXT_STATUS.signup.text}
                     </button>
