@@ -10,7 +10,6 @@ import {
   getProjectIdFromPath
 } from "../../utils/gitlab";
 import { fetchLLMResponse } from "../../utils/llm";
-import { RanBOT } from "../../utils/common";
 import { MESSAGES } from "../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -104,29 +103,36 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       </h2>}
 
       {Object.keys(issueData).length > 0 && <>
-        <div>
-          {issueData.author && <p className="has-text-black">
-            <b>Author:</b> <a href={issueData.author?.web_url} target="_blank">{issueData.author?.name}</a>
+        <div style={{ padding: '10px', borderRadius: '20px', filter: 'drop-shadow(2px 4px 6px black)' }} className="btn-bg-color">
+          {issueData.author && <p className="has-text-white">
+            <b>Author:</b>
+            <a href={issueData.author?.web_url} target="_blank" className="has-text-white ml-2" style={{ textDecoration: 'underline' }}>
+              {issueData.author?.name}
+            </a>
           </p>}
-          {issueData.assignee && <p className="has-text-black">
-            <b>Assignee:</b> <a href={issueData.assignee?.web_url} target="_blank">{issueData.assignee?.name}</a>
+          {issueData.assignee && <p className="has-text-white">
+            <b>Assignee:</b>
+            <a href={issueData.assignee?.web_url} target="_blank" className="has-text-white ml-2" style={{ textDecoration: 'underline' }}>
+              {issueData.assignee?.name}
+            </a>
           </p>}
-          {issueData.created_at && <p className="has-text-black">
+          {<p className="has-text-white">
+            <b>Comments:</b> {issueData.user_notes_count}
+          </p>}
+          {issueData.created_at && <p className="has-text-white">
             <b>Age:</b> {calculateTicketAge(issueData.created_at)} days. <em>{new Date(issueData.created_at).toLocaleDateString()}</em>
           </p>}
-          {issueData.updated_at && <p className="has-text-black">
+          {issueData.updated_at && <p className="has-text-white">
             <b>Last Updated:</b> {calculateTicketAge(issueData.updated_at)} days ago. <em>{new Date(issueData.updated_at).toLocaleDateString()}</em>
-          </p>}
-          {<p className="has-text-black">
-            <b>Comments:</b> {issueData.user_notes_count}
           </p>}
         </div>
 
-        <hr style={{marginBlockStart: '0.5em', marginBlockEnd: '0.5em'}}/>
+        <hr style={{marginBlockStart: '1em', marginBlockEnd: '1em'}}/>
 
         {!enabledLLM && <div className="control has-text-centered">
           <button
-            className="button is-fullwidth has-text-white btn-bg-color mt-6"
+            className="button is-fullwidth link-color mt-6"
+            style={{ backgroundColor: 'transparent' }}
             onClick={() => setEnabledLLM(true) }
           >
             {MESSAGES.start_ai_summarizing}

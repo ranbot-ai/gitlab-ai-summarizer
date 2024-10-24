@@ -13,15 +13,18 @@ const ForgetPassword: React.FC<ScreenProps> = ({ setScreenName, setErrorText, se
   const openPage = (screenName: string) => { setScreenName(screenName) }
 
   const handleForgetPassword = () => {
-    let hasError = false;
-    if (!hasError && email === undefined) {
-      setErrorText(MESSAGES.missing_email);
-      hasError = true
-    }
-    if (!hasError && email && !isEmail(email)) {
-      hasError = true;
-      setErrorText(MESSAGES.invalid_email);
-    }
+    const validations = [
+      { condition: email === undefined, message: MESSAGES.missing_email },
+      { condition: email && !isEmail(email), message: MESSAGES.invalid_email }
+    ];
+
+    const hasError = validations.some(({ condition, message }) => {
+      if (condition) {
+        setErrorText(message);
+        return true;
+      }
+      return false;
+    });
 
     if (!hasError) {
       setScreenName(AI_EXT_STATUS.signin.code);

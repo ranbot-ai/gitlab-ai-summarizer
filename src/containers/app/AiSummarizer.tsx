@@ -73,10 +73,10 @@ function AiSummarizer(porps: {
 
   return (
     <div
-      className="container m-5 p-5"
+      className="container m-3 p-3"
       style={{
         height: "calc(100vh - 133px)",
-        width: "90%",
+        width: "95%",
         backgroundColor: 'white',
         overflowY: 'scroll'
       }}
