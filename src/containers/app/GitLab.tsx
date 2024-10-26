@@ -103,7 +103,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       </h2>}
 
       {Object.keys(issueData).length > 0 && <>
-        <div style={{ padding: '10px', borderRadius: '20px', filter: 'drop-shadow(2px 4px 6px black)' }} className="btn-bg-color">
+        <div style={{ padding: "20px", borderRadius: '20px', filter: 'drop-shadow(2px 4px 6px black)' }} className="btn-bg-color">
           {issueData.author && <p className="has-text-white">
             <b>Author:</b>
             <a href={issueData.author?.web_url} target="_blank" className="has-text-white ml-2" style={{ textDecoration: 'underline' }}>

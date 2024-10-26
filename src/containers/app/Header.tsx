@@ -23,21 +23,20 @@ const Header = (props: {
   }
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation" style={{background: 'transparent'}}>
+    <nav style={{background: 'transparent'}}>
       <div className="navbar-brand is-pulled-left">
         <a
-          className="navbar-item ml-2"
+          className="navbar-item ml-1"
           href="https://ranbot.online"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%", marginLeft: '10px', marginTop: '10px' }} />
+          <img src={logo} alt={RanBOT.name} style={{ borderRadius: "50%" }} />
         </a>
       </div>
 
-      <div className="is-pulled-right">
+      <div className="is-pulled-right mt-3">
         {isCopy && <a
-          style={{ marginTop: '15px' }}
           className="navbar-item is-size-5 is-pulled-left has-tooltip-arrow has-tooltip-info has-tooltip-left"
           data-tooltip="Copy it"
           onClick={() => navigator.clipboard.writeText(iisRef.innerText) }
@@ -46,7 +45,6 @@ const Header = (props: {
         </a>}
 
         <a
-          style={{ marginTop: '15px' }}
           className="navbar-item is-size-5 is-pulled-left has-tooltip-arrow has-tooltip-info has-tooltip-left"
           data-tooltip="Open Settings Page"
           onClick={() => openChromeSettingPage() }
@@ -55,7 +53,7 @@ const Header = (props: {
         </a>
 
         <a
-          style={{ marginTop: '15px', marginRight: '20px' }}
+          style={{ marginRight: '20px' }}
           className="navbar-item is-size-5 is-pulled-left has-tooltip-arrow has-tooltip-info has-tooltip-left"
           data-tooltip="Sign Out"
           onClick={() => handleSignOut() }
