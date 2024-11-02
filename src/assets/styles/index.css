@@ -127,6 +127,7 @@ div[data-theme="theme-green"] {
 
   .link-color {
     color: #c45bee !important;
+    border-color: #c45bee !important;
   }
 
   hr {
@@ -150,9 +151,34 @@ div[data-theme="theme-dark-blue"] {
 
   .link-color {
     color: #098395 !important;
+    border-color: #098395 !important;
   }
 
   hr {
     background-color: #098395 !important;
+  }
+}
+
+/* Theme Dark Blue */
+div[data-theme="theme-navy-blue"] {
+  .dom-bg-color {
+    background: linear-gradient(to right bottom, #037e70, #8be1d8) !important;
+  }
+
+  .wrap-bg-color {
+    background: linear-gradient(to right bottom, #8be1d8, #081e26) !important;
+  }
+
+  .btn-bg-color {
+    background: #037e70 !important;
+  }
+
+  .link-color {
+    color: #037e70 !important;
+    border-color: #037e70 !important;
+  }
+
+  hr {
+    background-color: #037e70 !important;
   }
 }

@@ -117,11 +117,7 @@ iframe[theme="theme-green"] {
   }
 
   .btn-bg-color {
-    background: #098395 !important;
-  }
-
-  .g1-color {
-    color: #ffffff !important;
+    background: #462f6e !important;
   }
 }
 
@@ -138,10 +134,23 @@ iframe[theme="theme-dark-blue"] {
   }
 
   .btn-bg-color {
-    background: #513579 !important;
+    background: #1f808e !important;
+  }
+}
+
+/* Theme Dark Blue */
+iframe[theme="theme-navy-blue"] {
+  background: linear-gradient(to right bottom, #037e70, #132e3a) !important;
+
+  .dom-bg-color {
+    background: linear-gradient(to right bottom, #037e70, #132e3a) !important;
   }
 
-  .g2-color {
-    color: #ffddc4 !important;
+  .wrap-bg-color {
+    background: linear-gradient(to right bottom, #8be1d8, #081e26) !important;
+  }
+
+  .btn-bg-color {
+    background: #037e70 !important;
   }
 }

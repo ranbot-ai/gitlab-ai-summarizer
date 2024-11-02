@@ -361,6 +361,7 @@ function Settings() {
                       >
                         <option value={'theme-green'}>Green</option>
                         <option value={'theme-dark-blue'}>Dark Blue</option>
+                        <option value={'theme-navy-blue'}>Navy Blue</option>
                       </select>
                     </div>
                   </div>
