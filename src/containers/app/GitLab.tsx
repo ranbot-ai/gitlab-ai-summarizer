@@ -103,27 +103,27 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       </h2>}
 
       {Object.keys(issueData).length > 0 && <>
-        <div style={{ padding: "20px", borderRadius: '20px', filter: 'drop-shadow(2px 4px 6px black)' }} className="btn-bg-color">
-          {issueData.author && <p className="has-text-white">
+        <div>
+          {issueData.author && <p>
             <b>Author:</b>
-            <a href={issueData.author?.web_url} target="_blank" className="has-text-white ml-2" style={{ textDecoration: 'underline' }}>
+            <a href={issueData.author?.web_url} target="_blank" className="ml-2" style={{ textDecoration: 'underline', textTransform: 'capitalize' }}>
               {issueData.author?.name}
             </a>
           </p>}
-          {issueData.assignee && <p className="has-text-white">
+          {issueData.assignee && <p>
             <b>Assignee:</b>
-            <a href={issueData.assignee?.web_url} target="_blank" className="has-text-white ml-2" style={{ textDecoration: 'underline' }}>
+            <a href={issueData.assignee?.web_url} target="_blank" className="ml-2" style={{ textDecoration: 'underline', textTransform: 'capitalize' }}>
               {issueData.assignee?.name}
             </a>
           </p>}
-          {<p className="has-text-white">
+          {<p>
             <b>Comments:</b> {issueData.user_notes_count}
           </p>}
-          {issueData.created_at && <p className="has-text-white">
-            <b>Age:</b> {calculateTicketAge(issueData.created_at)} days. <em>{new Date(issueData.created_at).toLocaleDateString()}</em>
+          {issueData.created_at && <p>
+            <b>Age:</b> {calculateTicketAge(issueData.created_at)} days. <strong>{new Date(issueData.created_at).toLocaleDateString()}</strong>
           </p>}
-          {issueData.updated_at && <p className="has-text-white">
-            <b>Last Updated:</b> {calculateTicketAge(issueData.updated_at)} days ago. <em>{new Date(issueData.updated_at).toLocaleDateString()}</em>
+          {issueData.updated_at && <p>
+            <b>Last Updated:</b> {calculateTicketAge(issueData.updated_at)} days ago. <strong>{new Date(issueData.updated_at).toLocaleDateString()}</strong>
           </p>}
         </div>
 

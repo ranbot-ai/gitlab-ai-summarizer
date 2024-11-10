@@ -109,6 +109,20 @@ html {
   &::-webkit-scrollbar-thumb:active {
     background: var(--scrollbar-thumb-bg, rgba(31, 44, 108, 0.65));
   }
+
+  h4 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 1.2rem;
+  }
+
+  ul.prompts-list {
+    font-weight: normal;
+    margin-bottom: 0px;
+    list-style: circle;
+    margin-left: 15px;
+  }
 }
 
 /* Theme Green */
@@ -162,11 +176,11 @@ div[data-theme="theme-dark-blue"] {
 /* Theme Dark Blue */
 div[data-theme="theme-navy-blue"] {
   .dom-bg-color {
-    background: linear-gradient(to right bottom, #037e70, #8be1d8) !important;
+    background: linear-gradient(to right bottom, #29403e, #11ad9c) !important;
   }
 
   .wrap-bg-color {
-    background: linear-gradient(to right bottom, #8be1d8, #081e26) !important;
+    background: linear-gradient(to right bottom, #8be1d8, #0e1b20) !important;
   }
 
   .btn-bg-color {

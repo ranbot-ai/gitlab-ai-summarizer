@@ -48,14 +48,6 @@ function AiSummarizer(porps: {
         try {
           const result = await getUserAccount(userAccessToken);
 
-          // if (result.error) {
-          //   setErrorText(result.error.message);
-          //   chrome.storage.sync.remove(["GASUserAccessToken"], () => {
-          //     setUserAccessToken(undefined);
-          //   });
-          // } else {
-          //   setData(result); // Update the state with the fetched data
-          // }
           setData(result);
         } catch (err: any) {
           setErrorText(err.message); // Handle error
