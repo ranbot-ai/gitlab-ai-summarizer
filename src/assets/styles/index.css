@@ -123,6 +123,10 @@ html {
     list-style: circle;
     margin-left: 15px;
   }
+
+  div.gitlab-infos p, div.gitlab-infos strong {
+    color: rgb(0, 0, 0);
+  }
 }
 
 /* Theme Green */

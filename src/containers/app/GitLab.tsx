@@ -48,7 +48,7 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       if (startGitLabAPI && currentTabURL && currentTabURL.startsWith('http')) {
         const { projectPath, issueId } = extractProjectPathAndIssueId(currentTabURL);
         if (projectPath === undefined && issueId === undefined) {
-          setProgress(MESSAGES.not_gitlab_url);
+          setProgress(MESSAGES.not_task_url);
         } else if (projectPath === undefined) {
           setProgress(`Project '${projectPath}' was not found.`);
         } else if (issueId === undefined) {
@@ -96,14 +96,14 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
       id="gitlabAISummarizerDetails"
     >
       {<h2
-        className="mb-2 has-text-centered"
+        className="m-5 has-text-centered"
         style={{ color: themeColor, fontSize: '1.2rem' }}
       >
         {progress}
       </h2>}
 
       {Object.keys(issueData).length > 0 && <>
-        <div>
+        <div className="gitlab-infos">
           {issueData.author && <p>
             <b>Author:</b>
             <a href={issueData.author?.web_url} target="_blank" className="ml-2" style={{ textDecoration: 'underline', textTransform: 'capitalize' }}>
@@ -125,6 +125,9 @@ const GitLab = (props: {setIsCopy: any, iisRef: any}) => {
           {issueData.updated_at && <p>
             <b>Last Updated:</b> {calculateTicketAge(issueData.updated_at)} days ago. <strong>{new Date(issueData.updated_at).toLocaleDateString()}</strong>
           </p>}
+          <p>
+            <b>State:</b> {issueData.state}
+          </p>
         </div>
 
         <hr style={{marginBlockStart: '1em', marginBlockEnd: '1em'}}/>
